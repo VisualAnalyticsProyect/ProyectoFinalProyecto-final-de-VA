@@ -69,17 +69,21 @@ Luego tenemos varios datos y atributos. La medición hace referencia al año de 
 - Observar la evolución temporal de los indicadores en los diferentes públicos.
 - Observar la correlación existente entre los niveles de satisfacción y las características de los públicos encuestados.
 - Buscar características desconocidas que permitan entender mejor a la población y  su percepción de la universidad.
+
 #### El Cómo.
+
 ##### Marcas
 - Puntos: para establecer posición de los atributos en el tiempo.
 - Líneas: para mostrar resumen, como el resultado de las encuestas de satisfacción.
 - Áreas: para poder realizar comparaciones y presentar la información categórica de una manera efectiva.
+
 ##### Canales
 - Regiones espaciales: para mostrar los atributos categóricos, facultad departamento programa, primero resumiendo y luego si se desea mostrando al detalle. por ejemplo si se hace zoom a la facultad que muestre por departamentos.
 - Longitud: para mostrar niveles de satisfacción en las encuestas.
 - Tamaño: para mostrar los factores más importantes de la universidad en la percepción de los estudiantes.
 - Posición en una escala común: para alinear los datos en el tiempo.
 Color huge:  para determinar los temas de las preguntas.
+
 #### Filtrado
 Generar filtros para los diferentes géneros, nivel de estudios o facultad
 

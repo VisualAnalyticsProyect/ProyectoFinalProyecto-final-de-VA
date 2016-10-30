@@ -1,0 +1,2 @@
+Driver={MySQL ODBC 5.3 ANSI Driver};Server=104.198.238.71;Database=esat;User=root;Password=metallica9804;Option=3
+  

@@ -31,9 +31,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="app.js" />
+    <Compile Include="modules\mysqlConnection.js" />
     <Compile Include="public\javascripts\visualD3.js" />
     <Compile Include="routes\index.js" />
     <Compile Include="bin\www" />
+    <Content Include="public\data\esat.csv" />
     <Content Include="public\data\indicators.csv" />
     <Content Include="package.json" />
     <Content Include="public\stylesheets\style.styl" />
@@ -45,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="bin\" />
+    <Folder Include="modules\" />
     <Folder Include="public\data\" />
     <Folder Include="public\" />
     <Folder Include="public\images\" />
@@ -62,6 +65,7 @@
     <Folder Include="typings\globals\jade\" />
     <Folder Include="typings\globals\mime\" />
     <Folder Include="typings\globals\morgan\" />
+    <Folder Include="typings\globals\mysql\" />
     <Folder Include="typings\globals\node\" />
     <Folder Include="typings\globals\serve-favicon\" />
     <Folder Include="typings\globals\serve-static\" />
@@ -79,6 +83,7 @@
     <TypeScriptCompile Include="typings\globals\jade\index.d.ts" />
     <TypeScriptCompile Include="typings\globals\mime\index.d.ts" />
     <TypeScriptCompile Include="typings\globals\morgan\index.d.ts" />
+    <TypeScriptCompile Include="typings\globals\mysql\index.d.ts" />
     <TypeScriptCompile Include="typings\globals\node\index.d.ts" />
     <TypeScriptCompile Include="typings\globals\serve-favicon\index.d.ts" />
     <TypeScriptCompile Include="typings\globals\serve-static\index.d.ts" />

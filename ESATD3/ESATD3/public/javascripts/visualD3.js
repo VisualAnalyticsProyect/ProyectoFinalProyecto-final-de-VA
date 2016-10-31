@@ -16,7 +16,9 @@ var svg = d3.select("#chart").append("svg")
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-
+d3.json("/consultas", function (error, info) {   
+    alert(data[0].contador);
+});
 
 d3.csv("data/indicators.csv", function (error, countries) {
 

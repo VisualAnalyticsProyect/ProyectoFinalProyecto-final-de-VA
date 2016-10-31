@@ -1,15 +1,9 @@
 ﻿
 <h1>{{ title }}</h1>
 <p> Bienvenidos a {{ title }}</p>
-{{# if condition }}
-Vizualizando...
-{{ else }}
-No se esta vizualizando...
-{{/if}}
-{{# each anyArray as |val key|}}
-    {{key}}:{{val}}
-{{/each}}
+   
     <div id="table_container" class="csvTable">Seleccione el pais:</div>
     <div id="selectedName"></div>
     <div id="chart"></div>
+    <div id="tablainfo"></div>
 <script src="javascripts/visualD3.js"></script>

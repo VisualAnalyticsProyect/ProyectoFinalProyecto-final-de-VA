@@ -1,18 +1,38 @@
 ﻿var mysql = require('mysql');
-var connection = mysql.createConnection({
+
+var pool = mysql.createPool({
+    connectionLimit: 100, //important
     host: '104.198.238.71',
-    port: '3306',
-    user: 'root',    
+    user: 'root',
     password: 'metallica9804',
-    database: 'esat'
+    database: 'esat',
+    debug: false
 });
 
-connection.connect();
 
-connection.query('SELECT 1 + 1 AS solution', function (err, rows, fields) {
-    if (err) throw err;
+handle_database = function(req, res) {
 
-    console.log('The solution is: ', rows[0].solution);
-});
+    pool.getConnection(function (err, connection) {
+        if (err) {
+            res.json({ "code": 100, "status": "Error in connection database" });
+            return;
+        }
 
-connection.end();
+        console.log('connected as id ' + connection.threadId);
+
+        connection.query("select count(ID) as contador from BASE", function (err, rows) {
+            connection.release();
+            if (!err) {
+                res.json(rows);
+            }
+        });
+
+        connection.on('error', function (err) {
+            res.json({ "code": 100, "status": "Error in connection database" });
+            return;
+        });
+    });
+}
+
+
+module.exports.handle_database = handle_database;

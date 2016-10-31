@@ -5,7 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var hbs = require('express-handlebars');
-var mysql = require('./modules/mysqlConnection.js')
+var mysql = require('./modules/consultas.js')
 var routes = require('./routes/index');
 
 var app = express();

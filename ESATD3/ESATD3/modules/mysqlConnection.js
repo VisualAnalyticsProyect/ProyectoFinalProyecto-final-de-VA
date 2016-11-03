@@ -10,7 +10,7 @@ var pool = mysql.createPool({
 });
 
 
-handle_database = function(req, res) {
+handle_database = function (req, res, queryCommand) {
 
     pool.getConnection(function (err, connection) {
         if (err) {
@@ -20,7 +20,7 @@ handle_database = function(req, res) {
 
         console.log('connected as id ' + connection.threadId);
 
-        connection.query("select count(ID) as contador from BASE", function (err, rows) {
+        connection.query(queryCommand, function (err, rows) {
             connection.release();
             if (!err) {
                 res.json(rows);

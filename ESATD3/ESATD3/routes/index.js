@@ -4,11 +4,11 @@ var consultas = require('../modules/consultas.js');
 
 /* GET home page. */
 router.get('/', function (req, res) {        
-    res.render('index', { title: 'ESAT',condition:false,anyArray:[1,2,3]});
+    res.render('index', { title: 'ESAT' });
 });
 
-router.get('/consultas', function (req, res) {
-    consultas.rows(req, res);  
+router.get('/resumen', function (req, res) {
+    consultas.getResumen(req, res);  
 });
 
 

@@ -49,7 +49,8 @@ También se identificaron tareas que, si bien no tienen el mismo nivel de import
 -Observar la evolución temporal de los indicadores en los diferentes públicos.
 
 
-#### Estado del arteRealizamos una investigación de referentes útiles de acuerdo al contexto de problema que estamos trabajando. También consultamos los premios anuales de visualización (http://www.informationisbeautifulawards.com/) con el objetivo de encontrar tendencias gráficas y de interacción en el ejercicio de la profesión.
+#### Estado del arte
+Realizamos una investigación de referentes útiles de acuerdo al contexto de problema que estamos trabajando. También consultamos los premios anuales de visualización (http://www.informationisbeautifulawards.com/) con el objetivo de encontrar tendencias gráficas y de interacción en el ejercicio de la profesión.
 
 
 En primer lugar, buscamos referentes de visualización de datos de encuestas. Estos son datos que, por lo general, se encuentran escala Likeart y pueden manejar un gran número de entradas en sus respuestas.

@@ -26,7 +26,7 @@ var tip = d3.tip()
         return "<strong>Calificación:</strong> <span style='color:red'>" + d.PROMEDIO + "</span>";
     })
 
-var svg = d3.select("body").append("svg")
+var svg = d3.select("#tablainfo").append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
     .append("g")

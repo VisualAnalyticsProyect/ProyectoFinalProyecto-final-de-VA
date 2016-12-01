@@ -7,6 +7,14 @@ router.get('/', function (req, res) {
     res.render('index', { title: 'ESAT' });
 });
 
+router.get('/paralel', function (req, res) {
+    res.render('paralel', { title: 'ESAT' });
+});
+
+router.get('/barchar', function (req, res) {
+    res.render('barchar', { title: 'ESAT' });
+});
+
 router.get('/resumen', function (req, res) {
     consultas.getResumen(req, res);  
 });

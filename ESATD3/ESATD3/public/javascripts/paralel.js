@@ -1,6 +1,6 @@
 ﻿treeJSON = d3.json("data/ejemplonivel.json", function (error, treeData) {
 
-   // createTree(treeData, "#treecontainerDetalle", false);
+   // createTree(treeData, "#treecontainerDetalle", false);data/ejemplonivel.json
     createTree(treeData, "#treecontainer", true);
 
 

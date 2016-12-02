@@ -105,7 +105,13 @@
             }
         });
     // Define the root
-    root = treeData;
+  root = treeData;
+
+   /* root = d3.stratify()
+        .id(function (d) { return d.NIVEL; })
+        .parentId(function (d) { return d.FACULTAD; })
+        (treeData);*/
+
     root.x0 = viewerHeight / 2;
     root.y0 = 0;
 

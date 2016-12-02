@@ -19,6 +19,10 @@ router.get('/resumen', function (req, res) {
     consultas.getResumen(req, res);  
 });
 
+router.get('/tree', function (req, res) {
+    consultas.getTree(req, res);
+});
+
 router.get('/paralelinfo', function (req, res) {
     consultas.getParalelInfo(req, res);
 });

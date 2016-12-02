@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 var hbs = require('express-handlebars');
 var mysql = require('./modules/consultas.js')
 var routes = require('./routes/index');
+const fs = require('fs');
 
 var app = express();
 

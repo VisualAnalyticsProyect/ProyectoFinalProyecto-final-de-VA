@@ -11,5 +11,44 @@ var getResumen = function (req, res) {
     mysql.handle_database(req, res,resumenNivel);
 };
 
+var getParalelInfo = function (req, res) {
+    var q = req.query;
+    mysql.handle_database(req, res, paralel(q.anio,q.estudios,q.facultad,q.departamento,q.programa,q.condicion));
+};
+
+var paralel = function (anio, estudios, facultad, departamento, programa, condicion) {
+    anio = anio == undefined ? "" : anio;
+    facultad = facultad == undefined ? "" : facultad;
+    estudios = estudios == undefined ? "" : estudios;
+    departamento = departamento == undefined ? "" : departamento;
+    programa = programa == undefined ? "" : programa;
+    condicion = condicion == undefined ? "" : condicion;
+
+    return "SELECT AVG(b.VALOR_RESPUESTA) AS PROMEDIO,COUNT(b.PREGUNTA)AS CANTIDAD,b.PREGUNTA FROM BASE_VAL b " + 
+        "WHERE b.MEDICION LIKE '" + anio + "%' AND " +
+        "b.NIVEL LIKE '" + estudios + "%' AND " +
+        "b.FACULTAD LIKE '" + facultad + "%' AND " +
+        "b.DEPARTAMENTO LIKE '" + departamento + "%' AND " +
+        "PROGRAMA LIKE '" + programa + "%' " +
+        "GROUP BY b.PREGUNTA ORDER BY b.PREGUNTA";
+}
+
 
 module.exports.getResumen = getResumen;
+module.exports.getParalelInfo = getParalelInfo;
+
+/*
+AÑO
+NIVEL ESTUDIOS
+FACULTAD
+DEPARTAMENTO
+PROGRAMA
+ENTERO PARA LA CANTIDAD 0 NO SABE NO RESPONDE 1 CANTIDAD SATISFECHOS
+
+JSON PROMEDIO, CANTIDAD, PREGUNTA
+
+JSON SELECT DISTINCT TEMA SUBTEMA PREGUNTA 
+
+JSON SELECT DISCTINCT 
+
+SELECT * FROM BASE_VAL b WHERE b.MEDICION = '2014' AND b.NIVEL LIKE '%' AND b.FACULTAD LIKE '%' AND b.DEPARTAMENTO LIKE '%' AND PROGRAMA LIKE '%' */

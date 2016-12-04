@@ -1,0 +1,21 @@
+{
+	"PREGUNTA":1,
+	"PREGUNTA":"1. ¿Qué tan satisfecho se encuentra usted en la Universidad de los Andes?",
+	"TEMA": "Satisfacción General",
+	"SUBTEMA":"NINGUNO",
+	"TIPO":0
+}
+{
+	"PREGUNTA":2,
+	"PREGUNTA":"2. Las acciones que la Universidad de los Andes ha emprendido para ofrecer una docencia de alta calidad.",
+	"TEMA": "Satisfacción General",
+	"SUBTEMA":"NINGUNO",
+	TIPO:1
+}
+{
+	"PREGUNTA":3,
+	"PREGUNTA":"2. Las acciones que la Universidad de los Andes ha emprendido para ofrecer una docencia de alta calidad.",
+	"TEMA": "Satisfacción General",
+	"SUBTEMA":"NINGUNO",
+	TIPO:2
+}

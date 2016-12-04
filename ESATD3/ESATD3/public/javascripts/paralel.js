@@ -1,4 +1,19 @@
-﻿treeJSON = d3.json("data/ejemplonivel.json", function (error, treeData) {
+﻿var color= [ "CC4444", "009933", "FF6600", "3333FF", "9999FF", "6666CC", "3333CC", "333399", "666699"];
+
+
+var preguntasJson;
+d3.json("data/questionsCategories.json", function(error, treeData){
+    preguntasJson = treeData;
+});
+
+    console.log(preguntasJson);
+
+var c10 = d3.scale.category10();
+function colores_google(n) {
+  var colores_g = ["#3366cc", "#dc3912", "#ff9900", "#109618", "#990099", "#0099c6", "#dd4477", "#66aa00", "#b82e2e", "#316395", "#994499", "#22aa99", "#aaaa11", "#6633cc", "#e67300", "#8b0707", "#651067", "#329262", "#5574a6", "#3b3eac"];
+  return colores_g[n % colores_g.length];
+}
+treeJSON = d3.json("data/ejemplonivel.json", function (error, treeData) {
 
    // createTree(treeData, "#treecontainerDetalle", false);data/ejemplonivel.json
     createTree(treeData, "#treecontainer", true);
@@ -24,10 +39,11 @@ function insertNewCoords(textito){
         console.log(ucoord[s].PROMEDIO);
     }
     globaldata.push(myjsonobject);
-    console.log(globaldata);
+    //console.log(globaldata);
 
     refreshGraph();
 }
+
 var globaldata;
 var margin = { top: 30, right: 10, bottom: 10, left: 10 },
     width = 960 - margin.left - margin.right,
@@ -62,22 +78,6 @@ d3.csv(datacsv, function (error, surveys) {
             .range([height, 0]));
     }));
 
-    // Add grey background lines for context.
-    background = svg.append("g")
-        .attr("class", "background")
-        .selectAll("path")
-        .data(surveys)
-        .enter().append("path")
-        .attr("d", path);
-
-    // Add blue foreground lines for focus.
-    foreground = svg.append("g")
-        .attr("class", "foreground")
-        .selectAll("path")
-        .data(surveys)
-        .enter().append("path")
-        .attr("d", path);
-
     // Add a group element for each dimension.
     var g = svg.selectAll(".dimension")
         .data(dimensions)
@@ -112,15 +112,96 @@ d3.csv(datacsv, function (error, surveys) {
     // Add an axis and title.
     g.append("g")
         .attr("class", "axis")
-        .each(function (d) { d3.select(this).call(axis.scale(y1[d])); })
+        .style("fill", function (d, i) {
+            
+            var randomColor;
+            //Satisfaccion General
+            if(i == 0){
+                randomColor = color[0];
+            }
+            //Imagen Institucional
+            else if(i>=1 && i <=4){
+                 randomColor = color[1];
+            }
+            //Procesos Academicos
+            else if( (i>=5 && i<=12)|| i==42 ){
+                 randomColor = color[2];
+            }
+            //Servicios Prestados por la universidad: 
+            else if( i==13 ){
+                 randomColor = color[3];
+            }
+            //Servicios Prestados por la universidad: 
+            else if( i>=4 && i<=17){
+                 randomColor = color[4];
+            }
+            //Servicios Prestados por la universidad: 
+            else if( i>=18 && i<=23){
+                 randomColor = color[5];
+            }
+            //Servicios Prestados por la universidad: 
+            else if( i==24 || i==25){
+                 randomColor = color[6];
+            }
+            //Servicios Prestados por la universidad: 
+            else if( (i>=26 && i<=35)||i==41){
+                 randomColor = color[7];
+            }
+            //Servicios Prestados por la universidad: 
+            else if( i>=36 && i<=40){
+                 randomColor = color[8];
+            }
+            return randomColor;
+            
+            //return colores_google(i);
+        })
+        .each(function (d) {  d3.select(this).call(axis.scale(y1[d])); }).attr("dx",10).style("text-anchor", "middle") 
+    
+        
+ d3.selectAll(".axis")    
         .append("text")
         .style("text-anchor", "middle")
         .attr("y", -9)
-        .text(function (d) { return d; })
-        .style("fill", function (d) {
-            var randomColor = Math.floor(Math.random() * 16777215).toString(16);
-            return randomColor;
+        .text(function (d) { return d+" "; });
+
+ d3.selectAll(".axis").append("rect")
+                    .attr("x", function (d) { return  -10 })
+                    .attr("y", function (d) { 0 })
+                    .attr("width", 20)
+                    .attr("height", height)
+                    .style("opacity", 0.5);
+        ;
+
+        d3.selectAll(".axis")
+                    .append("rect")
+                    .attr("x", function (d) { return  -10 })
+                    .attr("y", function (d) { 0 })
+                    .attr("width", 20)
+                    .attr("height", height)
+                    .style("fill", function (d) {
+                            return d.style;
+                        })
+                    .style("opacity", 0.5);
+        /**
+        d3.selectAll(".axis").shapes.style("fill", function (d) {
+           return "white";
         });
+*/
+    // Add grey background lines for context.
+    background = svg.append("g")
+        .attr("class", "background")
+        .selectAll("path")
+        .data(surveys)
+        .enter().append("path")
+        .attr("d", path);
+
+    // Add blue foreground lines for focus.
+    foreground = svg.append("g")
+        .attr("class", "foreground")
+        .selectAll("path")
+        .data(surveys)
+        .enter().append("path")
+        .attr("d", path);
 
     // Add and store a brush for each axis.
     g.append("g")
@@ -134,9 +215,11 @@ d3.csv(datacsv, function (error, surveys) {
 
     // add style linepath
     d3.selectAll(".foreground path").style("stroke", function (d, i) {
-        return "hsl(" + (((170 - d.P1) * 90) / 170) + ",80%,60%)";
+        return "black";
+        //return "hsl(" + (((170 - d.P1) * 90) / 170) + ",80%,60%)";
     }).style("stroke-width", function (d, i) {
-        return (1 - (d.P1 / 170) * 5) ;
+        //return (1 - (d.P1 / 170) * 5) ;
+        return 1;
     }).style("opacity", function (d, i) {
         return 1 - ((d.P1) / 300);
 
@@ -144,30 +227,18 @@ d3.csv(datacsv, function (error, surveys) {
 
 });
 
-var refreshGraph = function(){
+var refreshGraph = function(){ 
+    svg.selectAll("g").remove();
+    var surveys = globaldata;
     // Extract the list of dimensions and create a scale for each.
-    x1.domain(dimensions = d3.keys(globaldata[0]).filter(function (d) {
+    x1.domain(dimensions = d3.keys(surveys[0]).filter(function (d) {
         return d != "Nombre" && (y1[d] = d3.scale.linear()
             .domain([0,5])
+            //Si el zoom debe ser dinamico 
             //.domain(d3.extent(surveys, function (p) { return +p[d]; }))
+            //Si el zoom debe estar siempre en escala de 1 a 5
             .range([height, 0]));
     }));
-
-    // Add grey background lines for context.
-    background = svg.append("g")
-        .attr("class", "background")
-        .selectAll("path")
-        .data(globaldata)
-        .enter().append("path")
-        .attr("d", path);
-
-    // Add blue foreground lines for focus.
-    foreground = svg.append("g")
-        .attr("class", "foreground")
-        .selectAll("path")
-        .data(globaldata)
-        .enter().append("path")
-        .attr("d", path);
 
     // Add a group element for each dimension.
     var g = svg.selectAll(".dimension")
@@ -203,15 +274,92 @@ var refreshGraph = function(){
     // Add an axis and title.
     g.append("g")
         .attr("class", "axis")
-        .each(function (d) { d3.select(this).call(axis.scale(y1[d])); })
+        .style("fill", function (d, i) {
+            var randomColor;
+            //Satisfaccion General
+            if(i == 0){
+                randomColor = color[0];
+            }
+            //
+            else if(i>=1 && i <=4){
+                 randomColor = color[1];
+            }
+            //
+            else if( (i>=5 && i<=12)|| i==42 ){
+                 randomColor = color[2];
+            }
+            else if( i==13 ){
+                 randomColor = color[3];
+            }
+            //
+            else if( i>=4 && i<=17){
+                 randomColor = color[4];
+            }
+            //
+            else if( i>=18 && i<=23){
+                 randomColor = color[5];
+            }
+            //
+            else if( i==24 || i==25){
+                 randomColor = color[6];
+            }
+            //
+            else if( (i>=26 && i<=35)||i==41){
+                 randomColor = color[7];
+            }
+            //
+            else if( i>=36 && i<=40){
+                 randomColor = color[8];
+            }
+            return randomColor;
+        })
+        .each(function (d) {  d3.select(this).call(axis.scale(y1[d])); }).attr("dx",10).style("text-anchor", "middle") 
+    
+        
+ d3.selectAll(".axis")    
         .append("text")
         .style("text-anchor", "middle")
         .attr("y", -9)
-        .text(function (d) { return d; })
-        .style("fill", function (d) {
-            var randomColor = Math.floor(Math.random() * 16777215).toString(16);
-            return randomColor;
+        .text(function (d) { return d+" "; });
+
+ d3.selectAll(".axis").append("rect")
+                    .attr("x", function (d) { return  -10 })
+                    .attr("y", function (d) { 0 })
+                    .attr("width", 20)
+                    .attr("height", height)
+                    .style("opacity", 0.5);
+        ;
+
+        d3.selectAll(".axis")
+                    .append("rect")
+                    .attr("x", function (d) { return  -10 })
+                    .attr("y", function (d) { 0 })
+                    .attr("width", 20)
+                    .attr("height", height)
+                    .style("fill", function (d) {
+                            return d.style;
+                        })
+                    .style("opacity", 0.5);
+        /**
+        d3.selectAll(".axis").shapes.style("fill", function (d) {
+           return "white";
         });
+*/
+    // Add grey background lines for context.
+    background = svg.append("g")
+        .attr("class", "background")
+        .selectAll("path")
+        .data(surveys)
+        .enter().append("path")
+        .attr("d", path);
+
+    // Add blue foreground lines for focus.
+    foreground = svg.append("g")
+        .attr("class", "foreground")
+        .selectAll("path")
+        .data(surveys)
+        .enter().append("path")
+        .attr("d", path);
 
     // Add and store a brush for each axis.
     g.append("g")
@@ -225,15 +373,15 @@ var refreshGraph = function(){
 
     // add style linepath
     d3.selectAll(".foreground path").style("stroke", function (d, i) {
-        return "hsl(" + (((170 - d.P1) * 90) / 170) + ",80%,60%)";
+        return "black";
+        //return "hsl(" + (((170 - d.P1) * 90) / 170) + ",80%,60%)";
     }).style("stroke-width", function (d, i) {
-        return (1 - (d.P1 / 170) * 5) ;
+        //return (1 - (d.P1 / 170) * 5) ;
+        return 1;
     }).style("opacity", function (d, i) {
         return 1 - ((d.P1) / 300);
 
     });
-
-
 };
 
 function position(d) {

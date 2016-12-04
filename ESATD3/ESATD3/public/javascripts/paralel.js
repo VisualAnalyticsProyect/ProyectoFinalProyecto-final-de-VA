@@ -13,9 +13,8 @@ function colores_google(n) {
   var colores_g = ["#3366cc", "#dc3912", "#ff9900", "#109618", "#990099", "#0099c6", "#dd4477", "#66aa00", "#b82e2e", "#316395", "#994499", "#22aa99", "#aaaa11", "#6633cc", "#e67300", "#8b0707", "#651067", "#329262", "#5574a6", "#3b3eac"];
   return colores_g[n % colores_g.length];
 }
-treeJSON = d3.json("data/ejemplonivel.json", function (error, treeData) {
-
-   // createTree(treeData, "#treecontainerDetalle", false);data/ejemplonivel.json
+treeJSON = d3.json("data/arbol.json", function (error, treeData) {
+    
     createTree(treeData, "#treecontainer", true);
 
 });
@@ -70,7 +69,7 @@ d3.csv(datacsv, function (error, surveys) {
     globaldata = surveys;
     // Extract the list of dimensions and create a scale for each.
     x1.domain(dimensions = d3.keys(surveys[0]).filter(function (d) {
-        return d != "Nombre" && (y1[d] = d3.scale.linear()
+        return d && (y1[d] = d3.scale.linear()
             .domain([0,5])
             //Si el zoom debe ser dinamico 
             //.domain(d3.extent(surveys, function (p) { return +p[d]; }))

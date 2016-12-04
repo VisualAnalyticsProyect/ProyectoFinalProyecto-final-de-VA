@@ -28,10 +28,31 @@
   cursor: move;
 }
 
-#paralel{
-    min-width:40%;
-    max-width:50%;
+#paralelcontainer{
+    min-width:20%;
+    max-width:30%;
     float:left;
+}
+
+#paralel{
+    min-width:20%;
+    max-width:40%;
+    float:left;
+}
+#ejecontainer{   
+    min-width:10%; 
+    max-width:20%;
+    float:left;
+    border-style:dotted;
+    margin-top: 20%;
+    margin-right: 4%;
+   
+}
+#paralel svg{
+     padding-left: 5%;
+}
+#ejecontainer svg:hover {
+background-color:rgba(0, 103, 255, 0.78);
 }
 .main{
     display:table;

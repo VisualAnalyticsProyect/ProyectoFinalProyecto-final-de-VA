@@ -14,7 +14,7 @@ var xAxis = d3.svg.axis()
 
 var yAxis = d3.svg.axis()
     .scale(ye)
-    .orient("top");
+    .orient("bottom");
 //#####################################################################
 //TIP
 //##################################################################### 
@@ -32,7 +32,7 @@ var chart = d3.select(container).append("svg")
     }).on("mouseout", function (d) {        
         dropped = false;
     })
-    .attr("width", widthx)
+    .attr("width", widthx + "%")
     .attr("height", height).append("g");    
 
 chart.call(tip);
@@ -54,7 +54,7 @@ function update(data) {
         }).on('click', function (d) { borrar(d); })
         .attr("x",0)
         .attr("y", function (d,index) { return ye(index+1); })
-        .attr("width",widthx)
+        .attr("width", widthx + "%")
         .attr("height", function (d) { return 50; })
         .attr("border-style", "solid").enter().append("text")
         .attr("x", 5)

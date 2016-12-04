@@ -54,17 +54,17 @@
     // Define the drag listeners for drag/drop behaviour of nodes.
     dragListener = d3.behavior.drag()
         .on("dragstart", function (d) {
-            if (d == root) {
-                return;
-            }
+            //if (d == root) {
+            //    return;
+            //}
             dragStarted = isDrag;
             nodes = tree.nodes(d);
             d3.event.sourceEvent.stopPropagation();
         })
         .on("drag", function (d) {
-            if (d == root) {
-                return;
-            }
+           // if (d == root) {
+           //     return;
+          //  }
             if (dragStarted) {
                 domNode = this;
                 initiateDrag(d, domNode);
@@ -75,9 +75,9 @@
             var node = d3.select(this);
             node.attr("transform", "translate(" + d.y0 + "," + d.x0 + ")");
         }).on("dragend", function (d) {
-            if (d == root) {
-                return;
-            }
+           // if (d == root) {
+           //     return;
+          //  }
             selectedNode = d;
             domNode = this;           
             endDrag();            

@@ -15,7 +15,7 @@ function colores_google(n) {
 }
 treeJSON = d3.json("data/arbol.json", function (error, treeData) {
     
-    createTree(treeData, "#treecontainer", true);
+//    createTree(treeData, "#treecontainer", true);
 
 });
 function insertNewCoords(textito){

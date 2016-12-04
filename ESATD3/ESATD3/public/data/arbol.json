@@ -1,0 +1,1826 @@
+	{
+	"name":"Universidad",
+	"value":"11",
+	"level":"1",
+	"children": [
+		{
+		"name":"Pregrado",
+		"value":"8",
+		"level":"2",
+		"children": [
+			{
+			"name":"Facultad de Administración",
+			"value":"26",
+			"level":"3",
+			"children": [
+				{
+				"name":"",
+				"value":"0",
+				"level":"4",
+				"children": [
+					{
+					"name":"Administración de Empresas",
+					"value":"26",
+					"level":"5",
+					}
+				,
+					{
+					"name":"Contaduria Internacional",
+					"value":"24",
+					"level":"5",
+					}
+				]
+				}
+			]
+			}
+		,
+			{
+			"name":"Facultad de Arquitectura y Diseño",
+			"value":"33",
+			"level":"3",
+			"children": [
+				{
+				"name":"Departamento de Arquitectura",
+				"value":"28",
+				"level":"4",
+				"children": [
+					{
+					"name":"Arquitectura",
+					"value":"12",
+					"level":"5",
+					}
+				]
+				}
+			,
+				{
+				"name":"Departamento de Diseño",
+				"value":"22",
+				"level":"4",
+				"children": [
+					{
+					"name":"Diseño",
+					"value":"6",
+					"level":"5",
+					}
+				]
+				}
+			]
+			}
+		,
+			{
+			"name":"Facultad de Artes y Humanidades",
+			"value":"31",
+			"level":"3",
+			"children": [
+				{
+				"name":"Departamento de Arte",
+				"value":"20",
+				"level":"4",
+				"children": [
+					{
+					"name":"Arte",
+					"value":"4",
+					"level":"5",
+					}
+				,
+					{
+					"name":"Historia del Arte",
+					"value":"17",
+					"level":"5",
+					}
+				]
+				}
+			,
+				{
+				"name":"Departamento de Humanidades y Literatura",
+				"value":"40",
+				"level":"4",
+				"children": [
+					{
+					"name":"Literatura",
+					"value":"10",
+					"level":"5",
+					}
+				]
+				}
+			,
+				{
+				"name":"Departamento de Música",
+				"value":"22",
+				"level":"4",
+				"children": [
+					{
+					"name":"Música",
+					"value":"6",
+					"level":"5",
+					}
+				]
+				}
+			]
+			}
+		,
+			{
+			"name":"Facultad de Ciencias",
+			"value":"20",
+			"level":"3",
+			"children": [
+				{
+				"name":"Departamento de Ciencias Biológicas",
+				"value":"35",
+				"level":"4",
+				"children": [
+					{
+					"name":"Biología",
+					"value":"8",
+					"level":"5",
+					}
+				,
+					{
+					"name":"Microbiología",
+					"value":"13",
+					"level":"5",
+					}
+				]
+				}
+			,
+				{
+				"name":"Departamento de Física",
+				"value":"22",
+				"level":"4",
+				"children": [
+					{
+					"name":"Física",
+					"value":"6",
+					"level":"5",
+					}
+				]
+				}
+			,
+				{
+				"name":"Departamento de Geociencias",
+				"value":"27",
+				"level":"4",
+				"children": [
+					{
+					"name":"Geociencias",
+					"value":"11",
+					"level":"5",
+					}
+				]
+				}
+			,
+				{
+				"name":"Departamento de Matemáticas",
+				"value":"27",
+				"level":"4",
+				"children": [
+					{
+					"name":"Matemáticas",
+					"value":"11",
+					"level":"5",
+					}
+				]
+				}
+			,
+				{
+				"name":"Departamento de Química",
+				"value":"23",
+				"level":"4",
+				"children": [
+					{
+					"name":"Química",
+					"value":"7",
+					"level":"5",
+					}
+				]
+				}
+			]
+			}
+		,
+			{
+			"name":"Facultad de Ciencias Sociales",
+			"value":"29",
+			"level":"3",
+			"children": [
+				{
+				"name":"Departamento de Antropología",
+				"value":"28",
+				"level":"4",
+				"children": [
+					{
+					"name":"Antropología",
+					"value":"12",
+					"level":"5",
+					}
+				]
+				}
+			,
+				{
+				"name":"Departamento de Ciencia Política",
+				"value":"32",
+				"level":"4",
+				"children": [
+					{
+					"name":"Ciencia Política",
+					"value":"16",
+					"level":"5",
+					}
+				]
+				}
+			,
+				{
+				"name":"Departamento de Filosofía",
+				"value":"25",
+				"level":"4",
+				"children": [
+					{
+					"name":"Filosofía",
+					"value":"9",
+					"level":"5",
+					}
+				]
+				}
+			,
+				{
+				"name":"Departamento de Historia",
+				"value":"24",
+				"level":"4",
+				"children": [
+					{
+					"name":"Historia",
+					"value":"8",
+					"level":"5",
+					}
+				]
+				}
+			,
+				{
+				"name":"Departamento de Lenguajes y Estudios Socioculturales",
+				"value":"52",
+				"level":"4",
+				"children": [
+					{
+					"name":"Lenguajes Estudios Socioculturales",
+					"value":"34",
+					"level":"5",
+					}
+				]
+				}
+			,
+				{
+				"name":"Departamento de Psicología",
+				"value":"26",
+				"level":"4",
+				"children": [
+					{
+					"name":"Psicología",
+					"value":"10",
+					"level":"5",
+					}
+				]
+				}
+			]
+			}
+		,
+			{
+			"name":"Decanatura de estudiantes",
+			"value":"25",
+			"level":"3",
+			"children": [
+				{
+				"name":"",
+				"value":"0",
+				"level":"4",
+				"children": [
+					{
+					"name":"Estudios Dirigidos",
+					"value":"18",
+					"level":"5",
+					}
+				,
+					{
+					"name":"Estudios Gener.de Intercambio",
+					"value":"29",
+					"level":"5",
+					}
+				,
+					{
+					"name":"Estudios Generales de Intercambio",
+					"value":"33",
+					"level":"5",
+					}
+				]
+				}
+			]
+			}
+		,
+			{
+			"name":"Facultad de Derecho",
+			"value":"19",
+			"level":"3",
+			"children": [
+				{
+				"name":"",
+				"value":"0",
+				"level":"4",
+				"children": [
+					{
+					"name":"Derecho",
+					"value":"7",
+					"level":"5",
+					}
+				]
+				}
+			]
+			}
+		,
+			{
+			"name":"Facultad de Economía",
+			"value":"20",
+			"level":"3",
+			"children": [
+				{
+				"name":"",
+				"value":"0",
+				"level":"4",
+				"children": [
+					{
+					"name":"Economía",
+					"value":"8",
+					"level":"5",
+					}
+				]
+				}
+			]
+			}
+		,
+			{
+			"name":"Escuela de Gobierno Alberto Lleras Camargo",
+			"value":"42",
+			"level":"3",
+			"children": [
+				{
+				"name":"",
+				"value":"0",
+				"level":"4",
+				"children": [
+					{
+					"name":"Gobierno y Asuntos Públicos",
+					"value":"27",
+					"level":"5",
+					}
+				]
+				}
+			]
+			}
+		,
+			{
+			"name":"Facultad de Ingeniería",
+			"value":"22",
+			"level":"3",
+			"children": [
+				{
+				"name":"Departamento de Ingenieria Civil y Ambiental",
+				"value":"44",
+				"level":"4",
+				"children": [
+					{
+					"name":"Ingeniería Ambiental",
+					"value":"20",
+					"level":"5",
+					}
+				,
+					{
+					"name":"Ingeniería Civil",
+					"value":"16",
+					"level":"5",
+					}
+				]
+				}
+			,
+				{
+				"name":"Departamento de Ingeniería Biomédica",
+				"value":"36",
+				"level":"4",
+				"children": [
+					{
+					"name":"Ingeniería Biomédica",
+					"value":"20",
+					"level":"5",
+					}
+				]
+				}
+			,
+				{
+				"name":"Departamento de Ingeniería de Sistemas y Computación",
+				"value":"52",
+				"level":"4",
+				"children": [
+					{
+					"name":"Ingeniería de Sistemas y Computación",
+					"value":"36",
+					"level":"5",
+					}
+				]
+				}
+			,
+				{
+				"name":"Departamento de Ingeniería Eléctrica y Electrónica",
+				"value":"50",
+				"level":"4",
+				"children": [
+					{
+					"name":"Ingeniería Eléctrica",
+					"value":"20",
+					"level":"5",
+					}
+				,
+					{
+					"name":"Ingeniería Electrónica",
+					"value":"22",
+					"level":"5",
+					}
+				]
+				}
+			,
+				{
+				"name":"Departamento de Ingeniería Industrial",
+				"value":"37",
+				"level":"4",
+				"children": [
+					{
+					"name":"Ingeniería Industrial",
+					"value":"21",
+					"level":"5",
+					}
+				]
+				}
+			,
+				{
+				"name":"Departamento de Ingeniería Mecánica",
+				"value":"35",
+				"level":"4",
+				"children": [
+					{
+					"name":"Ingeniería Mecánica",
+					"value":"19",
+					"level":"5",
+					}
+				]
+				}
+			,
+				{
+				"name":"Departamento de Ingeniería Química",
+				"value":"34",
+				"level":"4",
+				"children": [
+					{
+					"name":"Ingeniería Química",
+					"value":"18",
+					"level":"5",
+					}
+				]
+				}
+			,
+				{
+				"name":"",
+				"value":"0",
+				"level":"4",
+				"children": [
+					{
+					"name":"Ingeniería General",
+					"value":"18",
+					"level":"5",
+					}
+				]
+				}
+			]
+			}
+		,
+			{
+			"name":"Facultad de Medicina",
+			"value":"20",
+			"level":"3",
+			"children": [
+				{
+				"name":"",
+				"value":"0",
+				"level":"4",
+				"children": [
+					{
+					"name":"Medicina",
+					"value":"8",
+					"level":"5",
+					}
+				]
+				}
+			]
+			}
+		]
+		}
+	,
+		{
+		"name":"Doctorado",
+		"value":"9",
+		"level":"2",
+		"children": [
+			{
+			"name":"Facultad de Administración",
+			"value":"26",
+			"level":"3",
+			"children": [
+				{
+				"name":"",
+				"value":"0",
+				"level":"4",
+				"children": [
+					{
+					"name":"Doctorado en Administración",
+					"value":"27",
+					"level":"5",
+					}
+				]
+				}
+			]
+			}
+		,
+			{
+			"name":"Facultad de Artes y Humanidades",
+			"value":"31",
+			"level":"3",
+			"children": [
+				{
+				"name":"Departamento de Humanidades y Literatura",
+				"value":"40",
+				"level":"4",
+				"children": [
+					{
+					"name":"Doctorado en Literatura",
+					"value":"23",
+					"level":"5",
+					}
+				]
+				}
+			]
+			}
+		,
+			{
+			"name":"Centro de Investigación y Formación en Educación (CIFE)",
+			"value":"55",
+			"level":"3",
+			"children": [
+				{
+				"name":"",
+				"value":"0",
+				"level":"4",
+				"children": [
+					{
+					"name":"Doctorado en Educación",
+					"value":"22",
+					"level":"5",
+					}
+				]
+				}
+			]
+			}
+		,
+			{
+			"name":"Facultad de Ciencias",
+			"value":"20",
+			"level":"3",
+			"children": [
+				{
+				"name":"Departamento de Física",
+				"value":"22",
+				"level":"4",
+				"children": [
+					{
+					"name":"Doctorado en Ciencias",
+					"value":"21",
+					"level":"5",
+					"children": [
+						{
+						"name":" Física",
+						"value":"7",
+						"level":"6",
+						}
+					]
+					}
+				]
+				}
+			,
+				{
+				"name":"Departamento de Ciencias Biológicas",
+				"value":"35",
+				"level":"4",
+				"children": [
+					{
+					"name":"Doctorado en Ciencias",
+					"value":"21",
+					"level":"5",
+					"children": [
+						{
+						"name":"Biología",
+						"value":"8",
+						"level":"6",
+						}
+					]
+					}
+				]
+				}
+			,
+				{
+				"name":"Departamento de Química",
+				"value":"23",
+				"level":"4",
+				"children": [
+					{
+					"name":"Doctorado en Ciencias",
+					"value":"21",
+					"level":"5",
+					"children": [
+						{
+						"name":"Química",
+						"value":"7",
+						"level":"6",
+						}
+					]
+					}
+				]
+				}
+			,
+				{
+				"name":"Departamento de Matemáticas",
+				"value":"27",
+				"level":"4",
+				"children": [
+					{
+					"name":"Doctorado en Matemáticas",
+					"value":"24",
+					"level":"5",
+					}
+				]
+				}
+			]
+			}
+		,
+			{
+			"name":"Facultad de Ciencias Sociales",
+			"value":"29",
+			"level":"3",
+			"children": [
+				{
+				"name":"Departamento de Antropología",
+				"value":"28",
+				"level":"4",
+				"children": [
+					{
+					"name":"Doctorado en Antropología",
+					"value":"25",
+					"level":"5",
+					}
+				]
+				}
+			,
+				{
+				"name":"Departamento de Ciencia Política",
+				"value":"32",
+				"level":"4",
+				"children": [
+					{
+					"name":"Doctorado en Ciencia Política",
+					"value":"29",
+					"level":"5",
+					}
+				]
+				}
+			,
+				{
+				"name":"Departamento de Filosofía",
+				"value":"25",
+				"level":"4",
+				"children": [
+					{
+					"name":"Doctorado en Filosofía",
+					"value":"22",
+					"level":"5",
+					}
+				]
+				}
+			,
+				{
+				"name":"Departamento de Historia",
+				"value":"24",
+				"level":"4",
+				"children": [
+					{
+					"name":"Doctorado en Historia",
+					"value":"21",
+					"level":"5",
+					}
+				]
+				}
+			,
+				{
+				"name":"Departamento de Psicología",
+				"value":"26",
+				"level":"4",
+				"children": [
+					{
+					"name":"Doctorado en Psicología",
+					"value":"23",
+					"level":"5",
+					}
+				]
+				}
+			]
+			}
+		,
+			{
+			"name":"Facultad de Derecho",
+			"value":"19",
+			"level":"3",
+			"children": [
+				{
+				"name":"",
+				"value":"0",
+				"level":"4",
+				"children": [
+					{
+					"name":"Doctorado en Derecho",
+					"value":"20",
+					"level":"5",
+					}
+				]
+				}
+			]
+			}
+		,
+			{
+			"name":"Facultad de Economía",
+			"value":"20",
+			"level":"3",
+			"children": [
+				{
+				"name":"",
+				"value":"0",
+				"level":"4",
+				"children": [
+					{
+					"name":"Doctorado en Economía",
+					"value":"21",
+					"level":"5",
+					}
+				]
+				}
+			]
+			}
+		,
+			{
+			"name":"Facultad de Ingeniería",
+			"value":"22",
+			"level":"3",
+			"children": [
+				{
+				"name":"",
+				"value":"0",
+				"level":"4",
+				"children": [
+					{
+					"name":"Doctorado en Ingeniería",
+					"value":"23",
+					"level":"5",
+					}
+				]
+				}
+			]
+			}
+		]
+		}
+	,
+		{
+		"name":"Especialización",
+		"value":"15",
+		"level":"2",
+		"children": [
+			{
+			"name":"Facultad de Administración",
+			"value":"26",
+			"level":"3",
+			"children": [
+				{
+				"name":"",
+				"value":"0",
+				"level":"4",
+				"children": [
+					{
+					"name":"Esp. Administración Financiera",
+					"value":"30",
+					"level":"5",
+					}
+				,
+					{
+					"name":"Esp. Gerencia de Abastecimiento Estratégico",
+					"value":"43",
+					"level":"5",
+					}
+				,
+					{
+					"name":"Esp. En Gestión del Riesgo Control de Instituciones Financieras",
+					"value":"63",
+					"level":"5",
+					}
+				,
+					{
+					"name":"Esp. Inteligencia de Mercados",
+					"value":"29",
+					"level":"5",
+					}
+				,
+					{
+					"name":"Esp. Negociación",
+					"value":"16",
+					"level":"5",
+					}
+				]
+				}
+			]
+			}
+		,
+			{
+			"name":"Facultad de Artes y Humanidades",
+			"value":"31",
+			"level":"3",
+			"children": [
+				{
+				"name":"Departamento de Arte",
+				"value":"20",
+				"level":"4",
+				"children": [
+					{
+					"name":"Esp. Creación Multimedia",
+					"value":"24",
+					"level":"5",
+					}
+				]
+				}
+			]
+			}
+		,
+			{
+			"name":"Centro de Investigación y Formación en Educación (CIFE)",
+			"value":"55",
+			"level":"3",
+			"children": [
+				{
+				"name":"",
+				"value":"0",
+				"level":"4",
+				"children": [
+					{
+					"name":"Esp. Currículo y Pedagogía",
+					"value":"26",
+					"level":"5",
+					}
+				,
+					{
+					"name":"Esp. Gestión de Instituciones Educativas",
+					"value":"40",
+					"level":"5",
+					}
+				]
+				}
+			]
+			}
+		,
+			{
+			"name":"Centro Interdisciplinario de Estudios sobre Desarrollo (CIDER)",
+			"value":"62",
+			"level":"3",
+			"children": [
+				{
+				"name":"",
+				"value":"0",
+				"level":"4",
+				"children": [
+					{
+					"name":"Esp. Estado, Políticas Públicas y Desarrollo",
+					"value":"44",
+					"level":"5",
+					}
+				,
+					{
+					"name":"Esp. Gestión Regional del Desarrollo",
+					"value":"36",
+					"level":"5",
+					}
+				,
+					{
+					"name":"Esp. Organizaciones, Responsabilidad Social y Desarrollo",
+					"value":"56",
+					"level":"5",
+					}
+				,
+					{
+					"name":"Esp. Desarrollo Local y Regional",
+					"value":"32",
+					"level":"5",
+					}
+				]
+				}
+			]
+			}
+		,
+			{
+			"name":"Facultad de Derecho",
+			"value":"19",
+			"level":"3",
+			"children": [
+				{
+				"name":"",
+				"value":"0",
+				"level":"4",
+				"children": [
+					{
+					"name":"Esp. Derecho Comercial",
+					"value":"22",
+					"level":"5",
+					}
+				,
+					{
+					"name":"Esp. Derecho de los Negocios Internacionales",
+					"value":"44",
+					"level":"5",
+					}
+				,
+					{
+					"name":"Esp. Gestión Pública",
+					"value":"20",
+					"level":"5",
+					}
+				,
+					{
+					"name":"Esp. Legislación Financiera",
+					"value":"27",
+					"level":"5",
+					}
+				,
+					{
+					"name":"Esp. Tributación",
+					"value":"16",
+					"level":"5",
+					}
+				,
+					{
+					"name":"Esp. Derecho Urbano",
+					"value":"19",
+					"level":"5",
+					}
+				,
+					{
+					"name":"Esp. en Derecho de la Empresa",
+					"value":"29",
+					"level":"5",
+					}
+				,
+					{
+					"name":"Esp. en Derecho Minero Energetico y Desarrollo Sostenible",
+					"value":"57",
+					"level":"5",
+					}
+				]
+				}
+			]
+			}
+		,
+			{
+			"name":"Facultad de Economía",
+			"value":"20",
+			"level":"3",
+			"children": [
+				{
+				"name":"",
+				"value":"0",
+				"level":"4",
+				"children": [
+					{
+					"name":"Esp. Economía",
+					"value":"13",
+					"level":"5",
+					}
+				,
+					{
+					"name":"Esp. Economía del Riesgo y la Información",
+					"value":"41",
+					"level":"5",
+					}
+				,
+					{
+					"name":"Esp. Evaluación Social de Proyectos",
+					"value":"35",
+					"level":"5",
+					}
+				]
+				}
+			]
+			}
+		,
+			{
+			"name":"Facultad de Ingeniería",
+			"value":"22",
+			"level":"3",
+			"children": [
+				{
+				"name":"Tecnología y Sociedad Investigación y Consultoría",
+				"value":"49",
+				"level":"4",
+				"children": [
+					{
+					"name":"Esp. Diseño y Gestión Social de Tecnología",
+					"value":"42",
+					"level":"5",
+					}
+				]
+				}
+			,
+				{
+				"name":"Departamento de Ingeniería Eléctrica y Electrónica",
+				"value":"50",
+				"level":"4",
+				"children": [
+					{
+					"name":"Esp.  Automatización de Procesos Industriales",
+					"value":"45",
+					"level":"5",
+					}
+				,
+					{
+					"name":"Esp.  Sistemas de Transmisión",
+					"value":"29",
+					"level":"5",
+					}
+				]
+				}
+			,
+				{
+				"name":"Departamento de Ingeniería de Sistemas y Computación",
+				"value":"52",
+				"level":"4",
+				"children": [
+					{
+					"name":"Esp.  Construcción de Software",
+					"value":"30",
+					"level":"5",
+					}
+				,
+					{
+					"name":"Esp.  Seguridad de la Información",
+					"value":"33",
+					"level":"5",
+					}
+				,
+					{
+					"name":"Esp.  Comercio Electrónico",
+					"value":"26",
+					"level":"5",
+					}
+				]
+				}
+			,
+				{
+				"name":"Departamento de Ingeniería Industrial",
+				"value":"37",
+				"level":"4",
+				"children": [
+					{
+					"name":"Esp.  Gerencia de Empresas de Telecomunicaciones",
+					"value":"48",
+					"level":"5",
+					}
+				,
+					{
+					"name":"Esp.  Sistemas de Control Organizacional",
+					"value":"40",
+					"level":"5",
+					}
+				,
+					{
+					"name":"Esp.  Sistemas de Información ",
+					"value":"30",
+					"level":"5",
+					}
+				]
+				}
+			,
+				{
+				"name":"Departamento de Ingenieria Civil y Ambiental",
+				"value":"44",
+				"level":"4",
+				"children": [
+					{
+					"name":"Esp.  Manejo Integrado de Medio Ambiente",
+					"value":"40",
+					"level":"5",
+					}
+				,
+					{
+					"name":"Esp.  Ing. Sistemas Hídricos Urbanos",
+					"value":"36",
+					"level":"5",
+					}
+				]
+				}
+			]
+			}
+		]
+		}
+	,
+		{
+		"name":"Maestría",
+		"value":"8",
+		"level":"2",
+		"children": [
+			{
+			"name":"Facultad de Administración",
+			"value":"26",
+			"level":"3",
+			"children": [
+				{
+				"name":"",
+				"value":"0",
+				"level":"4",
+				"children": [
+					{
+					"name":"Maestría en Administración , MBA Ejecutivo",
+					"value":"42",
+					"level":"5",
+					}
+				,
+					{
+					"name":"Maestría en Administración, MBA",
+					"value":"31",
+					"level":"5",
+					}
+				,
+					{
+					"name":"Maestría en Administración, MBA Profesional",
+					"value":"43",
+					"level":"5",
+					}
+				,
+					{
+					"name":"Maestría en Admon T Parcial",
+					"value":"27",
+					"level":"5",
+					}
+				,
+					{
+					"name":"Maestría en Finanzas",
+					"value":"20",
+					"level":"5",
+					}
+				,
+					{
+					"name":"Maestría en Gerencia Ambiental",
+					"value":"30",
+					"level":"5",
+					}
+				,
+					{
+					"name":"Maestría en Mercadeo",
+					"value":"20",
+					"level":"5",
+					}
+				,
+					{
+					"name":"Maestría Gerencia Práctica del desarrollo",
+					"value":"41",
+					"level":"5",
+					}
+				,
+					{
+					"name":"Maestría en Gerencia Práctica del Desarrollo",
+					"value":"44",
+					"level":"5",
+					}
+				,
+					{
+					"name":"Maestría en Investigación en Administración",
+					"value":"43",
+					"level":"5",
+					}
+				]
+				}
+			]
+			}
+		,
+			{
+			"name":"Facultad de Arquitectura y Diseño",
+			"value":"33",
+			"level":"3",
+			"children": [
+				{
+				"name":"Departamento de Arquitectura",
+				"value":"28",
+				"level":"4",
+				"children": [
+					{
+					"name":"Maestría en Arquitectura",
+					"value":"24",
+					"level":"5",
+					}
+				]
+				}
+			,
+				{
+				"name":"Departamento de Diseño",
+				"value":"22",
+				"level":"4",
+				"children": [
+					{
+					"name":"Maestría en Diseño",
+					"value":"18",
+					"level":"5",
+					}
+				]
+				}
+			]
+			}
+		,
+			{
+			"name":"Facultad de Artes y Humanidades",
+			"value":"31",
+			"level":"3",
+			"children": [
+				{
+				"name":"Departamento de Humanidades y Literatura",
+				"value":"40",
+				"level":"4",
+				"children": [
+					{
+					"name":"Maestría en Literatura",
+					"value":"22",
+					"level":"5",
+					}
+				]
+				}
+			]
+			}
+		,
+			{
+			"name":"Centro de Estudios en Periodismo",
+			"value":"32",
+			"level":"3",
+			"children": [
+				{
+				"name":"Centro de Estudios en Periodismo ",
+				"value":"33",
+				"level":"4",
+				"children": [
+					{
+					"name":" Ceper",
+					"value":"6",
+					"level":"5",
+					"children": [
+						{
+						"name":"Maestría en Periodismo",
+						"value":"22",
+						"level":"6",
+						}
+					]
+					}
+				]
+				}
+			]
+			}
+		,
+			{
+			"name":"Centro de Investigación y Formación en Educación (CIFE)",
+			"value":"55",
+			"level":"3",
+			"children": [
+				{
+				"name":"",
+				"value":"0",
+				"level":"4",
+				"children": [
+					{
+					"name":"Maestría en Educación",
+					"value":"21",
+					"level":"5",
+					}
+				]
+				}
+			]
+			}
+		,
+			{
+			"name":"Centro Interdisciplinario de Estudios sobre Desarrollo (CIDER)",
+			"value":"62",
+			"level":"3",
+			"children": [
+				{
+				"name":"",
+				"value":"0",
+				"level":"4",
+				"children": [
+					{
+					"name":"Maestría en Estud.Interdisc. Sobre Desarrollo",
+					"value":"45",
+					"level":"5",
+					}
+				]
+				}
+			]
+			}
+		,
+			{
+			"name":"Facultad de Ciencias",
+			"value":"20",
+			"level":"3",
+			"children": [
+				{
+				"name":"Departamento de Ciencias Biológicas",
+				"value":"35",
+				"level":"4",
+				"children": [
+					{
+					"name":"Maestría en Ciencias Biologica",
+					"value":"30",
+					"level":"5",
+					}
+				,
+					{
+					"name":"Maestría en Cien.Biol.Area Bio",
+					"value":"30",
+					"level":"5",
+					}
+				,
+					{
+					"name":"Maestría en Cien.Biol.Area Mic",
+					"value":"30",
+					"level":"5",
+					}
+				,
+					{
+					"name":"Maestría en Biología Computacional",
+					"value":"34",
+					"level":"5",
+					}
+				]
+				}
+			,
+				{
+				"name":"Departamento de Física",
+				"value":"22",
+				"level":"4",
+				"children": [
+					{
+					"name":"Maestría en Ciencias",
+					"value":"20",
+					"level":"5",
+					"children": [
+						{
+						"name":"Fisica",
+						"value":"6",
+						"level":"6",
+						}
+					]
+					}
+				]
+				}
+			,
+				{
+				"name":"Departamento de Matemáticas",
+				"value":"27",
+				"level":"4",
+				"children": [
+					{
+					"name":"Maestría en Matemáticas",
+					"value":"23",
+					"level":"5",
+					}
+				]
+				}
+			,
+				{
+				"name":"Departamento de Química",
+				"value":"23",
+				"level":"4",
+				"children": [
+					{
+					"name":"Maestría en Ciencias",
+					"value":"20",
+					"level":"5",
+					"children": [
+						{
+						"name":"Quimica",
+						"value":"7",
+						"level":"6",
+						}
+					]
+					}
+				]
+				}
+			]
+			}
+		,
+			{
+			"name":"Facultad de Ciencias Sociales",
+			"value":"29",
+			"level":"3",
+			"children": [
+				{
+				"name":"Departamento de Antropología",
+				"value":"28",
+				"level":"4",
+				"children": [
+					{
+					"name":"Maestría en Antropologia",
+					"value":"24",
+					"level":"5",
+					}
+				]
+				}
+			,
+				{
+				"name":"Departamento de Ciencia Política",
+				"value":"32",
+				"level":"4",
+				"children": [
+					{
+					"name":"Maestría en Ciencia Política",
+					"value":"28",
+					"level":"5",
+					}
+				]
+				}
+			,
+				{
+				"name":"Departamento de Lenguajes y Estudios Socioculturales",
+				"value":"52",
+				"level":"4",
+				"children": [
+					{
+					"name":"Maestría en Estudios Culturales",
+					"value":"31",
+					"level":"5",
+					}
+				,
+					{
+					"name":"Maestría en Pedagogía Leng. Extranj.",
+					"value":"36",
+					"level":"5",
+					}
+				]
+				}
+			,
+				{
+				"name":"Centro de Estudios Internacionales",
+				"value":"34",
+				"level":"4",
+				"children": [
+					{
+					"name":"Maestría en Estudios Internacionales",
+					"value":"36",
+					"level":"5",
+					}
+				]
+				}
+			,
+				{
+				"name":"Departamento de Filosofía",
+				"value":"25",
+				"level":"4",
+				"children": [
+					{
+					"name":"Maestría en Filosofia",
+					"value":"21",
+					"level":"5",
+					}
+				]
+				}
+			,
+				{
+				"name":"Departamento de Historia",
+				"value":"24",
+				"level":"4",
+				"children": [
+					{
+					"name":"Maestría en Geografia",
+					"value":"21",
+					"level":"5",
+					}
+				,
+					{
+					"name":"Maestría en Historia",
+					"value":"20",
+					"level":"5",
+					}
+				]
+				}
+			,
+				{
+				"name":"Departamento de Psicología",
+				"value":"26",
+				"level":"4",
+				"children": [
+					{
+					"name":"Maestría en Psicologia",
+					"value":"22",
+					"level":"5",
+					}
+				,
+					{
+					"name":"Maestría en Psicología Clínica y de la  Salud",
+					"value":"45",
+					"level":"5",
+					}
+				]
+				}
+			]
+			}
+		,
+			{
+			"name":"Decanatura de estudiantes",
+			"value":"25",
+			"level":"3",
+			"children": [
+				{
+				"name":"",
+				"value":"0",
+				"level":"4",
+				"children": [
+					{
+					"name":"Estudios generales Intercambio Maestría",
+					"value":"39",
+					"level":"5",
+					}
+				,
+					{
+					"name":"Estudios Generales de Intercambio (Maestría)",
+					"value":"44",
+					"level":"5",
+					}
+				]
+				}
+			]
+			}
+		,
+			{
+			"name":"Facultad de Derecho",
+			"value":"19",
+			"level":"3",
+			"children": [
+				{
+				"name":"",
+				"value":"0",
+				"level":"4",
+				"children": [
+					{
+					"name":"Maestría en Derecho",
+					"value":"19",
+					"level":"5",
+					}
+				,
+					{
+					"name":"Maestría en Derecho Internacional",
+					"value":"33",
+					"level":"5",
+					}
+				,
+					{
+					"name":"Maestría en Derecho Privado",
+					"value":"27",
+					"level":"5",
+					}
+				,
+					{
+					"name":"Maestría en Derecho Público para la Gestión Administrativa",
+					"value":"58",
+					"level":"5",
+					}
+				,
+					{
+					"name":"Maestría en Dereho, Gobierno y Gestion de la Justicia",
+					"value":"53",
+					"level":"5",
+					}
+				,
+					{
+					"name":"Maestría en Propiedad Intelectual",
+					"value":"33",
+					"level":"5",
+					}
+				]
+				}
+			]
+			}
+		,
+			{
+			"name":"Facultad de Economía",
+			"value":"20",
+			"level":"3",
+			"children": [
+				{
+				"name":"",
+				"value":"0",
+				"level":"4",
+				"children": [
+					{
+					"name":"Maestría en Economía",
+					"value":"20",
+					"level":"5",
+					}
+				]
+				}
+			]
+			}
+		,
+			{
+			"name":"Escuela de Gobierno Alberto Lleras Camargo",
+			"value":"42",
+			"level":"3",
+			"children": [
+				{
+				"name":"",
+				"value":"0",
+				"level":"4",
+				"children": [
+					{
+					"name":"Maestría en Politicas Publicas",
+					"value":"30",
+					"level":"5",
+					}
+				,
+					{
+					"name":"Maestría en Salud Pública",
+					"value":"25",
+					"level":"5",
+					}
+				,
+					{
+					"name":"Maestría en Gobierno",
+					"value":"20",
+					"level":"5",
+					}
+				]
+				}
+			]
+			}
+		,
+			{
+			"name":"Facultad de Ingeniería",
+			"value":"22",
+			"level":"3",
+			"children": [
+				{
+				"name":"Departamento de Ingeniería de Sistemas y Computación",
+				"value":"52",
+				"level":"4",
+				"children": [
+					{
+					"name":"Maestría en Arquitecturas de Tecnologías de Información",
+					"value":"55",
+					"level":"5",
+					}
+				,
+					{
+					"name":"Maestría en Ing. Sistemas",
+					"value":"25",
+					"level":"5",
+					}
+				,
+					{
+					"name":"Maestría en Ingeniería de Software",
+					"value":"34",
+					"level":"5",
+					}
+				,
+					{
+					"name":"Maestría Seguridad Información",
+					"value":"30",
+					"level":"5",
+					}
+				,
+					{
+					"name":"Maestría en Tecnologías de Información para el Negocio",
+					"value":"54",
+					"level":"5",
+					}
+				]
+				}
+			,
+				{
+				"name":"Departamento de Ingenieria Civil y Ambiental",
+				"value":"44",
+				"level":"4",
+				"children": [
+					{
+					"name":"Maestría en Ing. Ambiental",
+					"value":"26",
+					"level":"5",
+					}
+				,
+					{
+					"name":"Maestría en Ing. Civil",
+					"value":"22",
+					"level":"5",
+					}
+				]
+				}
+			,
+				{
+				"name":"Departamento de Ingeniería Biomédica",
+				"value":"36",
+				"level":"4",
+				"children": [
+					{
+					"name":"Maestría en Ing. Biomédica",
+					"value":"26",
+					"level":"5",
+					}
+				]
+				}
+			,
+				{
+				"name":"Departamento de Ingeniería Eléctrica y Electrónica",
+				"value":"50",
+				"level":"4",
+				"children": [
+					{
+					"name":"Maestría en Ing. Eléctrica",
+					"value":"26",
+					"level":"5",
+					}
+				,
+					{
+					"name":"Maestría en Ing. Electrónica",
+					"value":"28",
+					"level":"5",
+					}
+				]
+				}
+			,
+				{
+				"name":"Departamento de Ingeniería Industrial",
+				"value":"37",
+				"level":"4",
+				"children": [
+					{
+					"name":"Maestría en Ing. Industrial",
+					"value":"27",
+					"level":"5",
+					}
+				,
+					{
+					"name":"Maestría en Inteligencia Analitica para la Toma de Decisiones",
+					"value":"61",
+					"level":"5",
+					}
+				]
+				}
+			,
+				{
+				"name":"Departamento de Ingeniería Mecánica",
+				"value":"35",
+				"level":"4",
+				"children": [
+					{
+					"name":"Maestría en Ing. Mecánica",
+					"value":"25",
+					"level":"5",
+					}
+				,
+					{
+					"name":"Maestría en Ingeniería de Petróleos",
+					"value":"35",
+					"level":"5",
+					}
+				]
+				}
+			,
+				{
+				"name":"Departamento de Ingeniería Química",
+				"value":"34",
+				"level":"4",
+				"children": [
+					{
+					"name":"Maestría en Ing. Quimica",
+					"value":"24",
+					"level":"5",
+					}
+				,
+					{
+					"name":"Maestría en Diseño de Procesos y Productos",
+					"value":"42",
+					"level":"5",
+					}
+				]
+				}
+			]
+			}
+		]
+		}
+	]
+	}

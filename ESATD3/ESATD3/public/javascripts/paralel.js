@@ -1,23 +1,33 @@
-﻿var color= [ "CC4444", "009933", "FF6600", "3333FF", "9999FF", "6666CC", "3333CC", "333399", "666699"];
-
-
+﻿// -------------- Control de los ejes paralelos
 var preguntasJson;
-d3.json("data/questionsCategories.json", function(error, treeData){
-    preguntasJson = treeData;
-});
 
-    console.log(preguntasJson);
+// Se cargan las preguntas de la base de datos
 
+
+
+var primeros;
+d3.json("data/primeros.json", function (error, data) { primeros = data; });
+
+var color = ["CC4444", "009933", "FF6600", "3333FF", "9999FF", "6666CC", "3333CC", "333399", "666699"];
 var c10 = d3.scale.category10();
 function colores_google(n) {
   var colores_g = ["#3366cc", "#dc3912", "#ff9900", "#109618", "#990099", "#0099c6", "#dd4477", "#66aa00", "#b82e2e", "#316395", "#994499", "#22aa99", "#aaaa11", "#6633cc", "#e67300", "#8b0707", "#651067", "#329262", "#5574a6", "#3b3eac"];
   return colores_g[n % colores_g.length];
 }
-treeJSON = d3.json("data/arbol.json", function (error, treeData) {
-    
-    createTree(treeData, "#treecontainer", true);
 
-});
+
+// Crea un nodo del arbol
+function nodo(pMuestra, pNivel, pFacultad, pDepartamento, pPrograma) {
+    this.muestra = pMuestra;
+    this.nivel = pNivel;
+    this.departamento = pDepartamento;
+    this.programa = pPrograma;
+}
+
+//Los nodos que se están mostrando
+var seriesNodos = [];
+
+// Evaluar necesidad
 function insertNewCoords(textito){
     //textito es la variable que recibe la respuesta SQL 
     //TODO revisar por que la respuesta no incluia tres preguntas (42,43 y 10);
@@ -43,41 +53,45 @@ function insertNewCoords(textito){
     refreshGraph();
 }
 
+// Infromación de las series.
 var globaldata;
+d3.json("/paralelinfo", function (error, data) { globaldata = data; });
+
+// Maneja el tamaño y margenes de los ejes paralelos
 var margin = { top: 30, right: 10, bottom: 10, left: 10 },
     width = 960 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
 
+// Maneja las escalas
 var x1 = d3.scale.ordinal().rangePoints([0, width], 1),
     y1 = {},
     dragging = {};
+
 
 var line = d3.svg.line(),
     axis = d3.svg.axis().orient("left"),
     background,
     foreground;
 
+// Crea el SVG que contiene todo y lo ubica
 var svg = d3.select("#paralel").append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-var datacsv ="data/ejemplo2.csv";
 
-d3.csv(datacsv, function (error, surveys) {
-    globaldata = surveys;
-    // Extract the list of dimensions and create a scale for each.
-    x1.domain(dimensions = d3.keys(surveys[0]).filter(function (d) {
+
+
+function crearGrafico()
+{
+    x1.domain(dimensions = preguntasJson.map(function (d) { return d.No_pregunta }).filter(function (d) {
         return d && (y1[d] = d3.scale.linear()
-            .domain([0,5])
-            //Si el zoom debe ser dinamico 
-            //.domain(d3.extent(surveys, function (p) { return +p[d]; }))
-            //Si el zoom debe estar siempre en escala de 1 a 5
+            .domain(d3.extent(primeros, function (p) { return +p[d]; }))
             .range([height, 0]));
     }));
 
-    // Add a group element for each dimension.
+    //Se agregan los ejes
     var g = svg.selectAll(".dimension")
         .data(dimensions)
         .enter().append("g")
@@ -108,97 +122,57 @@ d3.csv(datacsv, function (error, surveys) {
                     .attr("visibility", null);
             }));
 
-    // Add an axis and title.
+    // Fondos que cambian de color para especificar el tema
     g.append("g")
         .attr("class", "axis")
-        .style("fill", function (d, i) {
-            
-            var randomColor;
-            //Satisfaccion General
-            if(i == 0){
-                randomColor = color[0];
-            }
-            //Imagen Institucional
-            else if(i>=1 && i <=4){
-                 randomColor = color[1];
-            }
-            //Procesos Academicos
-            else if( (i>=5 && i<=12)|| i==42 ){
-                 randomColor = color[2];
-            }
-            //Servicios Prestados por la universidad: 
-            else if( i==13 ){
-                 randomColor = color[3];
-            }
-            //Servicios Prestados por la universidad: 
-            else if( i>=4 && i<=17){
-                 randomColor = color[4];
-            }
-            //Servicios Prestados por la universidad: 
-            else if( i>=18 && i<=23){
-                 randomColor = color[5];
-            }
-            //Servicios Prestados por la universidad: 
-            else if( i==24 || i==25){
-                 randomColor = color[6];
-            }
-            //Servicios Prestados por la universidad: 
-            else if( (i>=26 && i<=35)||i==41){
-                 randomColor = color[7];
-            }
-            //Servicios Prestados por la universidad: 
-            else if( i>=36 && i<=40){
-                 randomColor = color[8];
-            }
-            return randomColor;
-            
-            //return colores_google(i);
-        })
-        .each(function (d) {  d3.select(this).call(axis.scale(y1[d])); }).attr("dx",10).style("text-anchor", "middle") 
-    
-        
- d3.selectAll(".axis")    
+        .style("fill",function (d, i) { return color[d.no_tema]; })
+        .each(function (d) { d3.select(this).call(axis.scale(y1[d])); }).attr("dx", 10).style("text-anchor", "middle")
+
+    // los rotulos
+    g.selectAll(".axis")
         .append("text")
         .style("text-anchor", "middle")
         .attr("y", -9)
-        .text(function (d) { return d+" "; });
+        .text(function (d) { return d + " "; });
 
- d3.selectAll(".axis").append("rect")
-                    .attr("x", function (d) { return  -10 })
-                    .attr("y", function (d) { 0 })
-                    .attr("width", 20)
-                    .attr("height", height)
-                    .style("opacity", 0.5);
-        ;
+    
+/**NO SE PARA QUE ES ESTO, introducido por juan
 
-        d3.selectAll(".axis")
-                    .append("rect")
-                    .attr("x", function (d) { return  -10 })
-                    .attr("y", function (d) { 0 })
-                    .attr("width", 20)
-                    .attr("height", height)
-                    .style("fill", function (d) {
-                            return d.style;
-                        })
-                    .style("opacity", 0.5);
-        /**
-        d3.selectAll(".axis").shapes.style("fill", function (d) {
-           return "white";
-        });
-*/
-    // Add grey background lines for context.
+    d3.selectAll(".axis").append("rect")
+        .attr("x", function (d) { return -10 })
+        .attr("y", function (d) { 0 })
+        .attr("width", 20)
+        .attr("height", height)
+        .style("opacity", 0.5);
+    ;
+
+    d3.selectAll(".axis")
+        .append("rect")
+        .attr("x", function (d) { return -10 })
+        .attr("y", function (d) { 0 })
+        .attr("width", 20)
+        .attr("height", height)
+        .style("fill", function (d) {
+            return d.style;
+        })
+        .style("opacity", 0.5);
+
+
+    */
+
+    // Los fondos grises
     background = svg.append("g")
         .attr("class", "background")
         .selectAll("path")
-        .data(surveys)
+        .data(globaldata)
         .enter().append("path")
         .attr("d", path);
 
-    // Add blue foreground lines for focus.
+    // Los colores
     foreground = svg.append("g")
         .attr("class", "foreground")
         .selectAll("path")
-        .data(surveys)
+        .data(globaldata)
         .enter().append("path")
         .attr("d", path);
 
@@ -224,163 +198,54 @@ d3.csv(datacsv, function (error, surveys) {
 
     });
 
-});
+}
 
-var refreshGraph = function(){ 
-    svg.selectAll("g").remove();
-    var surveys = globaldata;
-    // Extract the list of dimensions and create a scale for each.
-    x1.domain(dimensions = d3.keys(surveys[0]).filter(function (d) {
-        return d != "Nombre" && (y1[d] = d3.scale.linear()
-            .domain([0,5])
-            //Si el zoom debe ser dinamico 
-            //.domain(d3.extent(surveys, function (p) { return +p[d]; }))
-            //Si el zoom debe estar siempre en escala de 1 a 5
-            .range([height, 0]));
-    }));
+//Agrega un nuevo nodo a las series
+function agregarNodo(muestra, nivel, facultad, departamento, programa)
+{
+    seriesNodos.push(nodo(muestra, nivel, facultad, departamento, programa));
+}
 
-    // Add a group element for each dimension.
-    var g = svg.selectAll(".dimension")
-        .data(dimensions)
-        .enter().append("g")
-        .attr("class", "dimension")
-        .attr("transform", function (d) { return "translate(" + x1(d) + ")"; })
-        .call(d3.behavior.drag()
-            .origin(function (d) { return { x: x1(d) }; })
-            .on("dragstart", function (d) {
-                dragging[d] = x1(d);
-                background.attr("visibility", "hidden");
-            })
-            .on("drag", function (d) {
-                dragging[d] = Math.min(width, Math.max(0, d3.event.x));
-                foreground.attr("d", path);
-                dimensions.sort(function (a, b) { return position(a) - position(b); });
-                x1.domain(dimensions);
-                g.attr("transform", function (d) { return "translate(" + position(d) + ")"; })
-            })
-            .on("dragend", function (d) {
-                delete dragging[d];
-                transition(d3.select(this)).attr("transform", "translate(" + x1(d) + ")");
-                transition(foreground).attr("d", path);
-                background
-                    .attr("d", path)
-                    .transition()
-                    .delay(500)
-                    .duration(0)
-                    .attr("visibility", null);
-            }));
+//Eliminar un nodo
+function eliminarNodo(eliminar)
+{
+    for (i = 0; i < seriesNodos.length; i++)
+    {
+        var nodoAc = seriesNodos[i];
+        if (nodosIguales(nodoAc, eliminar))
+            seriesNodos.splice(i, 1);
+    }
+}
 
-    // Add an axis and title.
-    g.append("g")
-        .attr("class", "axis")
-        .style("fill", function (d, i) {
-            var randomColor;
-            //Satisfaccion General
-            if(i == 0){
-                randomColor = color[0];
-            }
-            //
-            else if(i>=1 && i <=4){
-                 randomColor = color[1];
-            }
-            //
-            else if( (i>=5 && i<=12)|| i==42 ){
-                 randomColor = color[2];
-            }
-            else if( i==13 ){
-                 randomColor = color[3];
-            }
-            //
-            else if( i>=4 && i<=17){
-                 randomColor = color[4];
-            }
-            //
-            else if( i>=18 && i<=23){
-                 randomColor = color[5];
-            }
-            //
-            else if( i==24 || i==25){
-                 randomColor = color[6];
-            }
-            //
-            else if( (i>=26 && i<=35)||i==41){
-                 randomColor = color[7];
-            }
-            //
-            else if( i>=36 && i<=40){
-                 randomColor = color[8];
-            }
-            return randomColor;
-        })
-        .each(function (d) {  d3.select(this).call(axis.scale(y1[d])); }).attr("dx",10).style("text-anchor", "middle") 
-    
-        
- d3.selectAll(".axis")    
-        .append("text")
-        .style("text-anchor", "middle")
-        .attr("y", -9)
-        .text(function (d) { return d+" "; });
+//Funcion que compara y dice si dos nodos son iguales
+function nodosIguales(nodo1, nodo2)
+{
+    return nodo1.muestra == nodo2.muestra && nodo1.nivel == nodo2.nivel && nodo1.facultad == nodo2.faculdad && nodo1.departamento == nodo2.departamento && nodo1.programa == nodo2.programa;
+}
 
- d3.selectAll(".axis").append("rect")
-                    .attr("x", function (d) { return  -10 })
-                    .attr("y", function (d) { 0 })
-                    .attr("width", 20)
-                    .attr("height", height)
-                    .style("opacity", 0.5);
-        ;
+function referescar() {
 
-        d3.selectAll(".axis")
-                    .append("rect")
-                    .attr("x", function (d) { return  -10 })
-                    .attr("y", function (d) { 0 })
-                    .attr("width", 20)
-                    .attr("height", height)
-                    .style("fill", function (d) {
-                            return d.style;
-                        })
-                    .style("opacity", 0.5);
-        /**
-        d3.selectAll(".axis").shapes.style("fill", function (d) {
-           return "white";
-        });
-*/
-    // Add grey background lines for context.
-    background = svg.append("g")
-        .attr("class", "background")
+
+    // Los fondos grises
+    background = svg.select(".background")
         .selectAll("path")
-        .data(surveys)
-        .enter().append("path")
+        .data(globaldata);
+
+    background.enter().append("path")
         .attr("d", path);
 
-    // Add blue foreground lines for focus.
-    foreground = svg.append("g")
-        .attr("class", "foreground")
+    background.exit().remove();
+
+    // Los colores
+    foreground = svg.select(".foreground")
         .selectAll("path")
-        .data(surveys)
-        .enter().append("path")
+        .data(globaldata);
+
+    foreground.enter().append("path")
         .attr("d", path);
 
-    // Add and store a brush for each axis.
-    g.append("g")
-        .attr("class", "brush")
-        .each(function (d) {
-            d3.select(this).call(y1[d].brush = d3.svg.brush().y(y1[d]).on("brushstart", brushstart).on("brush", brush));
-        })
-        .selectAll("rect")
-        .attr("x", -8)
-        .attr("width", 16);
+    foreground.exit().remove();
 
-    // add style linepath
-    d3.selectAll(".foreground path").style("stroke", function (d, i) {
-        return "black";
-        //return "hsl(" + (((170 - d.P1) * 90) / 170) + ",80%,60%)";
-    }).style("stroke-width", function (d, i) {
-        //return (1 - (d.P1 / 170) * 5) ;
-        return 1;
-    }).style("opacity", function (d, i) {
-        return 1 - ((d.P1) / 300);
-
-    });
 };
 
 function position(d) {
@@ -411,3 +276,10 @@ function brush() {
         }) ? null : "none";
     });
 }
+
+
+
+d3.json("/tree", function (error, data) {
+    preguntasJson = data;
+    crearGrafico();
+});

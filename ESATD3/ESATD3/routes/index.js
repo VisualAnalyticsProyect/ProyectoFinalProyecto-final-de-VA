@@ -27,4 +27,8 @@ router.get('/paralelinfo', function (req, res) {
     consultas.getParalelInfo(req, res);
 });
 
+router.get('/paralelsi', function (req, res) {
+    consultas.getParalelSI(req, res);
+});
+
 module.exports = router;

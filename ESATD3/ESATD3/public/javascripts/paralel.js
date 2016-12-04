@@ -1,6 +1,6 @@
 ﻿treeJSON = d3.json("data/ejemplonivel.json", function (error, treeData) {
 
-   // createTree(treeData, "#treecontainerDetalle", false);data/ejemplonivel.json
+    //createTree(treeData, "#ejecontainer", false);//data/ejemplonivel.json
     createTree(treeData, "#treecontainer", true);
 
 });
@@ -54,7 +54,7 @@ d3.csv(datacsv, function (error, surveys) {
     globaldata = surveys;
     // Extract the list of dimensions and create a scale for each.
     x1.domain(dimensions = d3.keys(surveys[0]).filter(function (d) {
-        return d != "Nombre" && (y1[d] = d3.scale.linear()
+        return d && (y1[d] = d3.scale.linear()
             .domain([0,5])
             //Si el zoom debe ser dinamico 
             //.domain(d3.extent(surveys, function (p) { return +p[d]; }))

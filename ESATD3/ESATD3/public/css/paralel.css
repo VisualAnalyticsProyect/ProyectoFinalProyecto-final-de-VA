@@ -29,10 +29,20 @@
 }
 
 #paralel{
-    min-width:40%;
-    max-width:50%;
+    min-width:20%;
+    max-width:30%;
     float:left;
 }
+#ejecontainer{
+    margin-top:100px;   
+    min-width:5%; 
+    max-width:40%;
+    float:left;
+    border-style:dotted;
+}
+    #ejecontainer svg:hover {
+    background-color:rgba(0, 103, 255, 0.78);
+    }
 .main{
     display:table;
 }

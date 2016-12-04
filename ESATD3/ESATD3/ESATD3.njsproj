@@ -723,6 +723,7 @@
     <Compile Include="public\dist\js\bootstrap.js" />
     <Compile Include="public\dist\js\bootstrap.min.js" />
     <Compile Include="public\dist\js\npm.js" />
+    <Compile Include="public\javascripts\ejeDrop.js" />
     <Compile Include="public\javascripts\paralel.js" />
     <Compile Include="public\javascripts\tree.js" />
     <Compile Include="public\javascripts\visualD3.js" />

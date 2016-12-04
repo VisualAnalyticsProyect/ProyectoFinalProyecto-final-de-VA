@@ -6,8 +6,6 @@ d3.json("data/questionsCategories.json", function(error, treeData){
     preguntasJson = treeData;
 });
 
-    console.log(preguntasJson);
-
 var c10 = d3.scale.category10();
 function colores_google(n) {
   var colores_g = ["#3366cc", "#dc3912", "#ff9900", "#109618", "#990099", "#0099c6", "#dd4477", "#66aa00", "#b82e2e", "#316395", "#994499", "#22aa99", "#aaaa11", "#6633cc", "#e67300", "#8b0707", "#651067", "#329262", "#5574a6", "#3b3eac"];
@@ -18,6 +16,12 @@ treeJSON = d3.json("data/arbol.json", function (error, treeData) {
 //    createTree(treeData, "#treecontainer", true);
 
 });
+
+var drag = d3.behavior.drag().origin(function (d) { return { x: x1(d) }; })            
+       .on("dragstart", startdragging)
+       .on("drag", whileidrag)
+       .on("dragend", justfinisheddragging);
+
 function insertNewCoords(textito){
     //textito es la variable que recibe la respuesta SQL 
     //TODO revisar por que la respuesta no incluia tres preguntas (42,43 y 10);
@@ -35,7 +39,7 @@ function insertNewCoords(textito){
         var indicando = +s + +1;
         var nomb = "P"+indicando;
         myjsonobject[nomb] = ucoord[s].PROMEDIO;
-        console.log(ucoord[s].PROMEDIO);
+        //console.log(ucoord[s].PROMEDIO);
     }
     globaldata.push(myjsonobject);
     //console.log(globaldata);
@@ -57,59 +61,60 @@ var line = d3.svg.line(),
     background,
     foreground;
 
-var svg = d3.select("#paralel").append("svg")
+var svgP = d3.select("#paralel").append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-var datacsv ="data/ejemplo2.csv";
+var convert = function (d) {
+    return {
+      //date: new Date(d.date),
+      value: +d.value         // convert string to number
+    };
+  } ;
 
-d3.csv(datacsv, function (error, surveys) {
+d3.csv("data/ejemplo2.csv", function (error, surveys) {
+    console.log(surveys);
     globaldata = surveys;
     // Extract the list of dimensions and create a scale for each.
     x1.domain(dimensions = d3.keys(surveys[0]).filter(function (d) {
-        return d && (y1[d] = d3.scale.linear()
+        return d != "Nombre" && (y1[d] = d3.scale.linear()
             .domain([0,5])
             //Si el zoom debe ser dinamico 
-            //.domain(d3.extent(surveys, function (p) { return +p[d]; }))
+            //.domain(d3.extent(surveys, function (p) { return +p[d.value]; }))
             //Si el zoom debe estar siempre en escala de 1 a 5
             .range([height, 0]));
     }));
 
+    // Add grey background lines for context.
+    background = svgP.append("g")
+        .attr("class", "background")
+        .selectAll("path")
+        .data(surveys)
+        .enter().append("path")
+        .attr("d", path);
+
+    // Add blue foreground lines for focus.
+    foreground = svgP.append("g")
+        .attr("class", "foreground")
+        .selectAll("path")
+        .data(surveys)
+        .enter().append("path")
+        .attr("d", path);
+
     // Add a group element for each dimension.
-    var g = svg.selectAll(".dimension")
+    
+
+    var gdim = svgP.selectAll(".dimension")
         .data(dimensions)
         .enter().append("g")
         .attr("class", "dimension")
         .attr("transform", function (d) { return "translate(" + x1(d) + ")"; })
-        .call(d3.behavior.drag()
-            .origin(function (d) { return { x: x1(d) }; })
-            .on("dragstart", function (d) {
-                dragging[d] = x1(d);
-                background.attr("visibility", "hidden");
-            })
-            .on("drag", function (d) {
-                dragging[d] = Math.min(width, Math.max(0, d3.event.x));
-                foreground.attr("d", path);
-                dimensions.sort(function (a, b) { return position(a) - position(b); });
-                x1.domain(dimensions);
-                g.attr("transform", function (d) { return "translate(" + position(d) + ")"; })
-            })
-            .on("dragend", function (d) {
-                delete dragging[d];
-                transition(d3.select(this)).attr("transform", "translate(" + x1(d) + ")");
-                transition(foreground).attr("d", path);
-                background
-                    .attr("d", path)
-                    .transition()
-                    .delay(500)
-                    .duration(0)
-                    .attr("visibility", null);
-            }));
+        .call(drag);
 
     // Add an axis and title.
-    g.append("g")
+    gdim.append("g")
         .attr("class", "axis")
         .style("fill", function (d, i) {
             
@@ -186,24 +191,9 @@ d3.csv(datacsv, function (error, surveys) {
            return "white";
         });
 */
-    // Add grey background lines for context.
-    background = svg.append("g")
-        .attr("class", "background")
-        .selectAll("path")
-        .data(surveys)
-        .enter().append("path")
-        .attr("d", path);
-
-    // Add blue foreground lines for focus.
-    foreground = svg.append("g")
-        .attr("class", "foreground")
-        .selectAll("path")
-        .data(surveys)
-        .enter().append("path")
-        .attr("d", path);
-
+    
     // Add and store a brush for each axis.
-    g.append("g")
+    gdim.append("g")
         .attr("class", "brush")
         .each(function (d) {
             d3.select(this).call(y1[d].brush = d3.svg.brush().y(y1[d]).on("brushstart", brushstart).on("brush", brush));
@@ -227,7 +217,7 @@ d3.csv(datacsv, function (error, surveys) {
 });
 
 var refreshGraph = function(){ 
-    svg.selectAll("g").remove();
+    svgP.selectAll("g").remove();
     var surveys = globaldata;
     // Extract the list of dimensions and create a scale for each.
     x1.domain(dimensions = d3.keys(surveys[0]).filter(function (d) {
@@ -240,38 +230,15 @@ var refreshGraph = function(){
     }));
 
     // Add a group element for each dimension.
-    var g = svg.selectAll(".dimension")
+    var gdim = svgP.selectAll(".dimension")
         .data(dimensions)
         .enter().append("g")
         .attr("class", "dimension")
         .attr("transform", function (d) { return "translate(" + x1(d) + ")"; })
-        .call(d3.behavior.drag()
-            .origin(function (d) { return { x: x1(d) }; })
-            .on("dragstart", function (d) {
-                dragging[d] = x1(d);
-                background.attr("visibility", "hidden");
-            })
-            .on("drag", function (d) {
-                dragging[d] = Math.min(width, Math.max(0, d3.event.x));
-                foreground.attr("d", path);
-                dimensions.sort(function (a, b) { return position(a) - position(b); });
-                x1.domain(dimensions);
-                g.attr("transform", function (d) { return "translate(" + position(d) + ")"; })
-            })
-            .on("dragend", function (d) {
-                delete dragging[d];
-                transition(d3.select(this)).attr("transform", "translate(" + x1(d) + ")");
-                transition(foreground).attr("d", path);
-                background
-                    .attr("d", path)
-                    .transition()
-                    .delay(500)
-                    .duration(0)
-                    .attr("visibility", null);
-            }));
+        .call(drag);
 
     // Add an axis and title.
-    g.append("g")
+    gdim.append("g")
         .attr("class", "axis")
         .style("fill", function (d, i) {
             var randomColor;
@@ -345,7 +312,7 @@ var refreshGraph = function(){
         });
 */
     // Add grey background lines for context.
-    background = svg.append("g")
+    background = svgP.append("g")
         .attr("class", "background")
         .selectAll("path")
         .data(surveys)
@@ -353,7 +320,7 @@ var refreshGraph = function(){
         .attr("d", path);
 
     // Add blue foreground lines for focus.
-    foreground = svg.append("g")
+    foreground = svgP.append("g")
         .attr("class", "foreground")
         .selectAll("path")
         .data(surveys)
@@ -361,7 +328,7 @@ var refreshGraph = function(){
         .attr("d", path);
 
     // Add and store a brush for each axis.
-    g.append("g")
+    gdim.append("g")
         .attr("class", "brush")
         .each(function (d) {
             d3.select(this).call(y1[d].brush = d3.svg.brush().y(y1[d]).on("brushstart", brushstart).on("brush", brush));
@@ -382,7 +349,30 @@ var refreshGraph = function(){
 
     });
 };
-
+function startdragging(d){
+    console.log("Start dragging");
+    dragging[d] = x1(d);
+    background.attr("visibility", "hidden");
+};
+function whileidrag(d) {
+    console.log("Dragging");
+    dragging[d] = Math.min(width, Math.max(0, d3.event.x));
+    foreground.attr("d", path);
+    dimensions.sort(function (a, b) { return position(a) - position(b); });
+    x1.domain(dimensions);
+    g.attr("transform", function (d) { return "translate(" + position(d) + ")"; })
+};
+function justfinisheddragging(d) {
+    console.log("Finished dragging");
+    delete dragging[d];
+    transition(d3.select(this)).attr("transform", "translate(" + x1(d) + ")");
+    transition(foreground).attr("d", path);
+    background.attr("d", path)
+            .transition()
+            .delay(500)
+            .duration(0)
+            .attr("visibility", null);
+};
 function position(d) {
     var v = dragging[d];
     return v == null ? x1(d) : v;

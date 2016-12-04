@@ -49,11 +49,11 @@ function createTree(treeData, container, isDrag) {
         .attr("id", containertag + "svg")
 
 
-    // Append a group which holds all nodes and which the zoom Listener can act upon.
-    var svgGroup = baseSvg.append("g").attr("id", containertag + "g");
-
-    // define the zoomListener which calls the zoom function on the "zoom" event constrained within the scaleExtents
+   // define the zoomListener which calls the zoom function on the "zoom" event constrained within the scaleExtents
     var zoomListener = d3.behavior.zoom().scaleExtent([0.1, 3]).on("zoom", zoom);
+
+    // Append a group which holds all nodes and which the zoom Listener can act upon.
+    var svgGroup = baseSvg.append("g").attr("id", containertag + "g").call(zoomListener);;
 
     // Define the drag listeners for drag/drop behaviour of nodes.
     dragListener = d3.behavior.drag()

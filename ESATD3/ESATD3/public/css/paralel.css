@@ -16,7 +16,10 @@
   shape-rendering: crispEdges;
 }
 
-.axis line,
+.axis line{
+  cursor: move;
+
+},
 .axis path {
   fill: none;
   stroke: #000;
@@ -36,7 +39,9 @@
 
 #paralel{
     min-width:20%;
-    max-width:40%;
+    max-width:50%;
+    margin-top: 20%;
+    margin-right: 4%;
     float:left;
 }
 #ejecontainer{   
@@ -44,6 +49,7 @@
     max-width:20%;
     float:left;
     border-style:dotted;
+    padding-top: 10%;
     margin-top: 20%;
     margin-right: 4%;
    

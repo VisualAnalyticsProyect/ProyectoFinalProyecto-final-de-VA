@@ -58,9 +58,7 @@ function update(data) {
         .attr("height", function (d) { return 50; })
         .attr("border-style", "solid").enter().append("text")
         .attr("x", 5)
-        .attr("y", function (d) {
-                    return ye(d.grade) + 30;
-                })
+        .attr("y", function (d) {return ye(d.grade) + 30;})
         .attr('class', 'barText')
         .attr("text-anchor","start")
         .text(function (d) {

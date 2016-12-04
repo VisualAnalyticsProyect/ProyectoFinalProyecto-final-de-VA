@@ -35,3 +35,7 @@ float:left;
 margin-top:0px;
 height:500px;
 }
+
+.main .svgdrag{
+    overflow:visible;
+}

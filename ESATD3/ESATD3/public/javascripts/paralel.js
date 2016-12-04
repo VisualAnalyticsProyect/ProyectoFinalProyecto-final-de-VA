@@ -17,10 +17,6 @@ treeJSON = d3.json("data/arbol.json", function (error, treeData) {
 
 });
 
-var drag = d3.behavior.drag().origin(function (d) { return { x: x1(d) }; })            
-       .on("dragstart", startdragging)
-       .on("drag", whileidrag)
-       .on("dragend", justfinisheddragging);
 
 function insertNewCoords(textito){
     //textito es la variable que recibe la respuesta SQL 
@@ -67,12 +63,6 @@ var svgP = d3.select("#paralel").append("svg")
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-var convert = function (d) {
-    return {
-      //date: new Date(d.date),
-      value: +d.value         // convert string to number
-    };
-  } ;
 
 d3.csv("data/ejemplo2.csv", function (error, surveys) {
     console.log(surveys);
@@ -111,7 +101,35 @@ d3.csv("data/ejemplo2.csv", function (error, surveys) {
         .enter().append("g")
         .attr("class", "dimension")
         .attr("transform", function (d) { return "translate(" + x1(d) + ")"; })
-        .call(drag);
+        .call(d3.behavior.drag().origin(function (d) { return { x: x1(d) }; })            
+           .on("dragstart", function (d){
+                console.log("Start dragging");
+                dragging[d] = x1(d);
+                background.attr("visibility", "hidden");
+            })
+           .on("drag", function (d) {
+                console.log("Dragging");
+                dragging[d] = Math.min(width, Math.max(0, d3.event.x));
+                foreground.attr("d", path);
+                dimensions.sort(function (a, b) { return position(a) - position(b); });
+                x1.domain(dimensions);
+                gdim.attr("transform", function (d) { return "translate(" + position(d) + ")"; })
+            })
+           .on("dragend", function (d) {
+                console.log("Finished dragging");
+                delete dragging[d];
+                transition(d3.select(this)).attr("transform", "translate(" + x1(d) + ")");
+                transition(foreground).attr("d", path);
+                background.attr("d", path)
+                        .transition()
+                        .delay(500)
+                        .duration(0)
+                        .attr("visibility", null);
+            }))
+            .on("click", function(d,i){
+                console.log("Clicked"+ i);
+            })
+            ;
 
     // Add an axis and title.
     gdim.append("g")
@@ -168,14 +186,6 @@ d3.csv("data/ejemplo2.csv", function (error, surveys) {
         .attr("y", -9)
         .text(function (d) { return d+" "; });
 
- d3.selectAll(".axis").append("rect")
-                    .attr("x", function (d) { return  -10 })
-                    .attr("y", function (d) { 0 })
-                    .attr("width", 20)
-                    .attr("height", height)
-                    .style("opacity", 0.5);
-        ;
-
         d3.selectAll(".axis")
                     .append("rect")
                     .attr("x", function (d) { return  -10 })
@@ -185,7 +195,8 @@ d3.csv("data/ejemplo2.csv", function (error, surveys) {
                     .style("fill", function (d) {
                             return d.style;
                         })
-                    .style("opacity", 0.5);
+                    .style("opacity", 0.8)
+                    ;
         /**
         d3.selectAll(".axis").shapes.style("fill", function (d) {
            return "white";
@@ -235,7 +246,31 @@ var refreshGraph = function(){
         .enter().append("g")
         .attr("class", "dimension")
         .attr("transform", function (d) { return "translate(" + x1(d) + ")"; })
-        .call(drag);
+        .call(d3.behavior.drag().origin(function (d) { return { x: x1(d) }; })            
+           .on("dragstart", function (d){
+                console.log("Start dragging");
+                dragging[d] = x1(d);
+                background.attr("visibility", "hidden");
+            })
+           .on("drag", function (d) {
+                console.log("Dragging");
+                dragging[d] = Math.min(width, Math.max(0, d3.event.x));
+                foreground.attr("d", path);
+                dimensions.sort(function (a, b) { return position(a) - position(b); });
+                x1.domain(dimensions);
+                gdim.attr("transform", function (d) { return "translate(" + position(d) + ")"; })
+            })
+           .on("dragend", function (d) {
+                console.log("Finished dragging");
+                delete dragging[d];
+                transition(d3.select(this)).attr("transform", "translate(" + x1(d) + ")");
+                transition(foreground).attr("d", path);
+                background.attr("d", path)
+                        .transition()
+                        .delay(500)
+                        .duration(0)
+                        .attr("visibility", null);
+            }));
 
     // Add an axis and title.
     gdim.append("g")
@@ -288,13 +323,6 @@ var refreshGraph = function(){
         .attr("y", -9)
         .text(function (d) { return d+" "; });
 
- d3.selectAll(".axis").append("rect")
-                    .attr("x", function (d) { return  -10 })
-                    .attr("y", function (d) { 0 })
-                    .attr("width", 20)
-                    .attr("height", height)
-                    .style("opacity", 0.5);
-        ;
 
         d3.selectAll(".axis")
                     .append("rect")
@@ -305,7 +333,7 @@ var refreshGraph = function(){
                     .style("fill", function (d) {
                             return d.style;
                         })
-                    .style("opacity", 0.5);
+                    .style("opacity", 0.8);
         /**
         d3.selectAll(".axis").shapes.style("fill", function (d) {
            return "white";
@@ -349,30 +377,7 @@ var refreshGraph = function(){
 
     });
 };
-function startdragging(d){
-    console.log("Start dragging");
-    dragging[d] = x1(d);
-    background.attr("visibility", "hidden");
-};
-function whileidrag(d) {
-    console.log("Dragging");
-    dragging[d] = Math.min(width, Math.max(0, d3.event.x));
-    foreground.attr("d", path);
-    dimensions.sort(function (a, b) { return position(a) - position(b); });
-    x1.domain(dimensions);
-    g.attr("transform", function (d) { return "translate(" + position(d) + ")"; })
-};
-function justfinisheddragging(d) {
-    console.log("Finished dragging");
-    delete dragging[d];
-    transition(d3.select(this)).attr("transform", "translate(" + x1(d) + ")");
-    transition(foreground).attr("d", path);
-    background.attr("d", path)
-            .transition()
-            .delay(500)
-            .duration(0)
-            .attr("visibility", null);
-};
+
 function position(d) {
     var v = dragging[d];
     return v == null ? x1(d) : v;

@@ -1,13 +1,13 @@
 ﻿function createTree(treeData, container, isDrag) {
 
-    var xScale = d3.scale.linear().domain([0, 5]).range([0, 100]);
+    var xScale = d3.scale.linear().domain([0, 10]).range([0, 50]);
     // Calculate total nodes, max label length
     var totalNodes = 0;
     var maxLabelLength = 0;
     // variables for drag/drop
     var selectedNode = null;
     var draggingNode = null;
-    var anchuraNodos = 50;
+    var anchuraNodos = 10;
     var root;
     var containertag = container.replace("#", "");
     // Misc. variables
@@ -123,7 +123,7 @@
 
         // Set widths between levels based on maxLabelLength.
         nodes.forEach(function (d) {
-            d.y = (d.depth * (maxLabelLength * 5));
+            d.y = (d.depth * (maxLabelLength * 1));
         });
 
         // Update the nodes…
@@ -158,7 +158,7 @@
             .transition()
             .duration(duration * 2)
             .attr("width", function (d) { return xScale(d.value); })
-            .style("fill", function (d) { return d.level });
+            .style("fill", function (d) { return color[d.level] });
 
         nodeEnter.append("text")
             .attr("x", 0)
@@ -189,7 +189,7 @@
             .attr("rx", 2)
             .attr("ry", 2)
             .attr("width", function (d) { return xScale(d.value); })
-            .style("fill", function (d) { return d.level });
+            .style("fill", function (d) { return color[d.level] });
 
         // Transition nodes to their new position.
         var nodeUpdate = node.transition()
@@ -295,7 +295,7 @@
         x = -source.y0;
         y = -source.x0;
         x = x * scale + viewerWidth / 20;
-        y = y * scale + viewerHeight / 2;
+        y = y * scale + viewerHeight / 1;
         d3.select(container + ' g').transition()
             .duration(duration)
             .attr("transform", "translate(" + x + "," + y + ")scale(" + scale + ")");

@@ -1,6 +1,20 @@
 ﻿// -------------- Control de los ejes paralelos
 var preguntasJson;
 
+
+//Los tips messages
+var tipPreguntas = d3.tip()
+    .attr('class', 'd3-tipEje')
+    .offset([0, 0])
+    .html(function (d) {
+        var objeto = preguntasJson[d - 1];
+        return "<div><strong>Tema:</strong> <span style='color:forestgreen'>" + objeto.TEMA + "</span></div>" +
+            (objeto.SUBTEMA != "" ? "<div><strong>Subtema: </strong> <span style='color:forestgreen'>" + objeto.SUBTEMA + "</span></div > " : "") +
+            "<div><strong>Pregunta:</strong> <span style='color:forestgreen'>" + objeto.PREGUNTA + "</span></div>";
+    });
+vis.call(tipPreguntas);
+
+
 // Agregalos máximos y los mínimos 0-100 para crear los ejes
 var primeros;
 
@@ -117,19 +131,24 @@ function crearGrafico() {
                     .delay(500)
                     .duration(0)
                     .attr("visibility", null);
-            }));
+            }))
+        .on("mouseover", tipPreguntas.show)
+        .on("mouseout", tipPreguntas.hide);
+
+    
 
     // Fondos que cambian de color para especificar el tema
     gParalel.append("g")
         .attr("class", "axis")
         .each(function (d) { d3.select(this).call(axis.scale(y1[d])); }).attr("dx", 10).style("text-anchor", "middle")
 
-    // los rotulos
     gParalel.selectAll(".axis")
         .append("text")
         .style("text-anchor", "middle")
         .attr("y", -9)
         .text(function (d) { return d + " "; });
+
+
 
     gParalel.selectAll(".axis")
         .append("rect")
@@ -151,7 +170,8 @@ function crearGrafico() {
             numero = parseInt(preguntasJson[i].TEMA.substring(0, 1)) - 1;
             return colorTemas[numero];
         });*/
-        .style("opacity", 0.5);
+        .style("opacity", 0.5)
+        
 
     /**NO SE PARA QUE ES ESTO, introducido por juan
     
@@ -338,3 +358,4 @@ d3.json("/tree", function (error, data)
 });
 
 agregarNodo("2015", "", "", "", "");
+agregarNodo("2014", "", "", "", "");

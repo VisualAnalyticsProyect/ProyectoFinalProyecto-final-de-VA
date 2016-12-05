@@ -333,6 +333,15 @@ function refrescarSeries()
     gParalel.select(".axis")
         .each(function (d) { d3.select(this).call(axis.scale(y1[d])); }).attr("dx", 10).style("text-anchor", "middle");
 
+    gParalel.select(".brush")
+        .each(function (d) {
+            d3.select(this).call(y1[d].brush = d3.svg.brush().y(y1[d]).on("brushstart", brushstart).on("brush", brush));
+        })
+        .selectAll("rect")
+        .attr("x", -8)
+        .attr("width", 16);
+
+
     // Los fondos grises
     background = gBackground
         .selectAll("path")

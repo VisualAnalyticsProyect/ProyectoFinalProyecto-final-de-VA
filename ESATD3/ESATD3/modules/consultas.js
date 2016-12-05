@@ -49,6 +49,25 @@ var satisinsatis = function (anio, estudios, facultad, departamento, programa, c
         "ORDER BY  No_pregunta";
 };
 
+var resumenPorAnios = function (estudios, facultad, departamento, programa) {
+
+    return "SELECT buenas.MEDICION, ifnull(buenas.Suma/todas.Suma,0) as PORCENTAJE FROM " +
+        "(SELECT MEDICION,SUM(NUM_RESPUESTA * VALOR_RESPUESTA) as Suma FROM BASE_VAL " +
+        "WHERE NIVEL LIKE '%" + estudios + "%' AND " +
+        "FACULTAD LIKE '%" + facultad + "%' AND " +
+        "DEPARTAMENTO LIKE '%" + departamento + "%' AND " +
+        "PROGRAMA LIKE '%" + programa + "%' " +
+        "GROUP BY MEDICION) as buenas " +
+        "INNER JOIN (SELECT MEDICION,SUM(NUM_RESPUESTA) as Suma FROM BASE_VAL " +
+        "WHERE NIVEL LIKE '%" + estudios + "%' AND " +
+        "FACULTAD LIKE '%" + facultad + "%' AND " +
+        "DEPARTAMENTO LIKE '%" + departamento + "%' AND " +
+        "PROGRAMA LIKE '%" + programa + "%' " +
+        "GROUP BY MEDICION) as todas " +
+        "ON buenas.MEDICION = todas.MEDICION " +
+        "ORDER BY  MEDICION";
+};
+
 var validar = function (req) {
     var q = req.query;
     q.anio = q.anio == undefined ? "" : q.anio;
@@ -60,7 +79,9 @@ var validar = function (req) {
 }
 
 var getResumen = function (req, res) {
-    mysql.handle_database(req, res,resumenNivel);
+    validar(req);
+    var q = req.query;
+    mysql.handle_database(req, res, resumenPorAnios(q.estudios, q.facultad, q.departamento, q.programa));
 };
 
 var getParalelInfo = function (req, res) {

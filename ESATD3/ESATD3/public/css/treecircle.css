@@ -29,8 +29,16 @@ circle.child {
 pointer-events: all;
 }
 #treecontainer{
-min-width:100%;
-max-width:100%;
+min-width:60%;
+max-width:60%;
+float:left;
+margin-top:0px;
+height:500px;
+}
+
+#tablainfo{
+min-width:40%;
+max-width:40%;
 float:left;
 margin-top:0px;
 height:500px;

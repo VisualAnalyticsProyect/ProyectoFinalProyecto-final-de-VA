@@ -58,9 +58,7 @@ function update(data) {
         .attr("height", function (d) { return 50; })
         .attr("border-style", "solid").enter().append("text")
         .attr("x", 5)
-        .attr("y", function (d) {
-                    return ye(d.grade) + 30;
-                })
+        .attr("y", function (d) {return ye(d.grade) + 30;})
         .attr('class', 'barText')
         .attr("text-anchor","start")
         .text(function (d) {
@@ -102,7 +100,7 @@ function borrar(node) {
 
 function updateAxisDrop(node) {
     if (dropped) {
-        var namenode = node.__data__.name;
+        var namenode = node.name;
         var encontro = false;
         grades.forEach(function (d) {
             if (d.name == namenode) {
@@ -111,7 +109,7 @@ function updateAxisDrop(node) {
         });
         if (!encontro) {
             var i = grades.length + 1;
-            grades.push({ "name": node.__data__.name, "grade": i });
+            grades.push({ "name": node.name, "grade": i });
             update(grades);
         }
         dropped = false;

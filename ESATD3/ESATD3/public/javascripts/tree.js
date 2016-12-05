@@ -1,4 +1,8 @@
-﻿function createTree(treeData, container, isDrag) {
+﻿var treeJSON = d3.json("data/arbol.json", function (error, treeData) {
+    createTree(treeData, "#treecontainer", true);
+});
+
+function createTree(treeData, container, isDrag) {
 
     var xScale = d3.scale.linear().domain([0, 10]).range([0, 50]);
     // Calculate total nodes, max label length
@@ -49,7 +53,7 @@
     var zoomListener = d3.behavior.zoom().scaleExtent([0.1, 3]).on("zoom", zoom);
 
     // Append a group which holds all nodes and which the zoom Listener can act upon.
-    var svgGroup = baseSvg.append("g").attr("id", containertag + "g").call(zoomListener);;
+    var svgGroup = baseSvg.append("g").attr("id", containertag + "g").call(zoomListener);
 
     // Define the drag listeners for drag/drop behaviour of nodes.
     dragListener = d3.behavior.drag()
@@ -85,7 +89,7 @@
     // Define the root
   root = treeData;
 
-   /* root = d3.stratify()
+   /* root = d3.stratify()+
         .id(function (d) { return d.NIVEL; })
         .parentId(function (d) { return d.FACULTAD; })
         (treeData);*/

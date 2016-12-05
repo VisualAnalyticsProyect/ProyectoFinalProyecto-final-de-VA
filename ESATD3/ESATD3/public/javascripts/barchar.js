@@ -1,7 +1,7 @@
 ﻿// Mike Bostock "margin conventions"
 var margin = { top: 20, right: 20, bottom: 30, left: 40 },
     width = 800 - margin.left - margin.right,
-    height = 400 - margin.top - margin.bottom;
+    height = 505 - margin.top - margin.bottom;
 
 // D3 scales = just math
 // x is a function that transforms from "domain" (data) into "range" (usual pixels)
@@ -46,17 +46,18 @@ svgbar.append("g")
     .style("text-anchor", "end")
     .text("Satisfacción");
 
-//var tip2 = d3.tip()
-    //.attr('class', 'd3-tip')
-   // .offset([0, 0])
-   // .html(function (d) {       
-  //      return "<div><strong>Nivel:</strong> <span style='color:red'>" + d.MEDICION + "</span></div><div><strong>Grade:</strong> <span style='color:forestgreen'>" + d.PORCENTAJE + "</span></div>";
-  //  });
-//svgbar.call(tip2);
+var tipba = d3.tip()
+    .attr('class', 'd3-tip')
+    .offset([0, 0])
+    .html(function (d) {       
+        return "<div><strong>Nivel:</strong> <span style='color:red'>" + d.MEDICION + "</span></div><div><strong>Grade:</strong> <span style='color:forestgreen'>" + Math.round(d.PORCENTAJE*100)/100 + "</span></div>";
+    });
+svgbar.call(tipba);
 
 
 // d3.tsv is a wrapper around XMLHTTPRequest, returns array of arrays (?) for a TSV file
 // type function transforms strings to numbers, dates, etc.
+updateBar("Universidad",1)
 function updateBar(valor, nivel) {
     var consulta;
     if (nivel == 5)
@@ -105,7 +106,9 @@ function draw(data) {
     svgbar.select(".y.axis").transition().duration(100).call(yAxisB)
 
     // THIS IS THE ACTUAL WORK!
-    var bars = svgbar.selectAll(".bar").data(data, function (d) { return d.MEDICION; }) // (data) is an array/iterable thing, second argument is an ID generator function
+    var bars = svgbar.selectAll(".bar").data(data, function (d) { return d.MEDICION; })
+        .on("mouseover", tipba.show)
+        .on("mouseout", tipba.hide)     // (data) is an array/iterable thing, second argument is an ID generator function
 
     bars.exit()
         .transition()

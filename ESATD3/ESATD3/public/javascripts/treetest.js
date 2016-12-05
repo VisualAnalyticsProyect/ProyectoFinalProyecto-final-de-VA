@@ -63,7 +63,8 @@ dragListener = d3.behavior.drag()
 var nodes;
 var firstTime;
 d3.json("data/arbol.json", function (data) {
-    node = root = data;    
+    node = root = data;
+    nodes = pack.nodes(root);
     restartCircleTree();
 });
 
@@ -88,8 +89,8 @@ function updateTreeCircle(nodes) {
 
         nodeEnter.append("text")
             .attr("class", function (d) { return d.children ? "parent" : "child"; })
-            .attr("x", function (d) { return d.x})
-            .attr("y", function (d) { return d.y;})
+            .attr("x", function (d) { return d.x; })
+            .attr("y", function (d) { return d.y; })
             .attr("dy", ".35em")
             .attr("text-anchor", "middle")
             .style("opacity", function (d) {

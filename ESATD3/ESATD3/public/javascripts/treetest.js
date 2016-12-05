@@ -30,6 +30,7 @@ var tip = d3.tip()
     .attr('class', 'd3-tip')
     .offset([0, 0])
     .html(function (d) {
+         updateBar(d.name, d.level);
         return "<div><strong>Nivel:</strong> <span style='color:red'>" + d.name + "</span></div><div><strong>Grade:</strong> <span style='color:forestgreen'>" + d.level + "</span></div>";
     });
 vis.call(tip);
@@ -82,8 +83,8 @@ function updateTreeCircle(nodes) {
     var nodeEnter;    
         nodeEnter = node.enter().append("g")
             .attr("class", "circlenode").call(dragListener)
-        .on("mouseover", tip.show)
-        .on("mouseout", tip.hide)
+            .on("mouseover",tip.show)
+            .on("mouseout", tip.hide)           
         .on("click", function (d) { return zoom(node == d ? root : d); });
            
         nodeEnter.append("circle")

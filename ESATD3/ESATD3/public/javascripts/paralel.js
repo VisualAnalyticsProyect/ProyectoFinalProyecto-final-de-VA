@@ -1,6 +1,6 @@
 ﻿// -------------- Control de los ejes paralelos
 var preguntasJson;
-
+var gParalel;
 
 //Los tips messages
 var tipPreguntas = d3.tip()
@@ -112,15 +112,38 @@ var svgParalel = d3.select("#paralel").append("svg")
 
 function crearGrafico()
 {
+    x1.domain(dimensions = preguntasJson.map(function (d) {
+        if (d.No_pregunta != 0)
+            return d.No_pregunta;
+        else
+            return "nombre";
+    }).filter(function (d) {
+
+        if (d === "nombre")
+        {   
+            (y1[d] = d3.scale.ordinal()
+                .domain([" ","  "])
+                .rangeRoundPoints([height, 0]));
+        }
+        else {
+            (y1[d] = d3.scale.linear()
+                .domain(d3.extent(primeros, function (p) { return +p[d]; }))
+                .range([height, 0]));
+        }
+    
+        return true;
+    }));
+
+    /*
     x1.domain(dimensions = preguntasJson.map(function (d) { return d.No_pregunta; }).filter(function (d) {
     return d && (y1[d] = d3.scale.linear()
         .domain(d3.extent(primeros, function (p) { return +p[d]; }))
         .range([height, 0]));
     }));
 
-
+    */
     //Se agregan los ejes
-    var gParalel = svgParalel.selectAll(".dimension")
+    gParalel = svgParalel.selectAll(".dimension")
         .data(dimensions)
         .enter().append("g")
         .attr("class", "dimension")
@@ -157,7 +180,7 @@ function crearGrafico()
     // Fondos que cambian de color para especificar el tema
     gParalel.append("g")
         .attr("class", "axis")
-        .each(function (d) { d3.select(this).call(axis.scale(y1[d])); }).attr("dx", 10).style("text-anchor", "middle")
+        .each(function (d) { d3.select(this).call(axis.scale(y1[d])); }).attr("dx", 10).style("text-anchor", "middle");
 
     gParalel.selectAll(".axis")
         .append("text")
@@ -174,14 +197,17 @@ function crearGrafico()
         .attr("width", 20)
         .attr("height", height)
         .style("fill", function (d, i) {
-            if (preguntasJson[d-1].no_tema == 2)
-                return "rgb(204, 255, 204)";
-            else if (preguntasJson[d-1].no_tema == 1)
-                return "rgb(204, 255, 255)";
-            else if (preguntasJson[d-1].no_tema == 3   )
-                return "rgb(204, 204, 255)";
+            if(d != "nombre")
+                if (preguntasJson[d-1].no_tema == 2)
+                    return "rgb(204, 255, 204)";
+                else if (preguntasJson[d-1].no_tema == 1)
+                    return "rgb(204, 255, 255)";
+                else if (preguntasJson[d-1].no_tema == 3   )
+                    return "rgb(204, 204, 255)";
+                else
+                    return "rgb(255, 204, 204)";
             else
-                return "rgb(255, 204, 204)";
+                return "rgb(255, 255, 255)";
         })
         /*.style("backgorund-color", function (d, i) {
             numero = parseInt(preguntasJson[i].TEMA.substring(0, 1)) - 1;
@@ -287,12 +313,26 @@ function refrescar()
         nn = seriesNodos[index];
         consultar(nn.muestra, nn.nivel, nn.facultad, nn.departamento, nn.programa, index == seriesNodos.length-1);
     }
+    
+
     if (index == 0)
         refrescarSeries();
 };
 
 function refrescarSeries()
 {
+
+    var escala = [" "];
+    for (index = 0; index < globaldata.length; index++) {
+        escala.push(globaldata[index].nombre);
+    }
+    escala.push("  ");
+    y1["nombre"] = d3.scale.ordinal()
+        .domain(escala)
+        .rangeRoundPoints([height, 0]);
+    gParalel.select(".axis")
+        .each(function (d) { d3.select(this).call(axis.scale(y1[d])); }).attr("dx", 10).style("text-anchor", "middle");
+
     // Los fondos grises
     background = gBackground
         .selectAll("path")
@@ -322,8 +362,8 @@ function position(d) {
     return v == null ? x1(d) : v;
 }
 
-function transition(gParalel) {
-    return gParalel.transition().duration(500);
+function transition(gParalell) {
+    return gParalell.transition().duration(500);
 }
 
 // Returns the path for a given data point.

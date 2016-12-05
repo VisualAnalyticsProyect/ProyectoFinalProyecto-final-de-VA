@@ -73,8 +73,8 @@ var line = d3.svg.line(),
     background,
     foreground;
 
-// Crea el SVG que contiene todo y lo ubica
-var svg = d3.select("#paralel").append("svg")
+// Crea el svgParalel que contiene todo y lo ubica
+var svgParalel = d3.select("#paralel").append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
     .append("g")
@@ -91,7 +91,7 @@ function crearGrafico() {
     }));
 
     //Se agregan los ejes
-    var g = svg.selectAll(".dimension")
+    var gParalel = svgParalel.selectAll(".dimension")
         .data(dimensions)
         .enter().append("g")
         .attr("class", "dimension")
@@ -107,7 +107,7 @@ function crearGrafico() {
                 foreground.attr("d", path);
                 dimensions.sort(function (a, b) { return position(a) - position(b); });
                 x1.domain(dimensions);
-                g.attr("transform", function (d) { return "translate(" + position(d) + ")"; })
+                gParalel.attr("transform", function (d) { return "translate(" + position(d) + ")"; })
             })
             .on("dragend", function (d) {
                 delete dragging[d];
@@ -122,13 +122,13 @@ function crearGrafico() {
             }));
 
     // Fondos que cambian de color para especificar el tema
-    g.append("g")
+    gParalel.append("g")
         .attr("class", "axis")
         .style("fill", function (d, i) { return color[d.no_tema]; })
         .each(function (d) { d3.select(this).call(axis.scale(y1[d])); }).attr("dx", 10).style("text-anchor", "middle")
 
     // los rotulos
-    g.selectAll(".axis")
+    gParalel.selectAll(".axis")
         .append("text")
         .style("text-anchor", "middle")
         .attr("y", -9)
@@ -160,7 +160,7 @@ function crearGrafico() {
         */
 
     // Los fondos grises
-    background = svg.append("g")
+    background = svgParalel.append("g")
         .attr("class", "background")
         .selectAll("path")
         .data(globaldata)
@@ -168,7 +168,7 @@ function crearGrafico() {
         .attr("d", path);
 
     // Los colores
-    foreground = svg.append("g")
+    foreground = svgParalel.append("g")
         .attr("class", "foreground")
         .selectAll("path")
         .data(globaldata)
@@ -176,7 +176,7 @@ function crearGrafico() {
         .attr("d", path);
 
     // Add and store a brush for each axis.
-    g.append("g")
+    gParalel.append("g")
         .attr("class", "brush")
         .each(function (d) {
             d3.select(this).call(y1[d].brush = d3.svg.brush().y(y1[d]).on("brushstart", brushstart).on("brush", brush));
@@ -219,7 +219,7 @@ function nodosIguales(nodo1, nodo2) {
     return nodo1.muestra == nodo2.muestra && nodo1.nivel == nodo2.nivel && nodo1.facultad == nodo2.faculdad && nodo1.departamento == nodo2.departamento && nodo1.programa == nodo2.programa;
 }
 
-function referescar()
+function refrescar()
 {
 
     globaldata = [];
@@ -227,14 +227,15 @@ function referescar()
     for (i = 0; i < seriesNodos.length; i++)
     {
         nn = seriesNodos[i];
-        globaldata.push(consultar(nn.muestra, nn.nivel, nn.facultad, nn.departamento, nn.programa));
+        nnn = consultar(nn.muestra, nn.nivel, nn.facultad, nn.departamento, nn.programa);
+        globaldata.push(nnn);
 
     }
 
 
 
     // Los fondos grises
-    background = svg.select(".background")
+    background = svgParalel.select(".background")
         .selectAll("path")
         .data(globaldata);
 
@@ -244,7 +245,7 @@ function referescar()
     background.exit().remove();
 
     // Los colores
-    foreground = svg.select(".foreground")
+    foreground = svgParalel.select(".foreground")
         .selectAll("path")
         .data(globaldata);
 
@@ -260,8 +261,8 @@ function position(d) {
     return v == null ? x1(d) : v;
 }
 
-function transition(g) {
-    return g.transition().duration(500);
+function transition(gParalel) {
+    return gParalel.transition().duration(500);
 }
 
 // Returns the path for a given data point.
@@ -287,17 +288,18 @@ function brush() {
 function consultar(muestra, nivel, facultad, departamento, programa) {
     var respuesta;
     var ruta = "/paralelsi?anio=" + muestra + "&estudios=" + nivel + "&facultad=" + facultad + "&departamento=" + departamento + "&programa=" + programa;
-    d3.json(ruta, function (error, data)
-    {
-        respuesta = data;
-    })
+    var intentos = 0;
     var r = "{";
-    r += " \"nombre\": " + muestra + nivel + facultad + departamento + programa + ", " ;
-    for (i = 0; i < respuesta.length; i++)
-    {
-        r += "\"" + respuesta[i].No_pregunta + "\": " + respuesta[i].PorcentajeStasifaccion;
-        if (i != respuesta.length - 1)
-            r += ", ";
+    while (respuesta == null && intentos++ < 5) {
+            d3.json(ruta, function (error, data) {
+                respuesta = data;
+                r += " \"nombre\": " + muestra + nivel + facultad + departamento + programa + ", ";
+                for (i = 0; i < respuesta.length; i++) {
+                    r += "\"" + respuesta[i].No_pregunta + "\": " + respuesta[i].PorcentajeStasifaccion;
+                    if (i != respuesta.length - 1)
+                        r += ", ";
+                }
+            })
     }
     r += "}";
     return JSON.parse(r);
@@ -311,4 +313,3 @@ d3.json("/tree", function (error, data) {
 });
 
 agregarNodo("2015", "", "", "", "");
-referescar();

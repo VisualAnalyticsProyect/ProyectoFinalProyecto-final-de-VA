@@ -1,13 +1,16 @@
 ﻿
 .background path {
   fill: none;
-  stroke: #ddd;
+  stroke: black;
+  stroke-width: 1;
   shape-rendering: crispEdges;
+  opacity: 0.5;
 }
 
 .foreground path {
   fill: none;
-  stroke: steelblue;
+  stroke: brown;
+  stroke-width: 2;
 }
 
 .brush .extent {
@@ -83,8 +86,42 @@ background-color:rgba(0, 103, 255, 0.78);
   text-align: center;
 }
 
+
 /* Style northward tooltips differently */
 .d3-tipEje:after {
+  margin: -1px 0 0 0;
+  top: 100%;
+  left: 0;
+}
+
+
+.d3-tipSerie {
+  line-height: 1;
+  font-weight: bold;
+  padding: 12px;
+  background: #5476e6;
+  color: #fff;
+  border-radius: 2px;
+  stroke: brown;
+  stroke-width : 2px;
+}
+
+/* Creates a small triangle extender for the tooltip */
+.d3-tipSerie:after {
+  box-sizing: border-box;
+  display: inline;
+  font-size: 10px;
+  width: 100%;
+  line-height: 1;
+  color: #5476e6;
+  content: "\25BC";
+  position: absolute;
+  text-align: center;
+}
+
+
+/* Style northward tooltips differently */
+.d3-tipSerie:after {
   margin: -1px 0 0 0;
   top: 100%;
   left: 0;

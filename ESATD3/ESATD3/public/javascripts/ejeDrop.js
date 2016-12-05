@@ -76,13 +76,17 @@ var grades = [];
 
 function borrar(node) {
     grades.forEach(function (d,index) {
-        if (d.name == node.name) {
+        if (d.name == node.name && d.clasificacion == node.clasificacion) {
             delete grades[index]; 
+            eliminarNodo(new nodo("", node.nivel, node.facultad, node.departamento, node.programa));
             var gradest = [];
-            grades.forEach(function (d) {
-                gradest.push(d);
+            grades.forEach(function (l) {
+                gradest.push(l);
             });
-            grades = gradest;          
+            grades = gradest;
+           // eliminarNodo();  
+           
+            refrescar();
             if (grades.length ==0) {
                 grades = [];
                 chart.selectAll(container + " .bar").remove();
@@ -91,6 +95,8 @@ function borrar(node) {
                 return;
             }
             updateEje(grades);
+
+            
         }
     });
 }
@@ -106,7 +112,7 @@ function updateAxisDrop(node) {
         });
         if (!encontro) {
             var i = grades.length + 1;
-            grades.push({ "name": node.name, "grade": i, "class" : node.clasificacion });
+           
             var datos = [anhoSeleccionado, "", "", "",""];
             var tempo = node;
             while (tempo.level > 1)
@@ -116,6 +122,9 @@ function updateAxisDrop(node) {
             }
             agregarNodo(datos[0], datos[1], datos[2], datos[3], datos[4]);
             refrescar();
+            grades.push({
+                "name": node.name, "grade": i, "clasificacion": node.clasificacion,"nivel" : datos[1], "facultad": datos[2],
+                   "departamento" :datos[3], "programa" : datos[4]});
             updateEje(grades);
         }
         dropped = false;

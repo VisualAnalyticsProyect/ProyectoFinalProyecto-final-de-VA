@@ -7,11 +7,23 @@ var tipPreguntas = d3.tip()
     .attr('class', 'd3-tipEje')
     .offset([0, 0])
     .html(function (d) {
-        var objeto = preguntasJson[d - 1];
-        return "<div><strong>Tema:</strong> <span style='color:forestgreen'>" + objeto.TEMA + "</span></div>" +
-            (objeto.SUBTEMA != "" ? "<div><strong>Subtema: </strong> <span style='color:forestgreen'>" + objeto.SUBTEMA + "</span></div > " : "") +
-            "<div><strong>Pregunta:</strong> <span style='color:forestgreen'>" + objeto.PREGUNTA + "</span></div>";
+        if (d != "nombre") {
+            var objeto = preguntasJson[d - 1];
+            return "<div><strong>Tema:</strong> <span style='color:forestgreen'>" + objeto.TEMA + "</span></div>" +
+                (objeto.SUBTEMA != "" ? "<div><strong>Subtema: </strong> <span style='color:forestgreen'>" + objeto.SUBTEMA + "</span></div > " : "") +
+                "<div><strong>Pregunta:</strong> <span style='color:forestgreen'>" + objeto.PREGUNTA + "</span></div>";
+        }
     });
+vis.call(tipPreguntas);
+
+var tipSeries = d3.tip()
+    .attr('class', 'd3-tipSerie')
+        .offset([0, 0])
+        .html(function (d) {
+            if (d != "nombre") {
+                var objeto = preguntasJson[d - 1];
+                return "<div><strong>Programa:</strong> <span style='color:forestgreen'>" + objeto.nombre + "</span></div>";
+            }});
 vis.call(tipPreguntas);
 
 
@@ -98,12 +110,14 @@ var svgParalel = d3.select("#paralel").append("svg")
 
 
 
-function crearGrafico() {
-    x1.domain(dimensions = preguntasJson.map(function (d) { return d.No_pregunta }).filter(function (d) {
-        return d && (y1[d] = d3.scale.linear()
-            .domain(d3.extent(primeros, function (p) { return +p[d]; }))
-            .range([height, 0]));
+function crearGrafico()
+{
+    x1.domain(dimensions = preguntasJson.map(function (d) { return d.No_pregunta; }).filter(function (d) {
+    return d && (y1[d] = d3.scale.linear()
+        .domain(d3.extent(primeros, function (p) { return +p[d]; }))
+        .range([height, 0]));
     }));
+
 
     //Se agregan los ejes
     var gParalel = svgParalel.selectAll(".dimension")
@@ -173,7 +187,7 @@ function crearGrafico() {
             numero = parseInt(preguntasJson[i].TEMA.substring(0, 1)) - 1;
             return colorTemas[numero];
         });*/
-        .style("opacity", 0.5)
+        .style("opacity", 0.3)
         
 
     /**NO SE PARA QUE ES ESTO, introducido por juan
@@ -216,7 +230,9 @@ function crearGrafico() {
         .selectAll("path")
         .data(globaldata)
         .enter().append("path")
-        .attr("d", path);
+        .attr("d", path)
+        .on("mouseover", tipSeries.show)
+        .on("mouseout", tipSeries.hide);;
 
     // Add and store a brush for each axis.
     gParalel.append("g")
@@ -259,7 +275,7 @@ function eliminarNodo(eliminar) {
 
 //Funcion que compara y dice si dos nodos son iguales
 function nodosIguales(nodo1, nodo2) {
-    return nodo1.muestra == nodo2.muestra && nodo1.nivel == nodo2.nivel && nodo1.facultad == nodo2.faculdad && nodo1.departamento == nodo2.departamento && nodo1.programa == nodo2.programa;
+    return  nodo1.nivel == nodo2.nivel && nodo1.facultad == nodo2.facultad && nodo1.departamento == nodo2.departamento && nodo1.programa == nodo2.programa;
 }
 
 function refrescar()
@@ -271,6 +287,8 @@ function refrescar()
         nn = seriesNodos[index];
         consultar(nn.muestra, nn.nivel, nn.facultad, nn.departamento, nn.programa, index == seriesNodos.length-1);
     }
+    if (index == 0)
+        refrescarSeries();
 };
 
 function refrescarSeries()
@@ -278,7 +296,8 @@ function refrescarSeries()
     // Los fondos grises
     background = gBackground
         .selectAll("path")
-        .data(globaldata);
+        .data(globaldata)
+        .attr("d", path);
 
     background.enter().append("path")
         .attr("d", path);
@@ -288,7 +307,8 @@ function refrescarSeries()
     // Los colores
     foreground = gForground
         .selectAll("path")
-        .data(globaldata);
+        .data(globaldata)
+        .attr("d", path);
 
     foreground.enter().append("path")
         .attr("d", path);

@@ -1,11 +1,12 @@
 ﻿
-text {
-font-size: 11px;
+#treecontainer g text {
+font-size: 15px;
 pointer-events: none;
+position:absolute;   
 }
 
 text.parent {
-fill: #1f77b4;
+fill: #000000;
 }
 
 circle {

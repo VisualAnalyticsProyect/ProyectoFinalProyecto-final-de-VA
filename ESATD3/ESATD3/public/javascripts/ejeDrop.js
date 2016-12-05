@@ -22,7 +22,7 @@ var tipe = d3.tip()
     .attr('class', 'd3-tip')
     .offset([0, 0])
     .html(function (d) {
-        return "<div><strong>Nivel:</strong> <span style='color:red'>" + d.name + "</span></div><div><strong>Grade:</strong> <span style='color:forestgreen'>" + d.grade + "</span></div>";
+        return "<div><strong>Estudios:</strong> <span style='color:red'>" + d.name + "</span></div><div><strong>Nivel:</strong> <span style='color:forestgreen'>" + d.grade + "</span></div>";
     });
 var container = "#ejecontainer";
 var dropped = false;

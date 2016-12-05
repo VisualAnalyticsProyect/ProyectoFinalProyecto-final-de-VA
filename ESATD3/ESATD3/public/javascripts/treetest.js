@@ -12,7 +12,7 @@ var draggingNode = null;
 
 var pack = d3.layout.pack()
     .size([r, r])
-    .value(function (d) { return d.value; })
+    .value(function (d) { return d.value*100; })
 var containertree = "#treecontainer";
 var vis = d3.select("#treecontainer").insert("svg:svg", "h2")
     .attr("width", w)
@@ -63,8 +63,7 @@ dragListener = d3.behavior.drag()
 var nodes;
 var firstTime;
 d3.json("data/arbol.json", function (data) {
-    node = root = data;
-    nodes = pack.nodes(root);
+    node = root = data;    
     restartCircleTree();
 });
 
@@ -86,6 +85,17 @@ function updateTreeCircle(nodes) {
             .on("mouseover",tip.show)
             .on("mouseout", tip.hide)           
         .on("click", function (d) { return zoom(node == d ? root : d); });
+
+        nodeEnter.append("text")
+            .attr("class", function (d) { return d.children ? "parent" : "child"; })
+            .attr("x", function (d) { return d.x})
+            .attr("y", function (d) { return d.y;})
+            .attr("dy", ".35em")
+            .attr("text-anchor", "middle")
+            .style("opacity", function (d) {
+                return d.level >= levelactual && d.level <= parseInt(levelactual) + 1 ? 1 : 0;
+            })
+            .text(function (d) { return d.name; });
            
         nodeEnter.append("circle")
         .attr("class", function (d) { return d.children ? "parent" : "child"; })
@@ -94,16 +104,7 @@ function updateTreeCircle(nodes) {
         .attr("r", function (d) { return d.r; })
         
 
-        nodeEnter.append("text")
-        .attr("class", function (d) { return d.children ? "parent" : "child"; })
-        .attr("x", function (d) { return d.x; })
-        .attr("y", function (d) { return d.y; })
-        .attr("dy", ".35em")
-        .attr("text-anchor", "middle")
-        .style("opacity", function (d) {
-            return d.level >= levelactual && d.level <= (levelactual+2) ? 1 : 0;
-        })
-        .text(function (d) {  return d.name; });
+       
 
     d3.select(window).on("click", function () { zoom(root); });
 }
@@ -113,6 +114,7 @@ function zoom(nodin, i) {
     restartCircleTree();   
     if (d3.event.defaultPrevented) return; 
     levelactual = nodin.level;
+    var levelrang = parseInt(levelactual) + 1;
     var k = r / nodin.r / 2;
     xt.domain([nodin.x - nodin.r, nodin.x + nodin.r]);
     yt.domain([nodin.y - nodin.r, nodin.y + nodin.r]);
@@ -129,7 +131,7 @@ function zoom(nodin, i) {
         .attr("x", function (d) { return xt(d.x); })
         .attr("y", function (d) { return yt(d.y); })
         .style("opacity", function (d) {
-            return d.level >= levelactual && d.level <= (levelactual + 2) ? 1 : 0;
+            return d.level >= levelactual && d.level <= levelrang ? 1 : 0;
         });
 
     node = nodin;

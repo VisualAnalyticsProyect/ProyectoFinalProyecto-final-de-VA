@@ -16,10 +16,7 @@
   shape-rendering: crispEdges;
 }
 
-.axis line{
-  cursor: move;
-
-},
+.axis line,
 .axis path {
   fill: none;
   stroke: #000;
@@ -29,6 +26,7 @@
 .axis text {
   text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
   cursor: move;
+  draggable: true;
 }
 
 #paralelcontainer{
@@ -39,7 +37,7 @@
 
 #paralel{
     min-width:20%;
-    max-width:50%;
+    max-width:70%;
     margin-top: 20%;
     margin-right: 4%;
     float:left;

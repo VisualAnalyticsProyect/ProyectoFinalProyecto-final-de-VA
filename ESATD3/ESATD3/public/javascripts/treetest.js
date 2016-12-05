@@ -1,23 +1,30 @@
-﻿
+﻿//http://mbostock.github.io/d3/talk/20111116/pack-hierarchy.html
 var w = d3.select("#treecontainer").style("width"),
     width = w.replace("px", ""),
     h = d3.select("#treecontainer").style("height"),
     r = 500,
-    x = d3.scale.linear().range([0, r]),
-    y = d3.scale.linear().range([0, r]),
+    xt = d3.scale.linear().range([0, r]),
+    yt = d3.scale.linear().range([0, r]),
     node,
     root;
+var draggingNode = null;
+
 
 var pack = d3.layout.pack()
     .size([r, r])
     .value(function (d) { return d.value; })
-
+var containertree = "#treecontainer";
 var vis = d3.select("#treecontainer").insert("svg:svg", "h2")
     .attr("width", w)
     .attr("height", h)
-    .attr("margin-left","40%")
-    .append("svg:g")
-    .attr("transform", "translate(" + (width - r) / 2 + ",0)");
+    .attr("margin-left", "40%")
+    .append("svg:g");
+    
+
+var main = d3.select(".main").append("svg")
+    .attr("width", w)
+    .attr("height",h)
+    .attr("class", "svgdrag");
 
 var tip = d3.tip()
     .attr('class', 'd3-tip')
@@ -26,25 +33,67 @@ var tip = d3.tip()
         return "<div><strong>Nivel:</strong> <span style='color:red'>" + d.name + "</span></div><div><strong>Grade:</strong> <span style='color:forestgreen'>" + d.level + "</span></div>";
     });
 vis.call(tip);
+
+
+// Define the drag listeners for drag/drop behaviour of nodes.
+dragListener = d3.behavior.drag()
+    .origin(function (d) {
+    var t = d3.select(this);
+    return { x: d.x-100, y: d.y-100};})
+    .on("dragstart", function (d) {   
+        d3.event.sourceEvent.stopPropagation();    
+        dragStarted = true;  
+        if (firstTime) {
+            d.x = 0;
+            d.y = 0;
+            firstTime = false;
+        }
+        d3.select(containertree + " svg").style("overflow", "visible");
+        
+    })
+    .on("drag", function (d) {       
+        if (dragStarted) {            
+           initiateDrag(d, this);
+        }
+        move(d,this);
+    }).on("dragend", function (d) {      
+        endDrag(d);
+    });
+
+
+var firstTime;
 d3.json("data/arbol.json", function (data) {
     node = root = data;
+    restartCircleTree();
+});
 
+function restartCircleTree() {
+    d3.select(containertree + " svg").style("overflow", "hidden");
+    firstTime = true;    
     var nodes = pack.nodes(root);
+    updateTreeCircle(nodes);
+}
 
-    vis.selectAll("circle")
-        .data(nodes)
-        .enter().append("svg:circle")
+function updateTreeCircle(nodes) {
+    // Update the nodes…
+    node = vis.selectAll(containertree + " g.circlenode").data(nodes);
+
+    // Enter any new nodes at the parent's previous position.
+    var nodeEnter;    
+        nodeEnter = node.enter().append("g")
+            .attr("class", "circlenode").call(dragListener)
+        .on("mouseover", tip.show)
+        .on("mouseout", tip.hide)
+        .on("click", function (d) { return zoom(node == d ? root : d); });
+           
+        nodeEnter.append("circle")
         .attr("class", function (d) { return d.children ? "parent" : "child"; })
         .attr("cx", function (d) { return d.x; })
         .attr("cy", function (d) { return d.y; })
         .attr("r", function (d) { return d.r; })
-        .on("mouseover", tip.show)
-        .on("mouseout", tip.hide)
-        .on("click", function (d) { return zoom(node == d ? root : d); });
+        
 
-    vis.selectAll("text")
-        .data(nodes)
-        .enter().append("svg:text")
+        nodeEnter.append("text")
         .attr("class", function (d) { return d.children ? "parent" : "child"; })
         .attr("x", function (d) { return d.x; })
         .attr("y", function (d) { return d.y; })
@@ -56,27 +105,58 @@ d3.json("data/arbol.json", function (data) {
         .text(function (d) {  return d.name; });
 
     d3.select(window).on("click", function () { zoom(root); });
-});
+}
 var levelactual = 1;
-function zoom(d, i) {    
+function zoom(d, i) {
+    restartCircleTree();   
+    if (d3.event.defaultPrevented) return; 
     levelactual = d.level;
     var k = r / d.r / 2;
-    x.domain([d.x - d.r, d.x + d.r]);
-    y.domain([d.y - d.r, d.y + d.r]);
+    xt.domain([d.x - d.r, d.x + d.r]);
+    yt.domain([d.y - d.r, d.y + d.r]);
 
     var t = vis.transition()
         .duration(d3.event.altKey ? 7500 : 750);
 
     t.selectAll("circle")
-        .attr("cx", function (d) { return x(d.x); })
-        .attr("cy", function (d) { return y(d.y); })
+        .attr("cx", function (d) { return xt(d.x); })
+        .attr("cy", function (d) { return yt(d.y); })
         .attr("r", function (d) { return k * d.r; });
 
     t.selectAll("text")
-        .attr("x", function (d) { return x(d.x); })
-        .attr("y", function (d) { return y(d.y); })
+        .attr("x", function (d) { return xt(d.x); })
+        .attr("y", function (d) { return yt(d.y); })
         .style("opacity", function (d) { return d.level >= levelactual && d.level <= (levelactual + 1) ? 1 : 0; });
 
     node = d;
     d3.event.stopPropagation();
 }
+
+function initiateDrag(datan, domNodep) {      
+    var datajsonp = [];      
+    draggingNode = domNodep;
+    dragStarted = null;
+}
+
+function move(d,domNodep) {
+   // var xevm = 
+   // var yevm =      
+ d.x += d3.event.dy;
+ d.y += d3.event.dx;
+    d3.select(domNodep)      
+       .attr("transform", "translate(" + d.y + "," + d.x + ")");   
+};
+
+function endDrag(d) {
+     //############################# ejedrop
+    d3.select(containertree + " svg").style("overflow", "hidden");
+    updateAxisDrop(d);    
+    // now restore the mouseover event or we won't be able to drag a 2nd time        
+    if (draggingNode !== null) {    
+        vis.selectAll("g").attr("transform", "");     
+        restartCircleTree();
+        draggingNode = null;
+    }
+
+}
+

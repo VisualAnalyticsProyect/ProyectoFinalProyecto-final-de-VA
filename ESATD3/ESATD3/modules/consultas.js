@@ -28,7 +28,7 @@ var promedio = function (anio, estudios, facultad, departamento, programa, condi
 };
 var satisinsatis = function (anio, estudios, facultad, departamento, programa, condicion) {
 
-    return "SELECT PREGUNTAS.No_pregunta ,PREGUNTAS.PREGUNTA, ifnull(buenas.Suma/todas.Suma,0) as PorcentajeStasifaccion FROM " +
+    return "SELECT PREGUNTAS.No_pregunta ,PREGUNTAS.PREGUNTA, ifnull(100*buenas.Suma/todas.Suma,0) as PorcentajeStasifaccion FROM " +
         "(SELECT PREGUNTA,No_pregunta,SUM(NUM_RESPUESTA) as Suma FROM BASE_VAL " +
         "WHERE MEDICION LIKE '%" + anio + "%' AND " +
         "NIVEL LIKE '%" + estudios + "%' AND " +

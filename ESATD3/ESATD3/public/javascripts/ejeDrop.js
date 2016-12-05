@@ -1,5 +1,5 @@
 ﻿    widthx = 100,
-    height = 400;
+    height = 500;
 
 var xe = d3.scale.ordinal()
     .rangeRoundBands(widthx, .1, 1);
@@ -18,7 +18,7 @@ var yAxis = d3.svg.axis()
 //#####################################################################
 //TIP
 //##################################################################### 
-var tip = d3.tip()
+var tipe = d3.tip()
     .attr('class', 'd3-tip')
     .offset([0, 0])
     .html(function (d) {
@@ -35,7 +35,7 @@ var chart = d3.select(container).append("svg")
     .attr("width", widthx + "%")
     .attr("height", height).append("g");    
 
-chart.call(tip);
+chart.call(tipe);
 
 function updateEje(data) {       
     ye.domain([0, d3.max(data, function (d,index) { return index+1; })]);
@@ -43,12 +43,10 @@ function updateEje(data) {
     chart.append("g")
         .attr("transform", "translate(0," + height + ")")
 
-
-
     var barra = chart.selectAll(container +" .bar").data(data);
     barra.enter().append("rect").attr("class", "bar");	
-  		barra.on("mouseover", tip.show)
-        .on("mouseout", tip.hide)
+  		barra.on("mouseover", tipe.show)
+        .on("mouseout", tipe.hide)
         .style("fill", function (d) {           
             return "forestgreen";            
         }).on('click', function (d) { borrar(d); })
@@ -89,8 +87,7 @@ function borrar(node) {
                 grades = [];
                 chart.selectAll(container + " .bar").remove();
                 chart.selectAll(container + " .barText").remove();
-                chart.selectAll(container + " g").remove();
-                $(".d3-tip").visible(false);            
+                chart.selectAll(container + " g").remove();                           
                 return;
             }
             updateEje(grades);

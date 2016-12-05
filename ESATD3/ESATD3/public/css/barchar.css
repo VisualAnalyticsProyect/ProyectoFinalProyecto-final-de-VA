@@ -54,3 +54,9 @@ margin: -1px 0 0 0;
 top: 100%;
 left: 0;
 }
+
+#tituloTablaInfo{
+text-align: center;
+width: 200%;
+font: 20px sans-serif;
+}

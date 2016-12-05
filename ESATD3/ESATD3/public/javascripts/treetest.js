@@ -29,8 +29,7 @@ var main = d3.select(".main").append("svg")
 var tip = d3.tip()
     .attr('class', 'd3-tip')
     .offset([0, 0])
-    .html(function (d) {
-         updateBar(d.name, d.level);
+    .html(function (d) {       
         return "<div><strong>Nivel:</strong> <span style='color:red'>" + d.name + "</span></div><div><strong>Grade:</strong> <span style='color:forestgreen'>" + d.level + "</span></div>";
     });
 vis.call(tip);
@@ -58,27 +57,28 @@ dragListener = d3.behavior.drag()
         }
         move(d,this);
     }).on("dragend", function (d) {      
-        endDrag(d);
+        endDrag(d,this);
     });
 
-
+var nodes;
 var firstTime;
 d3.json("data/arbol.json", function (data) {
     node = root = data;
+    nodes = pack.nodes(root);
     restartCircleTree();
 });
 
 function restartCircleTree() {
     d3.select(containertree + " svg").style("overflow", "hidden");
     firstTime = true;    
-    var nodes = pack.nodes(root);
+    nodes = pack.nodes(root);
     updateTreeCircle(nodes);
 }
 
 function updateTreeCircle(nodes) {
     // Update the nodes…
     node = vis.selectAll(containertree + " g.circlenode").data(nodes);
-
+    node.exit().remove();
     // Enter any new nodes at the parent's previous position.
     var nodeEnter;    
         nodeEnter = node.enter().append("g")
@@ -101,20 +101,21 @@ function updateTreeCircle(nodes) {
         .attr("dy", ".35em")
         .attr("text-anchor", "middle")
         .style("opacity", function (d) {
-            return d.level >= levelactual && d.level <= (levelactual+1) ? 1 : 0;
+            return d.level >= levelactual && d.level <= (levelactual+2) ? 1 : 0;
         })
         .text(function (d) {  return d.name; });
 
     d3.select(window).on("click", function () { zoom(root); });
 }
 var levelactual = 1;
-function zoom(d, i) {
+function zoom(nodin, i) {
+    updateBar(nodin.name, nodin.level);
     restartCircleTree();   
     if (d3.event.defaultPrevented) return; 
-    levelactual = d.level;
-    var k = r / d.r / 2;
-    xt.domain([d.x - d.r, d.x + d.r]);
-    yt.domain([d.y - d.r, d.y + d.r]);
+    levelactual = nodin.level;
+    var k = r / nodin.r / 2;
+    xt.domain([nodin.x - nodin.r, nodin.x + nodin.r]);
+    yt.domain([nodin.y - nodin.r, nodin.y + nodin.r]);
 
     var t = vis.transition()
         .duration(d3.event.altKey ? 7500 : 750);
@@ -127,9 +128,11 @@ function zoom(d, i) {
     t.selectAll("text")
         .attr("x", function (d) { return xt(d.x); })
         .attr("y", function (d) { return yt(d.y); })
-        .style("opacity", function (d) { return d.level >= levelactual && d.level <= (levelactual + 1) ? 1 : 0; });
+        .style("opacity", function (d) {
+            return d.level >= levelactual && d.level <= (levelactual + 2) ? 1 : 0;
+        });
 
-    node = d;
+    node = nodin;
     d3.event.stopPropagation();
 }
 
@@ -143,13 +146,15 @@ function move(d,domNodep) {
    // var xevm = 
    // var yevm =      
  d.x += d3.event.dy;
- d.y += d3.event.dx;
-    d3.select(domNodep)      
-       .attr("transform", "translate(" + d.y + "," + d.x + ")");   
+ d.y += d3.event.dx;   
+ d3.select(domNodep)
+     .attr("transform", "translate(" + (d.y) + "," + d.x + ")")
+     .select("circle").attr("r",50);   
 };
 
-function endDrag(d) {
+function endDrag(d, domNodep) {
      //############################# ejedrop
+    d3.select(domNodep).select("circle").attr("r",d.r);
     d3.select(containertree + " svg").style("overflow", "hidden");
     updateAxisDrop(d);    
     // now restore the mouseover event or we won't be able to drag a 2nd time        

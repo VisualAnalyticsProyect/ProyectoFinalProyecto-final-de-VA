@@ -1,7 +1,7 @@
 ﻿// Mike Bostock "margin conventions"
 var margin = { top: 20, right: 20, bottom: 30, left: 40 },
-    width = 960 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
+    width = 800 - margin.left - margin.right,
+    height = 400 - margin.top - margin.bottom;
 
 // D3 scales = just math
 // x is a function that transforms from "domain" (data) into "range" (usual pixels)
@@ -69,11 +69,13 @@ function updateBar(valor, nivel) {
         consulta = "estudios";
     if (nivel == 1)
         consulta = "";
+    if (valor == "")
+        valor = "Otros";
 
     d3.json("/resumen?" + consulta + "=" + valor, function (error, data) {
-        setTimeout(function () {
-            replay(data);
-        }, 100);  
+        d3.select("#tituloTablaInfo").text(valor);
+        replay(data);
+       
     });
 }
 
@@ -110,7 +112,7 @@ function draw(data) {
         .duration(100)
         .attr("y", y(0))
         .attr("height", height - y(0))
-        .style('fill-opacity', 1e-6)
+        .style('fill-opacity', 0.5)
         .remove();
 
     // data that needs DOM = enter() (a set/selection, not an event!)

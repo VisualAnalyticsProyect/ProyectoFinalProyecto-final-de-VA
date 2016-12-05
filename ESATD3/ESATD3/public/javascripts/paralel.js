@@ -1,4 +1,5 @@
-﻿var color= [ "CC4444", "009933", "FF6600", "3333FF", "9999FF", "6666CC", "3333CC", "333399", "666699"];
+﻿
+var color= [ "CC4444", "009933", "FF6600", "3333FF", "9999FF", "6666CC", "3333CC", "333399", "666699"];
 
 
 var preguntasJson;
@@ -57,6 +58,8 @@ var line = d3.svg.line(),
     background,
     foreground;
 
+var draginiciado = false;
+
 var svgP = d3.select("#paralel").append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
@@ -65,7 +68,6 @@ var svgP = d3.select("#paralel").append("svg")
 
 
 d3.csv("data/ejemplo2.csv", function (error, surveys) {
-    console.log(surveys);
     globaldata = surveys;
     // Extract the list of dimensions and create a scale for each.
     x1.domain(dimensions = d3.keys(surveys[0]).filter(function (d) {
@@ -77,62 +79,20 @@ d3.csv("data/ejemplo2.csv", function (error, surveys) {
             .range([height, 0]));
     }));
 
-    // Add grey background lines for context.
-    background = svgP.append("g")
-        .attr("class", "background")
-        .selectAll("path")
-        .data(surveys)
-        .enter().append("path")
-        .attr("d", path);
-
-    // Add blue foreground lines for focus.
-    foreground = svgP.append("g")
-        .attr("class", "foreground")
-        .selectAll("path")
-        .data(surveys)
-        .enter().append("path")
-        .attr("d", path);
 
     // Add a group element for each dimension.
     
 
-    var gdim = svgP.selectAll(".dimension")
+    var gDim = svgP.selectAll(".dimension")
         .data(dimensions)
         .enter().append("g")
         .attr("class", "dimension")
+        .classed('draggable', true)
         .attr("transform", function (d) { return "translate(" + x1(d) + ")"; })
-        .call(d3.behavior.drag().origin(function (d) { return { x: x1(d) }; })            
-           .on("dragstart", function (d){
-                console.log("Start dragging");
-                dragging[d] = x1(d);
-                background.attr("visibility", "hidden");
-            })
-           .on("drag", function (d) {
-                console.log("Dragging");
-                dragging[d] = Math.min(width, Math.max(0, d3.event.x));
-                foreground.attr("d", path);
-                dimensions.sort(function (a, b) { return position(a) - position(b); });
-                x1.domain(dimensions);
-                gdim.attr("transform", function (d) { return "translate(" + position(d) + ")"; })
-            })
-           .on("dragend", function (d) {
-                console.log("Finished dragging");
-                delete dragging[d];
-                transition(d3.select(this)).attr("transform", "translate(" + x1(d) + ")");
-                transition(foreground).attr("d", path);
-                background.attr("d", path)
-                        .transition()
-                        .delay(500)
-                        .duration(0)
-                        .attr("visibility", null);
-            }))
-            .on("click", function(d,i){
-                console.log("Clicked"+ i);
-            })
-            ;
+        ;
 
     // Add an axis and title.
-    gdim.append("g")
+    gDim.append("g")
         .attr("class", "axis")
         .style("fill", function (d, i) {
             
@@ -184,7 +144,11 @@ d3.csv("data/ejemplo2.csv", function (error, surveys) {
         .append("text")
         .style("text-anchor", "middle")
         .attr("y", -9)
-        .text(function (d) { return d+" "; });
+        .text(function (d) { return d+" "; })
+            .on("click", function(d){
+                console.log("Clicked"+ d.value);
+            })
+        ;
 
         d3.selectAll(".axis")
                     .append("rect")
@@ -195,16 +159,31 @@ d3.csv("data/ejemplo2.csv", function (error, surveys) {
                     .style("fill", function (d) {
                             return d.style;
                         })
-                    .style("opacity", 0.8)
+                    .style("opacity", 0.5)
                     ;
         /**
         d3.selectAll(".axis").shapes.style("fill", function (d) {
            return "white";
         });
 */
+    // Add grey background lines for context.
+    background = svgP.append("g")
+        .attr("class", "background")
+        .selectAll("path")
+        .data(surveys)
+        .enter().append("path")
+        .attr("d", path);
+
+    // Add blue foreground lines for focus.
+    foreground = svgP.append("g")
+        .attr("class", "foreground")
+        .selectAll("path")
+        .data(surveys)
+        .enter().append("path")
+        .attr("d", path);
     
     // Add and store a brush for each axis.
-    gdim.append("g")
+    gDim.append("g")
         .attr("class", "brush")
         .each(function (d) {
             d3.select(this).call(y1[d].brush = d3.svg.brush().y(y1[d]).on("brushstart", brushstart).on("brush", brush));
@@ -212,10 +191,46 @@ d3.csv("data/ejemplo2.csv", function (error, surveys) {
         .selectAll("rect")
         .attr("x", -8)
         .attr("width", 16);
+       
+
+        gDim.call(d3.behavior.drag().origin(function (d) { return { x: x1(d) }; })            
+           .on("dragstart", function (d){
+                d3.event.sourceEvent.stopPropagation();
+                console.log("Start dragging!");
+                dragging[d] = x1(d);
+                background.attr("visibility", "hidden");
+            })
+           .on("drag", function (d) {
+                console.log("Dragging");
+                dragging[d] = Math.min(width, Math.max(0, d3.event.x));
+                foreground.attr("d", path);
+                dimensions.sort(function (a, b) { return position(a) - position(b); });
+                x1.domain(dimensions);
+                gDim.attr("transform", function (d) { return "translate(" + position(d) + ")"; })
+
+            })
+           .on("dragend", function (d) {
+                console.log("Finished dragging");
+                delete dragging[d];
+                transition(d3.select(this)).attr("transform", "translate(" + x1(d) + ")");
+                transition(foreground).attr("d", path);
+                background.attr("d", path)
+                        .transition()
+                        .delay(500)
+                        .duration(0)
+                        .attr("visibility", null);
+                
+                
+                
+            })
+           )
+            .on("click", function(d,i){
+                console.log("Clicked"+ i);
+            });
 
     // add style linepath
     d3.selectAll(".foreground path").style("stroke", function (d, i) {
-        return "black";
+        return "grey";
         //return "hsl(" + (((170 - d.P1) * 90) / 170) + ",80%,60%)";
     }).style("stroke-width", function (d, i) {
         //return (1 - (d.P1 / 170) * 5) ;
@@ -241,13 +256,14 @@ var refreshGraph = function(){
     }));
 
     // Add a group element for each dimension.
-    var gdim = svgP.selectAll(".dimension")
+    var gDim = svgP.selectAll(".dimension")
         .data(dimensions)
         .enter().append("g")
         .attr("class", "dimension")
         .attr("transform", function (d) { return "translate(" + x1(d) + ")"; })
-        .call(d3.behavior.drag().origin(function (d) { return { x: x1(d) }; })            
-           .on("dragstart", function (d){
+        .call(d3.behavior.drag()
+            .origin(function (d) { return { x: x1(d) }; })            
+            .on("dragstart", function (d){
                 console.log("Start dragging");
                 dragging[d] = x1(d);
                 background.attr("visibility", "hidden");
@@ -258,7 +274,7 @@ var refreshGraph = function(){
                 foreground.attr("d", path);
                 dimensions.sort(function (a, b) { return position(a) - position(b); });
                 x1.domain(dimensions);
-                gdim.attr("transform", function (d) { return "translate(" + position(d) + ")"; })
+                gDim.attr("transform", function (d) { return "translate(" + position(d) + ")"; })
             })
            .on("dragend", function (d) {
                 console.log("Finished dragging");
@@ -273,7 +289,7 @@ var refreshGraph = function(){
             }));
 
     // Add an axis and title.
-    gdim.append("g")
+    gDim.append("g")
         .attr("class", "axis")
         .style("fill", function (d, i) {
             var randomColor;
@@ -333,7 +349,7 @@ var refreshGraph = function(){
                     .style("fill", function (d) {
                             return d.style;
                         })
-                    .style("opacity", 0.8);
+                    .style("opacity", 0.5);
         /**
         d3.selectAll(".axis").shapes.style("fill", function (d) {
            return "white";
@@ -356,7 +372,7 @@ var refreshGraph = function(){
         .attr("d", path);
 
     // Add and store a brush for each axis.
-    gdim.append("g")
+    gDim.append("g")
         .attr("class", "brush")
         .each(function (d) {
             d3.select(this).call(y1[d].brush = d3.svg.brush().y(y1[d]).on("brushstart", brushstart).on("brush", brush));
@@ -371,11 +387,8 @@ var refreshGraph = function(){
         //return "hsl(" + (((170 - d.P1) * 90) / 170) + ",80%,60%)";
     }).style("stroke-width", function (d, i) {
         //return (1 - (d.P1 / 170) * 5) ;
-        return 1;
-    }).style("opacity", function (d, i) {
-        return 1 - ((d.P1) / 300);
-
-    });
+        return 2;
+    }).style("opacity", 0.8);
 };
 
 function position(d) {
@@ -393,7 +406,7 @@ function path(d) {
 }
 
 function brushstart() {
-    d3.event.sourceEvent.stopPropagation();
+    //d3.event.sourceEvent.stopPropagation();
 }
 
 // Handles a brush event, toggling the display of foreground lines.

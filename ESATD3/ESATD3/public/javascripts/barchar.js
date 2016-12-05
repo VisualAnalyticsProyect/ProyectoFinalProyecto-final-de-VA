@@ -1,38 +1,39 @@
 ﻿var margin = { top: 40, right: 20, bottom: 30, left: 40 },
-    width = 300 - margin.left - margin.right,
+    width = 500 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
 
 var calificacion = d3.format(".0");
 
 var xb = d3.scale.ordinal()
-    .rangeRoundBands([0, width], .1);
+    .rangeRoundBands([0, width], .05);
 
 var yb = d3.scale.linear()
     .range([height, 0]);
 
 var xAxis = d3.svg.axis()
     .scale(xb)
-    .orient("bottom");
+    .orient("bottom")
+    .tickFormat(d3.time.format("%Y"));
 
 var yAxis = d3.svg.axis()
     .scale(yb)
     .orient("left")
     .tickFormat(calificacion);
 
-var tip = d3.tip()
+var tipb = d3.tip()
     .attr('class', 'd3-tip')
     .offset([-10, 0])
     .html(function (d) {
         return "<strong>Calificación:</strong> <span style='color:red'>" + d.PORCENTAJE + "</span>";
     })
 
-var svg = d3.select("#tablainfo").append("svg")
+var svgbar = d3.select("#tablainfo").append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-svg.call(tip);
+svgbar.call(tipb);
 update("PREGRADO", 2);
 
 function update(valor, nivel) {
@@ -49,15 +50,20 @@ function update(valor, nivel) {
         consulta = "";
 
     d3.json("/resumen?" + consulta + "=" + valor, function (error, data) {
-        xb.domain(data.map(function (d) { return d.MEDICION+"."; }));
-        yb.domain([0, 5]);
+        xb.domain(data.map(function (d) { return d.MEDICION; }));
+        yb.domain([0, d3.max(data, function (d) { return d.PORCENTAJE; })]);
 
-        svg.append("g")
+        svgbar.append("g")
             .attr("class", "x axis")
             .attr("transform", "translate(0," + height + ")")
-            .call(xAxis);
+            .call(xAxis)
+            .selectAll("text")
+            .style("text-anchor", "end")
+            .attr("dx", "-.8em")
+            .attr("dy", "-.55em")
+            .attr("transform", "rotate(-90)");
 
-        svg.append("g")
+        svgbar.append("g")
             .attr("class", "y axis")
             .call(yAxis)
             .append("text")
@@ -65,18 +71,18 @@ function update(valor, nivel) {
             .attr("y", 6)
             .attr("dy", ".71em")
             .style("text-anchor", "end")
-            .text("Calificación");
+            .text("Satisfacción");
 
-        svg.selectAll(".bar")
+        svgbar.selectAll("#tablainfo bar")
             .data(data)
             .enter().append("rect")
-            .attr("class", "bar")
-            .attr("x", function (d) { return xb(d.MEDICION); })
-            .attr("width", xb.rangeBand())
-            .attr("y", function (d) { return yb(d.PORCENTAJE); })
-            .attr("height", function (d) { return height - yb(d.PORCENTAJE); })
-            .on('mouseover', tip.show)
-            .on('mouseout', tip.hide)
+            .style("fill", "steelblue")
+            .attr("x", function (d) { return x(d.MEDICION); })
+            .attr("width", x.rangeBand())
+            .attr("y", function (d) { return y(d.PORCENTAJE); })
+            .attr("height", function (d) { return height - y(d.PORCENTAJE); })
+            .on('mouseover', tipb.show)
+            .on('mouseout', tipb.hide);
 
     });
    

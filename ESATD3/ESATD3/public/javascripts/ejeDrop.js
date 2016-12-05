@@ -37,7 +37,7 @@ var chart = d3.select(container).append("svg")
 
 chart.call(tip);
 
-function update(data) {       
+function updateEje(data) {       
     ye.domain([0, d3.max(data, function (d,index) { return index+1; })]);
 
     chart.append("g")
@@ -93,7 +93,7 @@ function borrar(node) {
                 $(".d3-tip").visible(false);            
                 return;
             }
-            update(grades);
+            updateEje(grades);
         }
     });
 }
@@ -110,7 +110,7 @@ function updateAxisDrop(node) {
         if (!encontro) {
             var i = grades.length + 1;
             grades.push({ "name": node.name, "grade": i });
-            update(grades);
+            updateEje(grades);
         }
         dropped = false;
     }

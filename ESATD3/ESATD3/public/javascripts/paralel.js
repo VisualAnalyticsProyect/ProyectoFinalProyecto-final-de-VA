@@ -1,14 +1,12 @@
 ﻿// -------------- Control de los ejes paralelos
 var preguntasJson;
 
-// Se cargan las preguntas de la base de datos
-
-
-
+// Agregalos máximos y los mínimos 0-100 para crear los ejes
 var primeros;
-d3.json("data/primeros.json", function (error, data) { primeros = data; });
 
-var color = ["CC4444", "009933", "FF6600", "3333FF", "9999FF", "6666CC", "3333CC", "333399", "666699"];
+
+var colorTemas = ["#CC4444", "#009933", "#FF6600", "#3333FF"];
+var color = d3.scale.category20c();
 var c10 = d3.scale.category10();
 function colores_google(n) {
     var colores_g = ["#3366cc", "#dc3912", "#ff9900", "#109618", "#990099", "#0099c6", "#dd4477", "#66aa00", "#b82e2e", "#316395", "#994499", "#22aa99", "#aaaa11", "#6633cc", "#e67300", "#8b0707", "#651067", "#329262", "#5574a6", "#3b3eac"];
@@ -54,8 +52,8 @@ function insertNewCoords(textito) {
 }
 
 // Infromación de las series.
-var globaldata;
-d3.json("/paralelinfo", function (error, data) { globaldata = data; });
+var globaldata = [];
+
 
 // Maneja el tamaño y margenes de los ejes paralelos
 var margin = { top: 30, right: 10, bottom: 10, left: 10 },
@@ -124,7 +122,6 @@ function crearGrafico() {
     // Fondos que cambian de color para especificar el tema
     gParalel.append("g")
         .attr("class", "axis")
-        .style("fill", function (d, i) { return color[d.no_tema]; })
         .each(function (d) { d3.select(this).call(axis.scale(y1[d])); }).attr("dx", 10).style("text-anchor", "middle")
 
     // los rotulos
@@ -134,6 +131,27 @@ function crearGrafico() {
         .attr("y", -9)
         .text(function (d) { return d + " "; });
 
+    gParalel.selectAll(".axis")
+        .append("rect")
+        .attr("x", function (d) { return -10 })
+        .attr("y", function (d) { 0 })
+        .attr("width", 20)
+        .attr("height", height)
+        .style("fill", function (d, i) {
+            if (preguntasJson[d-1].no_tema == 2)
+                return "rgb(204, 255, 204)";
+            else if (preguntasJson[d-1].no_tema == 1)
+                return "rgb(204, 255, 255)";
+            else if (preguntasJson[d-1].no_tema == 3   )
+                return "rgb(204, 204, 255)";
+            else
+                return "rgb(255, 204, 204)";
+        })
+        /*.style("backgorund-color", function (d, i) {
+            numero = parseInt(preguntasJson[i].TEMA.substring(0, 1)) - 1;
+            return colorTemas[numero];
+        });*/
+        .style("opacity", 0.5);
 
     /**NO SE PARA QUE ES ESTO, introducido por juan
     
@@ -221,19 +239,17 @@ function nodosIguales(nodo1, nodo2) {
 
 function refrescar()
 {
-
     globaldata = [];
 
     for (i = 0; i < seriesNodos.length; i++)
     {
         nn = seriesNodos[i];
-        nnn = consultar(nn.muestra, nn.nivel, nn.facultad, nn.departamento, nn.programa);
-        globaldata.push(nnn);
-
+        consultar(nn.muestra, nn.nivel, nn.facultad, nn.departamento, nn.programa, i == seriesNodos.length-1);
     }
+};
 
-
-
+function refrescarSeries()
+{
     // Los fondos grises
     background = svgParalel.select(".background")
         .selectAll("path")
@@ -253,8 +269,8 @@ function refrescar()
         .attr("d", path);
 
     foreground.exit().remove();
+}
 
-};
 
 function position(d) {
     var v = dragging[d];
@@ -285,31 +301,40 @@ function brush() {
     });
 }
 
-function consultar(muestra, nivel, facultad, departamento, programa) {
+function consultar(muestra, nivel, facultad, departamento, programa, refrescarS) {
     var respuesta;
     var ruta = "/paralelsi?anio=" + muestra + "&estudios=" + nivel + "&facultad=" + facultad + "&departamento=" + departamento + "&programa=" + programa;
-    var intentos = 0;
-    var r = "{";
-    while (respuesta == null && intentos++ < 5) {
-            d3.json(ruta, function (error, data) {
-                respuesta = data;
-                r += " \"nombre\": " + muestra + nivel + facultad + departamento + programa + ", ";
-                for (i = 0; i < respuesta.length; i++) {
-                    r += "\"" + respuesta[i].No_pregunta + "\": " + respuesta[i].PorcentajeStasifaccion;
-                    if (i != respuesta.length - 1)
-                        r += ", ";
-                }
-            })
-    }
-    r += "}";
-    return JSON.parse(r);
+    d3.json(ruta, function (error, data) {
+        var r = "{";
+        respuesta = data;
+        r += " \"nombre\": " + muestra + nivel + facultad + departamento + programa + ", ";
+        for (i = 0; i < respuesta.length; i++)
+        {
+            r += "\"" + respuesta[i].No_pregunta + "\": " + respuesta[i].PorcentajeStasifaccion;
+            if (i != respuesta.length - 1)
+                r += ", ";
+        }
+        r += "}";
+        globaldata.push(JSON.parse(r));
+        if (refrescarS)
+            refrescarSeries();
+
+    });
+    
+    
+    
 }
 
 
 
-d3.json("/tree", function (error, data) {
+d3.json("/tree", function (error, data)
+{
     preguntasJson = data;
-    crearGrafico();
+    d3.json("data/primeros.json", function (error, data2)
+    {
+        primeros = data2;
+        crearGrafico();
+    });
 });
 
 agregarNodo("2015", "", "", "", "");

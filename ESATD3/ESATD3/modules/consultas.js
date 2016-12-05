@@ -5,7 +5,7 @@ var crearTablaCuantificacion = "CREATE TABLE IF NOT EXISTS BASE_VAL AS (select b
 var resumen = "SELECT MEDICION,NIVEL,FACULTAD,avg(VALOR_RESPUESTA) AS PROMEDIO FROM BASE_VAL GROUP BY MEDICION,NIVEL,FACULTAD ORDER BY PROMEDIO";
 var resumenNivel = "SELECT NIVEL,avg(VALOR_RESPUESTA) AS PROMEDIO FROM BASE_VAL GROUP BY NIVEL ORDER BY PROMEDIO";
 var numDatos = "SELECT count(ID) FROM BASE_VAL WHERE VALOR_RESPUESTA = 0";
-var tree = "SELECT DISTINCT TEMA, SUBTEMA, PREGUNTA, No_pregunta FROM BASE_VAL ORDER BY No_Pregunta;";
+var tree = "SELECT DISTINCT TEMA, SUBTEMA, PREGUNTA, No_pregunta, no_tema FROM PREGUNTAS ORDER BY No_Pregunta;";
 var promedio = function (anio, estudios, facultad, departamento, programa, condicion) {
 
     return "SELECT PREGUNTAS.No_pregunta ,PREGUNTAS.PREGUNTA, ifnull(buenas.Suma/todas.Suma,0) as PorcentajeStasifaccion FROM " +

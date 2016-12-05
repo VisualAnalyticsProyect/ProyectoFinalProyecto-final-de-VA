@@ -100,7 +100,7 @@ function borrar(node) {
 
 function updateAxisDrop(node) {
     if (dropped) {
-        var namenode = node.__data__.name;
+        var namenode = node.name;
         var encontro = false;
         grades.forEach(function (d) {
             if (d.name == namenode) {
@@ -109,7 +109,7 @@ function updateAxisDrop(node) {
         });
         if (!encontro) {
             var i = grades.length + 1;
-            grades.push({ "name": node.__data__.name, "grade": i });
+            grades.push({ "name": node.name, "grade": i });
             update(grades);
         }
         dropped = false;

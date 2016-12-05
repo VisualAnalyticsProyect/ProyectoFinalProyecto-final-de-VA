@@ -40,6 +40,9 @@ function nodo(pMuestra, pNivel, pFacultad, pDepartamento, pPrograma) {
 //Los nodos que se están mostrando
 var seriesNodos = [];
 
+var gBackground;
+var gForground;
+
 // Evaluar necesidad
 function insertNewCoords(textito) {
     //textito es la variable que recibe la respuesta SQL 
@@ -70,7 +73,7 @@ var globaldata = [];
 
 
 // Maneja el tamaño y margenes de los ejes paralelos
-var margin = { top: 30, right: 10, bottom: 10, left: 10 },
+var margin = { top: 30, right: 50, bottom: 10, left: 50 },
     width = 960 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
 
@@ -198,16 +201,18 @@ function crearGrafico() {
         */
 
     // Los fondos grises
-    background = svgParalel.append("g")
-        .attr("class", "background")
-        .selectAll("path")
+    gBackground = svgParalel.append("g").attr("class", "background"); 
+
+    background = gBackground.selectAll("path")
         .data(globaldata)
         .enter().append("path")
         .attr("d", path);
 
+    gForground = svgParalel.append("g")
+        .attr("class", "foreground");
+
     // Los colores
-    foreground = svgParalel.append("g")
-        .attr("class", "foreground")
+    foreground = gForground
         .selectAll("path")
         .data(globaldata)
         .enter().append("path")
@@ -261,17 +266,17 @@ function refrescar()
 {
     globaldata = [];
 
-    for (i = 0; i < seriesNodos.length; i++)
+    for (index = 0; index < seriesNodos.length; index++)
     {
-        nn = seriesNodos[i];
-        consultar(nn.muestra, nn.nivel, nn.facultad, nn.departamento, nn.programa, i == seriesNodos.length-1);
+        nn = seriesNodos[index];
+        consultar(nn.muestra, nn.nivel, nn.facultad, nn.departamento, nn.programa, index == seriesNodos.length-1);
     }
 };
 
 function refrescarSeries()
 {
     // Los fondos grises
-    background = svgParalel.select(".background")
+    background = gBackground
         .selectAll("path")
         .data(globaldata);
 
@@ -281,7 +286,7 @@ function refrescarSeries()
     background.exit().remove();
 
     // Los colores
-    foreground = svgParalel.select(".foreground")
+    foreground = gForground
         .selectAll("path")
         .data(globaldata);
 
@@ -324,21 +329,27 @@ function brush() {
 function consultar(muestra, nivel, facultad, departamento, programa, refrescarS) {
     var respuesta;
     var ruta = "/paralelsi?anio=" + muestra + "&estudios=" + nivel + "&facultad=" + facultad + "&departamento=" + departamento + "&programa=" + programa;
-    d3.json(ruta, function (error, data) {
-        var r = "{";
-        respuesta = data;
-        r += " \"nombre\": " + muestra + nivel + facultad + departamento + programa + ", ";
-        for (i = 0; i < respuesta.length; i++)
-        {
-            r += "\"" + respuesta[i].No_pregunta + "\": " + respuesta[i].PorcentajeStasifaccion;
-            if (i != respuesta.length - 1)
-                r += ", ";
-        }
-        r += "}";
-        globaldata.push(JSON.parse(r));
-        if (refrescarS)
+    ruta = ruta.replace(/ /g, "%20");
+    var rJson = "";
+    //ruta = URLEncoder.encode(ruta, "UTF-8");
+    d3.json(ruta, function (error, data)
+    {
+        if (error)
+            alert(error);
+        else {
+            rJson = "{"
+            respuesta = data;
+            rJson += " \"nombre\": \"" + muestra + nivel + facultad + departamento + programa + "\", ";
+            for (i = 0; i < respuesta.length; i++) {
+                rJson += "\"" + respuesta[i].No_pregunta + "\": " + respuesta[i].PorcentajeStasifaccion;
+                if (i != respuesta.length - 1)
+                    rJson += ", ";
+            }
+            rJson += "}";
+            globaldata.push(JSON.parse(rJson    ));
+            //if (refrescarS)
             refrescarSeries();
-
+        }
     });
     
     
@@ -357,5 +368,5 @@ d3.json("/tree", function (error, data)
     });
 });
 
-agregarNodo("2015", "", "", "", "");
-agregarNodo("2014", "", "", "", "");
+//agregarNodo("2015", "", "", "", "");
+//agregarNodo("2014", "", "Facultad de Ingeniería", "", "");

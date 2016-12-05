@@ -100,16 +100,26 @@ function updateAxisDrop(node) {
         var namenode = node.name;
         var encontro = false;
         grades.forEach(function (d) {
-            if (d.name == namenode) {
+            if (d.name == namenode && name.clasificacion == node.clasificacion) {
                 encontro = true;
             }
         });
         if (!encontro) {
             var i = grades.length + 1;
-            grades.push({ "name": node.name, "grade": i });
+            grades.push({ "name": node.name, "grade": i, "class" : node.clasificacion });
+            var datos = [anhoSeleccionado, "", "", "",""];
+            var tempo = node;
+            while (tempo.level > 1)
+            {
+                datos[tempo.level - 1] = tempo.name;
+                tempo = tempo.parent;
+            }
+            agregarNodo(datos[0], datos[1], datos[2], datos[3], datos[4]);
+            refrescar();
             updateEje(grades);
         }
         dropped = false;
     }
+
 
 }

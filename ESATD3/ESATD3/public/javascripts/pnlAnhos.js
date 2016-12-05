@@ -6,7 +6,7 @@
 
 // Información de los años en los que se tiene muestra (debería estar leido de la bd)
 var anhos = [2011, 2012, 2013, 2014, 2015];
-var anhoSeleccionado;
+var anhoSeleccionado = "";
 // "g" de los botones de los años
 var gAnhos;
 

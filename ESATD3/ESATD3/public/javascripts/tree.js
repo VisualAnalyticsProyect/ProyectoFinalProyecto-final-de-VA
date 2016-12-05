@@ -1,4 +1,8 @@
-﻿function createTree(treeData, container, isDrag) {
+﻿var treeJSON = d3.json("data/arbol.json", function (error, treeData) {
+    createTree(treeData, "#treecontainer", true);
+});
+
+function createTree(treeData, container, isDrag) {
 
     var xScale = d3.scale.linear().domain([0, 10]).range([0, 50]);
     // Calculate total nodes, max label length

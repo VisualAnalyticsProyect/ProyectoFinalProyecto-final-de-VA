@@ -1306,6 +1306,7 @@
     <Content Include="public\data\esat.csv" />
     <Content Include="public\data\indicators.csv" />
     <Content Include="package.json" />
+    <Content Include="public\data\primeros.json" />
     <Content Include="public\dist\css\bootstrap-theme.css" />
     <Content Include="public\dist\css\bootstrap-theme.css.map" />
     <Content Include="public\dist\css\bootstrap-theme.min.css" />

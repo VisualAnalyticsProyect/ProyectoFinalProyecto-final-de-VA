@@ -92,7 +92,7 @@ function updateButtonColors(button, parent) {
         .attr("fill", colorPresionado)
 
     anhoSeleccionado = button.select("text").text();
-    
+    refrescar();
 }
 
 cargarBotonesAnhos();

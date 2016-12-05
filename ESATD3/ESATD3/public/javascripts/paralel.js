@@ -397,7 +397,7 @@ function brush() {
 
 function consultar(muestra, nivel, facultad, departamento, programa, refrescarS) {
     var respuesta;
-    var ruta = "/paralelsi?anio=" + muestra + "&estudios=" + nivel + "&facultad=" + facultad + "&departamento=" + departamento + "&programa=" + programa;
+    var ruta = "/paralelsi?anio=" + anhoSeleccionado     + "&estudios=" + nivel + "&facultad=" + facultad + "&departamento=" + departamento + "&programa=" + programa;
     ruta = ruta.replace(/ /g, "%20");
     var rJson = "";
     //ruta = URLEncoder.encode(ruta, "UTF-8");
@@ -408,7 +408,7 @@ function consultar(muestra, nivel, facultad, departamento, programa, refrescarS)
         else {
             rJson = "{"
             respuesta = data;
-            rJson += " \"nombre\": \"" + muestra + nivel + facultad + departamento + programa + "\", ";
+            rJson += " \"nombre\": \"" + (nivel != ""? nivel.substring(0,1):"") + "." + programa + "\", ";
             for (i = 0; i < respuesta.length; i++) {
                 rJson += "\"" + respuesta[i].No_pregunta + "\": " + respuesta[i].PorcentajeStasifaccion;
                 if (i != respuesta.length - 1)

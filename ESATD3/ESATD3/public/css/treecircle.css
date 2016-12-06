@@ -2,44 +2,43 @@
 #treecontainer g text {
 font-size: 15px;
 pointer-events: none;
-position:absolute;   
-}
-
-text.parent {
-fill: #000000;
+color:#003249 !important; 
+z-index:1000;
 }
 
 circle {
-fill: #ccc;
-stroke: #999;
+fill: #9AD1D4;
+stroke: #80CED7;
 pointer-events: all;
+fill-opacity:.2;
 }
 
 circle.parent {
-fill: #1f77b4;
+fill: #FFF7D1;
 fill-opacity: .1;
-stroke: steelblue;
+stroke: #007EA7;
 }
 
 circle.parent:hover {
-    stroke: #ff7f0e;
+    stroke: #007EA7;
     stroke-width: .5px;
+    fill: #003249;
 }
 
 circle.child {
 pointer-events: all;
 }
 #treecontainer{
-min-width:60%;
-max-width:60%;
+min-width:65%;
+max-width:65%;
 float:left;
 margin-top:0px;
 height:500px;
 }
 
 #tablainfo{
-min-width:40%;
-max-width:40%;
+min-width:35%;
+max-width:35%;
 float:left;
 margin-top:0px;
 height:500px;

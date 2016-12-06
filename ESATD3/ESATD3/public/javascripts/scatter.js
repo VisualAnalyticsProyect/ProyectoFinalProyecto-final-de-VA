@@ -14,6 +14,7 @@ var tipCirculosRTotal = d3.tip()
     });
 vis.call(tipCirculosRTotal);
 
+var dotsScatterVisibles = true;
 
 var margin = { top: 20, right: 20, bottom: 30, left: 40 },
     widthScatter = 960 - margin.left - margin.right,
@@ -90,12 +91,28 @@ var preguntas;
             .data(inforTotal)
             .enter().append("circle")
             .attr("class", "dotScat")   
-            .attr("r", 5 )
+            .attr("r", 8 )
             .attr("cx", function (d) { return xScalaScatter(d.No_pregunta); })
             .attr("cy", function (d) { return yScalaScatter(d.PorcentajeStasifaccion); })
             .style("fill", "black")//function(d) { return color(d.species); });
             .on("mouseover", tipCirculosRTotal.show)
-            .on("mouseout", tipCirculosRTotal.hide);
+            .on("mouseout", tipCirculosRTotal.hide)
+            .on("click", function (d) {
+                svgScatter.selectAll(".dotScat")
+                    .style("opacity", function (p) {
+                        dotsScatterVisibles = !dotsScatterVisibles;
+                        if (!dotsScatterVisibles)
+                            if (d.NIVEL == p.NIVEL && d.FACULTAD == p.FACULTAD && d.DEPARTAMENTO == p.DEPARTAMENTO && d.PROGRAMA == p.PROGRAMA)
+                                return 1;
+                            else
+                                return 0;
+                        else
+                            return 1;
+                        
+                    });
+            }
+        )
+            ;
     });
 
 });

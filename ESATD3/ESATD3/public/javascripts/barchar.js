@@ -94,7 +94,7 @@ function draw(data) {
     // measure the domain (for x, unique letters) (for y [0,maxFrequency])
     // now the scales are finished and usable
     x.domain(data.map(function (d) { return d.MEDICION; }));
-    y.domain([d3.min(data, function (d) { return d.PORCENTAJE; }), d3.max(data, function (d) { return d.PORCENTAJE; })]);
+    y.domain([0,5]);
 
     // another g element, this time to move the origin to the bottom of the svgbar element
     // someSelection.call(thing) is roughly equivalent to thing(someSelection[i])

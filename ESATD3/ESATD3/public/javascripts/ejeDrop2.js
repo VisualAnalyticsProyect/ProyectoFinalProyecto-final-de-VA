@@ -85,6 +85,7 @@ function borrar2(node) {
         charte2.selectAll(containerE2 + " .bar").remove();
         charte2.selectAll(containerE2 + " .barText").remove();
         charte2.selectAll(containerE2 + " g").remove();
+        eliminarNodoDetalle();
     }
  }
 

@@ -75,7 +75,7 @@ function borrar(node) {
     estudios.forEach(function (d,index) {
         if (d.name == node.name && d.clasificacion == node.clasificacion) {
             delete estudios[index]; 
-            eliminarNodo(new nodo("", node.nivel, node.facultad, node.departamento, node.programa));
+            eliminarNodo(new nodo("", node.nivel, node.facultad, node.departamento, node.programa),"");
             var estudiost = [];
             estudios.forEach(function (l) {
                 estudiost.push(l);

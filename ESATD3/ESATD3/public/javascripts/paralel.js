@@ -289,7 +289,7 @@ function eliminarNodo(eliminar) {
 
 //Funcion que compara y dice si dos nodos son iguales
 function nodosIguales(nodo1, nodo2) {
-    return  nodo1.nivel == nodo2.nivel && nodo1.facultad == nodo2.facultad && nodo1.departamento == nodo2.departamento && nodo1.programa == nodo2.programa;
+    return  nodo1.nivel == nodo2.nivel && (nodo1.facultad == nodo2.facultad || nodo1.departamento == nodo2.departamento || nodo1.programa == nodo2.programa);
 }
 
 function refrescar()

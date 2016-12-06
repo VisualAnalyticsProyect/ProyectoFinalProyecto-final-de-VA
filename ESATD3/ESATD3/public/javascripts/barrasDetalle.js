@@ -7,7 +7,7 @@ function agregarNodoDetalle(muestra, nivel, facultad, departamento, programa, co
 }
 
 //Eliminar un nodo
-function eliminarNodo(eliminar) {
+function eliminarNodoDetalle() {
     delete nodoActualDetalles;
 }
 // Mike Bostock "marginDetalles conventions"

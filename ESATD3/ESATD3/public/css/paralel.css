@@ -12,9 +12,15 @@
     width:100%
 }
 
+#scatter{
+    float:left;
+    width:100%;
+
+}
+
 .foreground path {
   fill: none;
-  stroke: brown;
+  stroke: #003249;
   stroke-width: 2;
 }
 

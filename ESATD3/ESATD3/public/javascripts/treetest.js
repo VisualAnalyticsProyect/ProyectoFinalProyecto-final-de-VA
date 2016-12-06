@@ -158,12 +158,12 @@ function move(d,domNodep) {
  d.y += d3.event.dx;   
  d3.select(domNodep)
      .attr("transform", "translate(" + (d.y) + "," + d.x + ")")
-     .select("circle").attr("r",50);   
+     //.select("circle").attr("r",50);   
 };
 
 function endDrag(d, domNodep) {
      //############################# ejedrop   
-    d3.select(domNodep).select("circle").attr("r",d.r);
+   // d3.select(domNodep).select("circle").attr("r",d.r);
     d3.select(containertree + " svg").style("overflow", "hidden");
     updateAxisDrop(d);    
     // now restore the mouseover event or we won't be able to drag a 2nd time        

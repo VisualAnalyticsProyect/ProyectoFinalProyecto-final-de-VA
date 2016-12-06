@@ -7,6 +7,15 @@ body {
   padding-top: 50px;
 }
 
+.navbar-inverse {
+    background-color: #003249;
+    border-color: #007EA7;
+    color:#80CED7 !important;
+}
+
+text,h1,h2,#tituloTablaInfo{
+    color:#003249;
+}
 
 /*
  * Global add-ons
@@ -44,7 +53,7 @@ body {
     padding: 20px;
     overflow-x: hidden;
     overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
-    background-color: #f5f5f5;
+    background-color: #9AD1D4;
     border-right: 1px solid #eee;
   }
 }
@@ -62,8 +71,8 @@ body {
 .nav-sidebar > .active > a,
 .nav-sidebar > .active > a:hover,
 .nav-sidebar > .active > a:focus {
-  color: #fff;
-  background-color: #428bca;
+  color: #80CED7;
+  background-color: #003249;
 }
 
 
@@ -84,12 +93,17 @@ body {
   margin-top: 0;
 }
 
-@media (min-width: 992px){}
+@media (min-width: 992px) {
     .col-md-10 {
-        width: 60%;
+        width: 70%;
+    }
+
+    .col-md-2 {
+        width: 8%;
     }
 }
-/*
+
+    /*
  * Placeholder dashboard ideas
  */
 

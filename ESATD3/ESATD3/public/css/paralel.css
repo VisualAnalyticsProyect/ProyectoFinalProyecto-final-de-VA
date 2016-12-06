@@ -1,7 +1,7 @@
 ﻿
 .background path {
   fill: none;
-  stroke: black;
+  stroke: #003249;
   stroke-width: 1;
   shape-rendering: crispEdges;
   opacity: 0.5;
@@ -15,7 +15,7 @@
 
 .brush .extent {
   fill-opacity: .3;
-  stroke: #fff;
+  stroke: #9AD1D4;
   shape-rendering: crispEdges;
 }
 
@@ -61,7 +61,7 @@ background-color:rgba(0, 103, 255, 0.78);
 .main{
     display:table;
 }
-
+/*
 .d3-tipEje {
   line-height: 1;
   font-weight: bold;

@@ -725,6 +725,7 @@
     <Compile Include="public\dist\js\npm.js" />
     <Compile Include="public\javascripts\barchar.js" />
     <Compile Include="public\javascripts\ejeDrop.js" />
+    <Compile Include="public\javascripts\liquid.js" />
     <Compile Include="public\javascripts\paralel.js" />
     <Compile Include="public\javascripts\pnlAnhos.js" />
     <Compile Include="public\javascripts\tree.js" />
@@ -1301,6 +1302,7 @@
     <Content Include="public\css\paralel.css" />
     <Content Include="public\css\tree.css" />
     <Content Include="public\css\treecircle.css" />
+    <Content Include="public\css\welcome.css" />
     <Content Include="public\data\arbol.json" />
     <Content Include="public\data\ejemplo.csv" />
     <Content Include="public\data\ejemplonivel.json" />

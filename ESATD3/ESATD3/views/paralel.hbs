@@ -12,7 +12,7 @@
         </div>
         <div id="tablainfo"><div id="tituloTablaInfo"></div></div>
         <div id="paralelcontainer">
-            <div id="ejecontainer"><h2 id="ejecontainerText"></h2></div>
+            <div id="ejecontainer"><h4 id="ejecontainerText"></h4></div>
             <div id="paralel"></div>
         </div>
         <div id="scatter"><h1></h1></div>
@@ -21,6 +21,7 @@
 
 <script src="javascripts/barchar.js"></script>
 <script src="javascripts/ejeDrop.js"></script>
+<script src="javascripts/ejeDrop2.js"></script>
 <script src="javascripts/treetest.js"></script>
 <script src="javascripts/paralel.js"></script>
 <script src="javascripts/pnlAnhos.js"></script>
@@ -44,7 +45,7 @@
             var x = supportPageOffset ? window.pageXOffset : isCSS1Compat ? document.documentElement.scrollLeft : document.body.scrollLeft;
             var y = supportPageOffset ? window.pageYOffset : isCSS1Compat ? document.documentElement.scrollTop : document.body.scrollTop;
 
-            demoItem2.style.left = -x + 150 + "px";
+            demoItem2.style.left = -x + 100 + "px";
            // demoItem3.style.top = -y + 50 + "px";
         });
 
@@ -59,6 +60,7 @@
     }
     div#fixed
     {
+         width:600px;
          position:fixed;
     }
     div#notfixed

@@ -726,6 +726,7 @@
     <Compile Include="public\javascripts\barchar.js" />
     <Compile Include="public\javascripts\barrasDetalle.js" />
     <Compile Include="public\javascripts\ejeDrop.js" />
+    <Compile Include="public\javascripts\ejeDrop2.js" />
     <Compile Include="public\javascripts\JavaScript.js" />
     <Compile Include="public\javascripts\liquid.js" />
     <Compile Include="public\javascripts\paralel.js" />
@@ -1303,6 +1304,7 @@
     <Content Include="public\css\barchar.css" />
     <Content Include="public\css\dashboard.css" />
     <Content Include="public\css\paralel.css" />
+    <Content Include="public\css\scatter.css" />
     <Content Include="public\css\tree.css" />
     <Content Include="public\css\treecircle.css" />
     <Content Include="public\css\welcome.css" />

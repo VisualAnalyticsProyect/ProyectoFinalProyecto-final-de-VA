@@ -1,0 +1,23 @@
+﻿.dotScat  
+{
+fill: #9AD1D4;
+stroke: #80CED7;
+fill-opacity:.2;
+}
+
+.dotScat.parent {
+fill: #007EA7;
+fill-opacity: .1;
+stroke: #007EA7;
+}
+
+.dotScat.parent:hover {
+    stroke: #FFF7D1;
+    stroke-width: .5px;
+    fill: #003249;
+    fill-opacity: .5;
+}
+
+.dotScat.child {
+
+}

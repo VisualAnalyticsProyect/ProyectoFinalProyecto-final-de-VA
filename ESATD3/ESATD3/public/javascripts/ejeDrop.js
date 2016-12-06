@@ -118,11 +118,12 @@ function updateAxisDrop(node) {
                 datos[tempo.level - 1] = tempo.name;
                 tempo = tempo.parent;
             }
-            agregarNodo(datos[0], datos[1], datos[2], datos[3], datos[4], colorTemas(parseInt(i) - 1));
+            var cccc = colorTemas(Math.floor((Math.random() * 50) + 1));
+            agregarNodo(datos[0], datos[1], datos[2], datos[3], datos[4],cccc);
             refrescar();
             estudios.push({
                 "name": node.name, "indice": i, "clasificacion": node.clasificacion, "nivel": datos[1], "facultad": datos[2],
-                "departamento": datos[3], "programa": datos[4], "colorR": colorTemas(parseInt(i) - 1), "colorT": colorTemas(colorTemas.length - (parseInt(i) - 1))});            
+                "departamento": datos[3], "programa": datos[4], "colorR": cccc, "colorT": colorTemas(colorTemas.length - (parseInt(i) - 1))});            
             updateEje(estudios);
         }
         dropped = false;

@@ -1,6 +1,6 @@
 ﻿//http://mbostock.github.io/d3/talk/20111116/pack-hierarchy.html
-var w = d3.select("#treecontainer").style("width"),
-    width = w.replace("px", ""),
+var w = d3.select("#treecontainer").style("width","100%"),
+    //f = w.replace("px", ""),
     h = d3.select("#treecontainer").style("height"),
     r = 450,
     xt = d3.scale.linear().range([0, r]),
@@ -17,7 +17,7 @@ var containertree = "#treecontainer";
 var vis = d3.select("#treecontainer").insert("svg:svg", "h2")
     .attr("width", "100%")
     .attr("height", h)
-    .attr("margin-left", "40%")
+    //.attr("margin-left", "40%")
     .append("svg:g");
     
 
@@ -51,7 +51,10 @@ dragListener = d3.behavior.drag()
         d3.select(containertree + " svg").style("overflow", "visible");
         d3.select("#ejecontainer").style("background-color", "#80CED7");
         d3.select("#ejecontainer").style("opacity", "0.8");
+        d3.select("#ejecontainer2").style("background-color", "#80CED7");
+        d3.select("#ejecontainer2").style("opacity", "0.8");
         d3.select("#ejecontainerText").text("Suelte Aquí");
+        d3.select("#ejecontainerText2").text("Suelte Aquí");
         
     })
     .on("drag", function (d) {       
@@ -63,6 +66,9 @@ dragListener = d3.behavior.drag()
         d3.select("#ejecontainer").style("background-color", "white");
         d3.select("#ejecontainer").style("opacity", "1"); 
         d3.select("#ejecontainerText").text(""); 
+        d3.select("#ejecontainer2").style("background-color", "white");
+        d3.select("#ejecontainer2").style("opacity", "1");
+        d3.select("#ejecontainerText2").text(""); 
         endDrag(d,this);
     });
 
@@ -165,7 +171,19 @@ function endDrag(d, domNodep) {
      //############################# ejedrop   
    // d3.select(domNodep).select("circle").attr("r",d.r);
     d3.select(containertree + " svg").style("overflow", "hidden");
-    updateAxisDrop(d);    
+    var posRelaty1 = $("#ejecontainer").offset().top;
+    var posRelaty2 = $("#ejecontainer2").offset().top;
+    var posRelatyt = $("#treecontainer").offset().top;
+    var posRelaty12 = $("#ejecontainer").position().top;
+    var posRelaty22 = $("#ejecontainer2").position().top;
+    var posRelatyt2 = $("#treecontainer").position().top;
+    
+
+
+    if (posRelatyt   < 800)
+        updateAxisDrop2(d);
+    else
+        updateAxisDrop(d);    
     // now restore the mouseover event or we won't be able to drag a 2nd time        
     if (draggingNode !== null) {    
         vis.selectAll("g").attr("transform", "");     

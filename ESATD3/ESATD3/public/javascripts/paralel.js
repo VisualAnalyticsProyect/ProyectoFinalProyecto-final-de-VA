@@ -89,7 +89,7 @@ var svgParalel = d3.select("#paralel").append("svg")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
     .on("click", function () {
         svgParalel.attr("width", "50");
-        alert("camvio");
+        
     });
 
 

@@ -63,6 +63,16 @@
     vertical-align:middle;
    
 }
+#ejecontainer2{   
+    width:10%;    
+    float:left;
+    border-style:solid;     
+    height:150px;
+    font:20px;
+    text-align:center;
+    vertical-align:middle;
+   
+}
 
 #ejecontainerText{   
     text-align:center;

@@ -87,7 +87,7 @@ var preguntas;
             .style("text-anchor", "end")
             .text("% satisfacción")
 
-        svgScatter.selectAll(".dotScat")
+        svgDots = svgScatter.selectAll(".dotScatCotainers")
             .data(inforTotal)
             .enter().append("circle")
             .attr("class", "dotScat")   

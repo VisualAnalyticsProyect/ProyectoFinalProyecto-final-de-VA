@@ -2,7 +2,7 @@
 var w = d3.select("#treecontainer").style("width"),
     width = w.replace("px", ""),
     h = d3.select("#treecontainer").style("height"),
-    r = 500,
+    r = 450,
     xt = d3.scale.linear().range([0, r]),
     yt = d3.scale.linear().range([0, r]),
     node,
@@ -15,14 +15,14 @@ var pack = d3.layout.pack()
     .value(function (d) { return d.value*100; })
 var containertree = "#treecontainer";
 var vis = d3.select("#treecontainer").insert("svg:svg", "h2")
-    .attr("width", w)
+    .attr("width", "100%")
     .attr("height", h)
     .attr("margin-left", "40%")
     .append("svg:g");
     
 
 var main = d3.select(".main").append("svg")
-    .attr("width", w)
+    .attr("width", "100%")
     .attr("height",h)
     .attr("class", "svgdrag");
 

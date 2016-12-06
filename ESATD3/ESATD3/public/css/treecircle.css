@@ -14,36 +14,33 @@ fill-opacity:.2;
 }
 
 circle.parent {
-fill: #FFF7D1;
+fill: #007EA7;
 fill-opacity: .1;
 stroke: #007EA7;
 }
 
 circle.parent:hover {
-    stroke: #007EA7;
+    stroke: #FFF7D1;
     stroke-width: .5px;
     fill: #003249;
+    fill-opacity: .5;
 }
 
 circle.child {
 pointer-events: all;
 }
 #treecontainer{
-min-width:65%;
-max-width:65%;
+min-width:60%;
+max-width:60%;
 float:left;
 margin-top:0px;
+margin-right:30px;
 height:500px;
 }
 
 #tablainfo{
-min-width:35%;
-max-width:35%;
+min-width:20%;
+max-width:20%;
 float:left;
 margin-top:0px;
-height:500px;
-}
-
-.main .svgdrag{
-    overflow:visible;
 }

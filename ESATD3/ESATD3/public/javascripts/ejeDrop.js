@@ -36,19 +36,17 @@ var chart = d3.select(container).append("svg")
     .attr("height", height).append("g");    
 
 chart.call(tipe);
-
 function updateEje(data) {       
     ye.domain([0, d3.max(data, function (d,index) { return index+1; })]);
 
     chart.append("g")
-        .attr("transform", "translate(0," + height + ")")
-
+        .attr("transform", "translate(0," + height + ")")  
     var barra = chart.selectAll(container +" .bar").data(data);
     barra.enter().append("rect").attr("class", "bar");	
   		barra.on("mouseover", tipe.show)
         .on("mouseout", tipe.hide)
         .style("fill", function (d) {           
-            return "forestgreen";            
+            return colorTemas[parseInt(d.grade)-1];            
         }).on('click', function (d) { borrar(d); })
         .attr("x",0)
         .attr("y", function (d,index) { return ye(index+1); })
@@ -57,12 +55,12 @@ function updateEje(data) {
         .attr("border-style", "solid").enter().append("text")
         .attr("x", 5)
         .attr("y", function (d) {return ye(d.grade) + 30;})
-        .attr('class', 'barText')
+        .attr('class', 'barText')       
         .attr("text-anchor","start")
         .text(function (d) {
             return d.name;
         })
-        .style("fill", "white");
+        .style("fill", function (d) { return colorTemas[5 - (parseInt(d.grade) - 1)]; });
 
         chart.selectAll(container + " .barText").data(data).attr("y", function (d,index) {
             return ye(index+1) + 25;
@@ -106,7 +104,7 @@ function updateAxisDrop(node) {
         var namenode = node.name;
         var encontro = false;
         grades.forEach(function (d) {
-            if (d.name == namenode && name.clasificacion == node.clasificacion) {
+            if (d.name == namenode && d.clasificacion == node.clasificacion) {
                 encontro = true;
             }
         });

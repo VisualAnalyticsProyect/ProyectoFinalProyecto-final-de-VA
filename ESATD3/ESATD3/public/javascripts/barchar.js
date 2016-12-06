@@ -1,7 +1,7 @@
 ﻿// Mike Bostock "margin conventions"
-var margin = { top: 20, right: 20, bottom: 30, left: 40 },
-    width = 800 - margin.left - margin.right,
-    height = 505 - margin.top - margin.bottom;
+var margin = { top: 40, right: 10, bottom: 55, left: 60 },
+    width = 300 - margin.left - margin.right,
+    height = 550 - margin.top - margin.bottom;
 
 // D3 scales = just math
 // x is a function that transforms from "domain" (data) into "range" (usual pixels)

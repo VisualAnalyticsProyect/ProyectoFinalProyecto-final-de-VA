@@ -38,36 +38,33 @@
 }
 
 #paralel{
-    width:60%;    
-    margin-top: 20%;
+    width:10%;       
     margin-right: 4%;
     float:left;
 }
 #ejecontainer{   
     width:10%;    
     float:left;
-    border-style:solid;   
-    margin-top: 20%;
-    margin-right: 4%;
+    border-style:solid;     
     height:500px;
    
+}
+#ejecontainer rect{
+    border-radius:10px;
 }
 #paralel svg{
      padding-left: 5%;
 }
-#ejecontainer svg:hover {
-background-color:rgba(0, 103, 255, 0.78);
-}
 .main{
     display:table;
 }
-/*
+
 .d3-tipEje {
   line-height: 1;
   font-weight: bold;
   padding: 12px;
-  background: rgba(250, 250, 250, 0.8);
-  color: #000;
+  background: #003249;
+  color: #9AD1D4;
   border-radius: 2px;
   stroke: brown;
   stroke-width : 2px;

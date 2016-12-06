@@ -31,7 +31,7 @@ vis.call(tipPreguntas);
 var primeros;
 
 
-var colorTemas = ["#FFF7D1", "#007EA7", "#9AD1D4", "#003249"];
+var colorTemas = ["#003249","80CED7", "#9AD1D4", "#007EA7", "#FFF7D1"];
 var color = d3.scale.category20c();
 var c10 = d3.scale.category10();
 function colores_google(n) {

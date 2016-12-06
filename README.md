@@ -3,11 +3,12 @@ Implementación de un sistema de visualización y análisis de datos para encues
 
 Enlaces a la documentación del proyecto:
 
-#### [Demo en línea de la aplicación] (http://bit.ly/ESATD3)
+### [Presentación del proyecto] (https://slides.com/jcamilort/analisis-visual-de-la-encuesta-de-satisfaccion-esat/)
 
-#### [Demo en video de la aplicación] (https://youtu.be/tDYhzNpDAms)
+### [Demo en línea de la aplicación] (http://bit.ly/ESATD3)
 
-#### [Presentación del proyecto] (https://slides.com/jcamilort/analisis-visual-de-la-encuesta-de-satisfaccion-esat/)
+### [Demo en video de la aplicación] (https://youtu.be/tDYhzNpDAms)
+
 
 
 Autores:

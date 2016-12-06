@@ -49,6 +49,41 @@ var satisinsatis = function (anio, estudios, facultad, departamento, programa, c
         "ORDER BY  No_pregunta";
 };
 
+
+var resumenTotal = function (anio, estudios, facultad, departamento, programa, condicion) {
+
+    return "SELECT buenas.NIVEL, buenas.FACULTAD, buenas.DEPARTAMENTO, buenas.PROGRAMA,"  +
+        "PREGUNTAS.No_pregunta, PREGUNTAS.PREGUNTA, ifnull(100 * buenas.Suma / todas.Suma, 0) as PorcentajeStasifaccion " +
+        "FROM " +
+        " (SELECT PREGUNTA, No_pregunta, SUM(NUM_RESPUESTA) as Suma, "+
+            "NIVEL, FACULTAD, DEPARTAMENTO, PROGRAMA FROM BASE_VAL " +
+            "WHERE MEDICION LIKE '%" + anio + "%' AND " +
+        /*"NIVEL LIKE '%" + estudios + "%' AND " +
+        "FACULTAD LIKE '%" + facultad + "%' AND " +
+        "DEPARTAMENTO LIKE '%" + departamento + "%' AND " +
+        "PROGRAMA LIKE '%" + programa + "%' AND " +*/
+            "VALOR_RESPUESTA IN (4, 5)" +
+            "GROUP BY PREGUNTA, No_pregunta, NIVEL,FACULTAD, DEPARTAMENTO, PROGRAMA) as buenas " +
+        "INNER JOIN " +
+            "(SELECT No_pregunta, SUM(NUM_RESPUESTA) as Suma, " +
+                "NIVEL,FACULTAD, DEPARTAMENTO, PROGRAMA FROM BASE_VAL "+ 
+                "WHERE MEDICION LIKE '%" + anio + "%' AND " +
+        /*"NIVEL LIKE '%" + estudios + "%' AND " +
+        "FACULTAD LIKE '%" + facultad + "%' AND " +
+        "DEPARTAMENTO LIKE '%" + departamento + "%' AND " +
+        "PROGRAMA LIKE '%" + programa + "%' AND " +*/
+                "VALOR_RESPUESTA > 0 " +
+                "GROUP BY PREGUNTA, No_pregunta, NIVEL,FACULTAD, DEPARTAMENTO, PROGRAMA) as todas  " +
+        "ON buenas.No_pregunta = todas.No_pregunta " +
+            " AND buenas.NIVEL = todas.NIVEL " +
+            " AND buenas.FACULTAD = todas.FACULTAD " +
+            " AND buenas.DEPARTAMENTO = todas.DEPARTAMENTO " +
+            " AND buenas.PROGRAMA = todas.PROGRAMA " +
+        "RIGHT JOIN PREGUNTAS ON buenas.No_pregunta = PREGUNTAS.No_pregunta " +
+        "ORDER BY  PROGRAMA, No_pregunta ";
+};
+
+
 var resumenPorAnios = function (estudios, facultad, departamento, programa) {
 
     return "SELECT buenas.MEDICION, ifnull(buenas.Suma/todas.Suma,0) as PORCENTAJE FROM " +

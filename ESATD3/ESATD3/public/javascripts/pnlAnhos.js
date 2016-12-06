@@ -11,9 +11,9 @@ var anhoSeleccionado = "";
 var gAnhos;
 
 //Colores de los botones 
-var colorDefecto = "#7777BB"
-var colorSobre = "#77BBFF"
-var colorPresionado = "#000077"
+var colorDefecto = "#003249"
+var colorSobre = "#80CED7"
+var colorPresionado = "#007EA7"
 
 
 
@@ -29,6 +29,7 @@ function cargarBotonesAnhos() {
     gAnhos = d3.select("#botonesanhoscontainer")
         .append("svg")
         .attr("height", 2 * bHeight)
+        .attr("width", "100%")
         .selectAll("g.button")
         .data(anhos)
         .enter()

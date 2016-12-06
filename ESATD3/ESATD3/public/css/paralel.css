@@ -7,6 +7,11 @@
   opacity: 0.5;
 }
 
+#botonesanhoscontainer{
+    position:fixed;
+    width:100%
+}
+
 .foreground path {
   fill: none;
   stroke: brown;
@@ -47,8 +52,18 @@
     float:left;
     border-style:solid;     
     height:500px;
+    font:20px;
+    text-align:center;
+    vertical-align:middle;
    
 }
+
+#ejecontainerText{   
+    text-align:center;
+    vertical-align:middle;
+    color:#003249;
+}
+
 #ejecontainer rect{
     border-radius:10px;
 }

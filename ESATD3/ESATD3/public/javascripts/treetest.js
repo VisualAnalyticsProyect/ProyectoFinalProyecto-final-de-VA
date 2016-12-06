@@ -49,6 +49,9 @@ dragListener = d3.behavior.drag()
             firstTime = false;
         }
         d3.select(containertree + " svg").style("overflow", "visible");
+        d3.select("#ejecontainer").style("background-color", "#80CED7");
+        d3.select("#ejecontainer").style("opacity", "0.8");
+        d3.select("#ejecontainerText").text("Suelte Aquí");
         
     })
     .on("drag", function (d) {       
@@ -56,7 +59,10 @@ dragListener = d3.behavior.drag()
            initiateDrag(d, this);
         }
         move(d,this);
-    }).on("dragend", function (d) {      
+    }).on("dragend", function (d) {    
+        d3.select("#ejecontainer").style("background-color", "white");
+        d3.select("#ejecontainer").style("opacity", "1"); 
+        d3.select("#ejecontainerText").text(""); 
         endDrag(d,this);
     });
 
@@ -156,7 +162,7 @@ function move(d,domNodep) {
 };
 
 function endDrag(d, domNodep) {
-     //############################# ejedrop
+     //############################# ejedrop   
     d3.select(domNodep).select("circle").attr("r",d.r);
     d3.select(containertree + " svg").style("overflow", "hidden");
     updateAxisDrop(d);    

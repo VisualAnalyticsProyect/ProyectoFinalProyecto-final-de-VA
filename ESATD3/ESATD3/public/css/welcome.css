@@ -1,7 +1,9 @@
 ﻿.liquidv{
     opacity:0;
-    min-width:25%;
+    min-width:20%;
+    max-width:20%;
     text-align:center;
     float:left;
     transition: opacity 2s;
+    margin:1%;
 }

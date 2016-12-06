@@ -22,7 +22,7 @@ var tipe = d3.tip()
     .attr('class', 'd3-tip')
     .offset([0, 0])
     .html(function (d) {
-        return "<div><strong>Estudios:</strong> <span style='color:red'>" + d.name + "</span></div><div><strong>Nivel:</strong> <span style='color:forestgreen'>" + d.grade + "</span></div>";
+        return "<div><strong>Estudios:</strong> <span style='color:#9AD1D4'>" + d.name + "</span></div><div><strong>Indice:</strong> <span style='color:#FFF7D1'>" + d.indice + "</span></div>";
     });
 var container = "#ejecontainer";
 var dropped = false;
@@ -45,9 +45,8 @@ function updateEje(data) {
     barra.enter().append("rect").attr("class", "bar");	
   		barra.on("mouseover", tipe.show)
         .on("mouseout", tipe.hide)
-        .style("fill", function (d) {           
-            return colorTemas[parseInt(d.grade)-1];            
-        }).on('click', function (d) { borrar(d); })
+                .style("fill", function (d) { return d.colorR;})            
+        .on('click', function (d) { borrar(d); })
         .attr("x",0)
         .attr("y", function (d,index) { return ye(index+1); })
         .attr("width", widthx + "%")
@@ -60,39 +59,39 @@ function updateEje(data) {
         .text(function (d) {
             return d.name;
         })
-        .style("fill", function (d) { return colorTemas[5 - (parseInt(d.grade) - 1)]; });
+                .style("fill", function (d) { return d.colorT; });
 
         chart.selectAll(container + " .barText").data(data).attr("y", function (d,index) {
             return ye(index+1) + 25;
         }).text(function (d) {
             return d.name;
         });
-        chart.selectAll(container + " .barText").data(data).exit().remove();
+        chart.selectAll(container + " .barText").data(data).exit().remove();      
     barra.exit().remove();
 };
-var grades = [];
+var estudios = [];
 
 function borrar(node) {
-    grades.forEach(function (d,index) {
+    estudios.forEach(function (d,index) {
         if (d.name == node.name && d.clasificacion == node.clasificacion) {
-            delete grades[index]; 
+            delete estudios[index]; 
             eliminarNodo(new nodo("", node.nivel, node.facultad, node.departamento, node.programa));
-            var gradest = [];
-            grades.forEach(function (l) {
-                gradest.push(l);
+            var estudiost = [];
+            estudios.forEach(function (l) {
+                estudiost.push(l);
             });
-            grades = gradest;
+            estudios = estudiost;
            // eliminarNodo();  
            
             refrescar();
-            if (grades.length ==0) {
-                grades = [];
+            if (estudios.length ==0) {
+                estudios = [];                
                 chart.selectAll(container + " .bar").remove();
                 chart.selectAll(container + " .barText").remove();
                 chart.selectAll(container + " g").remove();                           
                 return;
             }
-            updateEje(grades);
+            updateEje(estudios);
 
             
         }
@@ -103,13 +102,13 @@ function updateAxisDrop(node) {
     if (dropped) {
         var namenode = node.name;
         var encontro = false;
-        grades.forEach(function (d) {
+        estudios.forEach(function (d) {
             if (d.name == namenode && d.clasificacion == node.clasificacion) {
                 encontro = true;
             }
         });
         if (!encontro) {
-            var i = grades.length + 1;
+            var i = estudios.length + 1;
            
             var datos = [anhoSeleccionado, "", "", "",""];
             var tempo = node;
@@ -120,10 +119,10 @@ function updateAxisDrop(node) {
             }
             agregarNodo(datos[0], datos[1], datos[2], datos[3], datos[4]);
             refrescar();
-            grades.push({
-                "name": node.name, "grade": i, "clasificacion": node.clasificacion,"nivel" : datos[1], "facultad": datos[2],
-                   "departamento" :datos[3], "programa" : datos[4]});
-            updateEje(grades);
+            estudios.push({
+                "name": node.name, "indice": i, "clasificacion": node.clasificacion, "nivel": datos[1], "facultad": datos[2],
+                "departamento": datos[3], "programa": datos[4], "colorR": colorTemas[parseInt(i) - 1], "colorT": colorTemas[colorTemas.length - (parseInt(i) - 1)]});            
+            updateEje(estudios);
         }
         dropped = false;
     }

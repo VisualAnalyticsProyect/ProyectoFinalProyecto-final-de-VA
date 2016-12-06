@@ -416,7 +416,7 @@ function consultar(muestra, nivel, facultad, departamento, programa, refrescarS,
         else {
             rJson = "{"
             respuesta = data;
-            rJson += " \"nombre\": \"" + nivel + "." + "." + facultad + "." + departmento + "." + programa + "\", ";
+            rJson += " \"nombre\": \"" + nivel + "." + "." + facultad + "." + departamento + "." + programa + "\", ";
             rJson += " \"color\": \"" + colorSerie+ "\", ";
             for (i = 0; i < respuesta.length; i++) {
                 rJson += "\"" + respuesta[i].No_pregunta + "\": " + respuesta[i].PorcentajeStasifaccion;

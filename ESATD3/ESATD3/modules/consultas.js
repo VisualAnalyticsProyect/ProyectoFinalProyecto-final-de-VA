@@ -53,25 +53,25 @@ var satisinsatis = function (anio, estudios, facultad, departamento, programa, c
 var resumenTotal = function (anio, estudios, facultad, departamento, programa, condicion) {
 
     return "SELECT buenas.NIVEL, buenas.FACULTAD, buenas.DEPARTAMENTO, buenas.PROGRAMA,"  +
-        "PREGUNTAS.No_pregunta, PREGUNTAS.PREGUNTA, ifnull(100 * buenas.Suma / todas.Suma, 0) as PorcentajeStasifaccion " +
+        "tas.No_pregunta, tas.PREGUNTA, ifnull(100 * buenas.Suma / todas.Suma, 0) as PorcentajeStasifaccion " +
         "FROM " +
         " (SELECT PREGUNTA, No_pregunta, SUM(NUM_RESPUESTA) as Suma, "+
             "NIVEL, FACULTAD, DEPARTAMENTO, PROGRAMA FROM BASE_VAL " +
             "WHERE MEDICION LIKE '%" + anio + "%' AND " +
-        /*"NIVEL LIKE '%" + estudios + "%' AND " +
-        "FACULTAD LIKE '%" + facultad + "%' AND " +
-        "DEPARTAMENTO LIKE '%" + departamento + "%' AND " +
-        "PROGRAMA LIKE '%" + programa + "%' AND " +*/
+            "NIVEL LIKE '%" + estudios + "%' AND " +
+            "FACULTAD LIKE '%" + facultad + "%' AND " +
+            "DEPARTAMENTO LIKE '%" + departamento + "%' AND " +
+            "PROGRAMA LIKE '%" + programa + "%' AND " +
             "VALOR_RESPUESTA IN (4, 5)" +
             "GROUP BY PREGUNTA, No_pregunta, NIVEL,FACULTAD, DEPARTAMENTO, PROGRAMA) as buenas " +
         "INNER JOIN " +
             "(SELECT No_pregunta, SUM(NUM_RESPUESTA) as Suma, " +
                 "NIVEL,FACULTAD, DEPARTAMENTO, PROGRAMA FROM BASE_VAL "+ 
                 "WHERE MEDICION LIKE '%" + anio + "%' AND " +
-        /*"NIVEL LIKE '%" + estudios + "%' AND " +
-        "FACULTAD LIKE '%" + facultad + "%' AND " +
-        "DEPARTAMENTO LIKE '%" + departamento + "%' AND " +
-        "PROGRAMA LIKE '%" + programa + "%' AND " +*/
+                "NIVEL LIKE '%" + estudios + "%' AND " +
+                "FACULTAD LIKE '%" + facultad + "%' AND " +
+                "DEPARTAMENTO LIKE '%" + departamento + "%' AND " +
+                "PROGRAMA LIKE '%" + programa + "%' AND " +
                 "VALOR_RESPUESTA > 0 " +
                 "GROUP BY PREGUNTA, No_pregunta, NIVEL,FACULTAD, DEPARTAMENTO, PROGRAMA) as todas  " +
         "ON buenas.No_pregunta = todas.No_pregunta " +
@@ -79,7 +79,8 @@ var resumenTotal = function (anio, estudios, facultad, departamento, programa, c
             " AND buenas.FACULTAD = todas.FACULTAD " +
             " AND buenas.DEPARTAMENTO = todas.DEPARTAMENTO " +
             " AND buenas.PROGRAMA = todas.PROGRAMA " +
-        "RIGHT JOIN PREGUNTAS ON buenas.No_pregunta = PREGUNTAS.No_pregunta " +
+        "RIGHT JOIN "+
+            "( SELECT * FROM PREGUNTAS WHERE No_pregunta <> 0 ) as tas ON buenas.No_pregunta = tas.No_pregunta " +
         "ORDER BY  PROGRAMA, No_pregunta ";
 };
 
@@ -135,12 +136,18 @@ var getTree = function (req, res) {
     mysql.handle_database(req, res,tree);
 };
 
-
+var getRTotal = function (req, res)
+{
+    validar(req);
+    var q = req.query;
+    mysql.handle_database(req, res, resumenTotal(q.anio, q.estudios, q.facultad, q.departamento, q.programa, q.condicion));
+}; 
 
 module.exports.getResumen = getResumen;
 module.exports.getTree = getTree;
 module.exports.getParalelInfo = getParalelInfo;
 module.exports.getParalelSI = getParalelSI;
+module.exports.getRTotal = getRTotal;
 
 /*
 AÑO

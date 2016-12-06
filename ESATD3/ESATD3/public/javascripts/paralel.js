@@ -397,7 +397,7 @@ function brush() {
 
 function consultar(muestra, nivel, facultad, departamento, programa, refrescarS) {
     var respuesta;
-    var ruta = "/paralelsi?anio=" + anhoSeleccionado     + "&estudios=" + nivel + "&facultad=" + facultad + "&departamento=" + departamento + "&programa=" + programa;
+    var ruta = "/paralelsi?anio=" + anhoSeleccionado  + "&estudios=" + nivel + "&facultad=" + facultad + "&departamento=" + departamento + "&programa=" + programa;
     ruta = ruta.replace(/ /g, "%20");
     var rJson = "";
     //ruta = URLEncoder.encode(ruta, "UTF-8");

@@ -23,6 +23,10 @@ router.get('/tree', function (req, res) {
     consultas.getTree(req, res);
 });
 
+router.get('/rtotal', function (req, res) {
+    consultas.getRTotal(req, res);
+});
+
 router.get('/paralelinfo', function (req, res) {
     consultas.getParalelInfo(req, res);
 });

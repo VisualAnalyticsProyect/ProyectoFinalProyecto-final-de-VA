@@ -8,7 +8,7 @@
 }
 
 #botonesanhoscontainer{
-    position:fixed;
+   // position:fixed;
     width:100%
 }
 
@@ -179,4 +179,16 @@
   margin: -1px 0 0 0;
   top: 100%;
   left: 0;
+}
+
+
+.resizer {
+    position: absolute;
+    width: 10px;
+    top: 0;
+    bottom: 0;
+    right: -5px;
+    background: orange;
+    opacity: .5;
+    cursor: pointer;
 }

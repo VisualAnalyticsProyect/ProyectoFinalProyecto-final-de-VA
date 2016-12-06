@@ -60,7 +60,7 @@ var globaldata = [];
 
 
 // Maneja el tamaño y margenes de los ejes paralelos
-var margin = { top: 30, right: 50, bottom: 10, left: 50 },
+var margin = { top: 30, right: 20, bottom: 10, left: 100 },
     width = 960 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
 
@@ -80,7 +80,14 @@ var svgParalel = d3.select("#paralel").append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
     .append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+    .on("click", function () {
+        svgParalel.attr("width", "50");
+        alert("camvio");
+    });
+
+
+
 
 
 

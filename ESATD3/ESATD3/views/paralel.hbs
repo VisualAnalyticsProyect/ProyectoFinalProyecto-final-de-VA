@@ -1,17 +1,68 @@
 ﻿
 <!--<button onclick="refrescar()">Random me</button> -->
-<div id="botonesanhoscontainer"></div>
-<div id="treecontainer"></div>
-<div id="tablainfo"><div id="tituloTablaInfo"></div></div>
-<div id="paralelcontainer">
-    <div id="ejecontainer"><h2 id="ejecontainerText"></h2></div>
-    <div id="paralel"></div>
+<div id="cont">
+    <div id="fixed">
+        <div id="botonesanhoscontainer"></div>
+        <div id="treecontainer"></div>
+    </div>
+    <div id="notfixed">
+        <div id="resumendetcontainer">
+            <div id="ejecontainer2"><h2 id="ejecontainerText2"></h2></div>
+            <div id="resumendet"></div>
+        </div>
+        <div id="tablainfo"><div id="tituloTablaInfo"></div></div>
+        <div id="paralelcontainer">
+            <div id="ejecontainer"><h2 id="ejecontainerText"></h2></div>
+            <div id="paralel"></div>
+        </div>
+        <div id="scatter"><h1></h1></div>
+    </div>
 </div>
 
-<div id= "scatter"><h1></h1></div>
 <script src="javascripts/barchar.js"></script>
 <script src="javascripts/ejeDrop.js"></script>
 <script src="javascripts/treetest.js"></script>
 <script src="javascripts/paralel.js"></script>
 <script src="javascripts/pnlAnhos.js"></script>
 <script src="javascripts/scatter.js"></script>
+<script src="javascripts/barrasDetalle.js"></script>
+<script>
+    /* @Note: not sure e.pageX will work in IE8 */
+    (function (window) {
+
+        /* A full compatability script from MDN: */
+        var supportPageOffset = window.pageXOffset !== undefined;
+        var isCSS1Compat = ((document.compatMode || "") === "CSS1Compat");
+
+        /* Set up some variables  */
+        var demoItem2 = document.getElementById("fixed");
+        //var demoItem3 = document.getElementById("demoItem3");
+        /* Add an event to the window.onscroll event */
+        window.addEventListener("scroll", function (e) {
+
+            /* A full compatability script from MDN for gathering the x and y values of scroll: */
+            var x = supportPageOffset ? window.pageXOffset : isCSS1Compat ? document.documentElement.scrollLeft : document.body.scrollLeft;
+            var y = supportPageOffset ? window.pageYOffset : isCSS1Compat ? document.documentElement.scrollTop : document.body.scrollTop;
+
+            demoItem2.style.left = -x + 150 + "px";
+           // demoItem3.style.top = -y + 50 + "px";
+        });
+
+    })(window);
+
+
+</script>
+<style>
+    div#cont
+    {
+       
+    }
+    div#fixed
+    {
+         position:fixed;
+    }
+    div#notfixed
+    {
+        margin-left:600px;
+    }
+</style>

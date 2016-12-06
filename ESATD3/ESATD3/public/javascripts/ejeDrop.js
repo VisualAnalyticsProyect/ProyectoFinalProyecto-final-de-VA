@@ -27,13 +27,13 @@ var tipe = d3.tip()
 var container = "#ejecontainer";
 var dropped = false;
 var chart = d3.select(container).append("svg")
-    .on('mouseover', function (d) {      
+    .on('mouseover', function (d) {
         dropped = true;
-    }).on("mouseout", function (d) {        
+    }).on("mouseout", function (d) {
         dropped = false;
     })
     .attr("width", widthx + "%")
-    .attr("height", height).append("g");    
+    .attr("height", height).append("g");
 
 chart.call(tipe);
 function updateEje(data) {       

@@ -119,6 +119,7 @@ var preguntas;
 
  function refrescarDispersion()
  {
+     d3.select("#scatter h1").text("Gráfica de Dispersión");
      d3.json("/rtotal?anio=" + anhoSeleccionado, function (error, data)
      {
          inforTotal = data;

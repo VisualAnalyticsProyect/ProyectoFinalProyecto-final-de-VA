@@ -728,6 +728,7 @@
     <Compile Include="public\javascripts\liquid.js" />
     <Compile Include="public\javascripts\paralel.js" />
     <Compile Include="public\javascripts\pnlAnhos.js" />
+    <Compile Include="public\javascripts\scatter.js" />
     <Compile Include="public\javascripts\tree.js" />
     <Compile Include="public\javascripts\treetest.js" />
     <Compile Include="public\javascripts\treetest2.js" />

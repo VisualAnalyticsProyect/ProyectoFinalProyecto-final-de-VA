@@ -151,7 +151,7 @@ function crearGrafico()
         .call(d3.behavior.drag()
             .origin(function (d) { return { x: x1(d) }; })
             .on("dragstart", function (d) {
-                dragging[d] = x1(d);
+                dragging[d] = x1(d)
                 background.attr("visibility", "hidden");
             })
             .on("drag", function (d) {
@@ -397,7 +397,7 @@ function brush() {
 
 function consultar(muestra, nivel, facultad, departamento, programa, refrescarS) {
     var respuesta;
-    var ruta = "/paralelsi?anio=" + anhoSeleccionado     + "&estudios=" + nivel + "&facultad=" + facultad + "&departamento=" + departamento + "&programa=" + programa;
+    var ruta = "/paralelsi?anio=" + anhoSeleccionado  + "&estudios=" + nivel + "&facultad=" + facultad + "&departamento=" + departamento + "&programa=" + programa;
     ruta = ruta.replace(/ /g, "%20");
     var rJson = "";
     //ruta = URLEncoder.encode(ruta, "UTF-8");

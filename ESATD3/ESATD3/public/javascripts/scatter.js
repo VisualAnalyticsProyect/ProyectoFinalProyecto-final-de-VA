@@ -1,6 +1,6 @@
 ﻿//Los tips messages
 var tipCirculosRTotal = d3.tip()
-    .attr('class', 'd3-tipRTotal')
+    .attr('class', 'd3-tipEje')
     .offset([0, 0])
     .html(function (d) {
         if (d != "nombre") {
@@ -39,7 +39,7 @@ var yAxisScatter = d3.svg.axis()
 
 
 
-var svg = d3.select("#scatter").append("svg")
+var svgScatter = d3.select("#scatter").append("svg")
     .attr("width", widthScatter + margin.left + margin.right)
     .attr("height", heightScatter + margin.top + margin.bottom)
     .append("g")
@@ -65,7 +65,7 @@ var preguntas;
         preguntas = data2;
         xScalaScatter.domain(preguntas.map(function (d) { return d.No_pregunta; }).filter(function (d) { return d != 0 }));
 
-        svg.append("g")
+        svgScatter.append("g")
             .attr("class", "x axis")
             .attr("transform", "translate(0," + heightScatter + ")")
             .call(xAxisScatter)
@@ -75,7 +75,7 @@ var preguntas;
             .attr("y", -6)
             .style("text-anchor", "end")
             .text("Pregunta (m)");
-        svg.append("g")
+        svgScatter.append("g")
             .attr("class", "y axis")
             .call(yAxisScatter)
             .append("text")
@@ -86,7 +86,7 @@ var preguntas;
             .style("text-anchor", "end")
             .text("% satisfacción")
 
-        svg.selectAll(".dotScat")
+        svgScatter.selectAll(".dotScat")
             .data(inforTotal)
             .enter().append("circle")
             .attr("class", "dotScat")   
@@ -98,26 +98,32 @@ var preguntas;
             .on("mouseout", tipCirculosRTotal.hide);
     });
 
-    //y.domain(d3.extent(data, function(d) { return d.Length; })).nice();
-
-
-
-	/**var legend = svg.selectAll(".legend")
-	.data(color.domain())
-	.enter().append("g")
-	.attr("class", "legend")
-	.attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
-	legend.append("rect")
-	.attr("x", width - 18)
-	.attr("width", 18)
-	.attr("height", 18)
-	.style("fill", color);
-	legend.append("text")
-	.attr("x", width - 24)
-	.attr("y", 9)
-	.attr("dy", ".35em")
-	.style("text-anchor", "end")
-	.text(function(d) { return d; });*/
-
 });
+
+ function refrescarDispersion()
+ {
+     d3.json("/rtotal?anio=" + anhoSeleccionado, function (error, data)
+     {
+         inforTotal = data;
+         dots = svgScatter.selectAll(".dotScat")
+             .data(inforTotal);
+
+         dots.attr("cx", function (d) { return xScalaScatter(d.No_pregunta); })
+             .attr("cy", function (d) { return yScalaScatter(d.PorcentajeStasifaccion); })
+
+
+         dots.enter().append("circle")
+             .attr("class", "dotScat")
+             .attr("r", 5)
+             .attr("cx", function (d) { return xScalaScatter(d.No_pregunta); })
+             .attr("cy", function (d) { return yScalaScatter(d.PorcentajeStasifaccion); })
+             .style("fill", "black")//function(d) { return color(d.species); });
+             .on("mouseover", tipCirculosRTotal.show)
+             .on("mouseout", tipCirculosRTotal.hide);
+
+         dots.exit().remove();  
+
+   
+     });
+ }
 

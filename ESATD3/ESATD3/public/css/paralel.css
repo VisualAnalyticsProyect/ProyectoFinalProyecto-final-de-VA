@@ -106,6 +106,8 @@ background-color:rgba(0, 103, 255, 0.78);
   stroke-width : 2px;
 }
 
+
+
 /* Creates a small triangle extender for the tooltip */
 .d3-tipSerie:after {
   box-sizing: border-box;
@@ -127,6 +129,8 @@ background-color:rgba(0, 103, 255, 0.78);
   left: 0;
 }
 
+
+
 .d3-tipCirculosRTotal {
   line-height: 1;
   font-weight: bold;
@@ -136,7 +140,6 @@ background-color:rgba(0, 103, 255, 0.78);
   border-radius: 2px;
   stroke: brown;
   stroke-width : 2px;
-  opacity : 1;
 }
 
 /* Creates a small triangle extender for the tooltip */

@@ -3,6 +3,15 @@ var margin = { top: 40, right: 10, bottom: 55, left: 60 },
     width = 300 - margin.left - margin.right,
     height = 550 - margin.top - margin.bottom;
 
+
+var zoomBarras = d3.behavior.zoom()
+    .scaleExtent([1, 10])
+    .on("zoom", zoomed);
+
+function zoomed() {
+    d3.select("#tablainfo").attr("transform", "translate(" + d3.event.translate + ")scale(1," + d3.event.scale + ")");
+}
+
 // D3 scales = just math
 // x is a function that transforms from "domain" (data) into "range" (usual pixels)
 // domain gets set after the data loads
@@ -30,6 +39,7 @@ var yAxisB = d3.svg.axis()
 var svgbar = d3.select("#tablainfo").append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
+    .call(zoomBarras)
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 

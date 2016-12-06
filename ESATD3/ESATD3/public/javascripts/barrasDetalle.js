@@ -111,7 +111,10 @@ function crearGraficoDetalles()
     bars.enter().append("rect")
         .attr("class", "bar")
         .attr("y", yDetalles(0))
-        .attr("height", heightDetalles - yDetalles(0));
+        .attr("height", heightDetalles - yDetalles(0))
+        .append("text")
+        .attr("y", heightDetalles - yDetalles(0))
+        .text(function (d) { d.PorcentajeStasifaccion + "%" });
 
     // the "UPDATE" set:
     bars.transition().duration(100).attr("x", function (d) { return xDetalles(d.No_pregunta); }) // (d) is one item from the data array, x is the scale object from above

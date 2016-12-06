@@ -287,6 +287,23 @@ function eliminarNodo(eliminar) {
     }
 }
 
+
+function destacarSerie(d)
+{
+
+     gBackground
+        .selectAll("path")
+         .style("stroke", function (l) {
+             if (l.programa = d.programa && (l.facultad == d.facultad || l.departamento == d.departamento || l.programa == d.programa))
+                 return 3;
+             else
+                 return 1;
+         });
+
+
+}
+
+
 //Funcion que compara y dice si dos nodos son iguales
 function nodosIguales(nodo1, nodo2) {
     return  nodo1.nivel == nodo2.nivel && (nodo1.facultad == nodo2.facultad || nodo1.departamento == nodo2.departamento || nodo1.programa == nodo2.programa);
@@ -399,7 +416,7 @@ function consultar(muestra, nivel, facultad, departamento, programa, refrescarS,
         else {
             rJson = "{"
             respuesta = data;
-            rJson += " \"nombre\": \"" + (nivel != "" ? nivel.substring(0, 1) : "") + "." + programa + "\", ";
+            rJson += " \"nombre\": \"" + nivel + "." + "." + facultad + "." + departmento + "." + programa + "\", ";
             rJson += " \"color\": \"" + colorSerie+ "\", ";
             for (i = 0; i < respuesta.length; i++) {
                 rJson += "\"" + respuesta[i].No_pregunta + "\": " + respuesta[i].PorcentajeStasifaccion;

@@ -22,6 +22,7 @@ var tipe = d3.tip()
     .attr('class', 'd3-tip')
     .offset([0, 0])
     .html(function (d) {
+        destacarSerie(d);
         return "<div><strong>Estudios:</strong> <span style='color:#9AD1D4'>" + d.name + "</span></div><div><strong>Indice:</strong> <span style='color:#FFF7D1'>" + d.indice + "</span></div>";
     });
 var container = "#ejecontainer";
@@ -43,7 +44,7 @@ function updateEje(data) {
         .attr("transform", "translate(0," + height + ")")  
     var barra = chart.selectAll(container +" .bar").data(data);
     barra.enter().append("rect").attr("class", "bar");	
-  		barra.on("mouseover", tipe.show)
+  		barra.on("mouseover",tipe.show)
         .on("mouseout", tipe.hide)
         .style("fill", function (d) { return d.colorR; })
         .on('click', function (d) { borrar(d); })

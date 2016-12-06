@@ -94,6 +94,7 @@ function updateButtonColors(button, parent) {
 
     anhoSeleccionado = button.select("text").text();
     refrescar();
+    refrescarDispersion();
 }
 
 cargarBotonesAnhos();

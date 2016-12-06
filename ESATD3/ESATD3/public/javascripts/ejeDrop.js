@@ -45,21 +45,21 @@ function updateEje(data) {
     barra.enter().append("rect").attr("class", "bar");	
   		barra.on("mouseover", tipe.show)
         .on("mouseout", tipe.hide)
-                .style("fill", function (d) { return d.colorR;})            
+        .style("fill", function (d) { return d.colorR; })
         .on('click', function (d) { borrar(d); })
-        .attr("x",0)
-        .attr("y", function (d,index) { return ye(index+1); })
+        .attr("x", 0)
+        .attr("y", function (d, index) { return ye(index + 1); })
         .attr("width", widthx + "%")
         .attr("height", function (d) { return 50; })
         .attr("border-style", "solid").enter().append("text")
         .attr("x", 5)
-        .attr("y", function (d) {return ye(d.grade) + 30;})
-        .attr('class', 'barText')       
-        .attr("text-anchor","start")
+        .attr("y", function (d) { return ye(d.grade) + 30; })
+        .attr('class', 'barText')
+        .attr("text-anchor", "start")
         .text(function (d) {
             return d.name;
         })
-                .style("fill", function (d) { return d.colorT; });
+        .style("fill", "white"); //function (d) { return d.colorT; });
 
         chart.selectAll(container + " .barText").data(data).attr("y", function (d,index) {
             return ye(index+1) + 25;
@@ -109,7 +109,8 @@ function updateAxisDrop(node) {
         });
         if (!encontro) {
             var i = estudios.length + 1;
-           
+
+            
             var datos = [anhoSeleccionado, "", "", "",""];
             var tempo = node;
             while (tempo.level > 1)
@@ -117,11 +118,11 @@ function updateAxisDrop(node) {
                 datos[tempo.level - 1] = tempo.name;
                 tempo = tempo.parent;
             }
-            agregarNodo(datos[0], datos[1], datos[2], datos[3], datos[4]);
+            agregarNodo(datos[0], datos[1], datos[2], datos[3], datos[4], colorTemas(parseInt(i) - 1));
             refrescar();
             estudios.push({
                 "name": node.name, "indice": i, "clasificacion": node.clasificacion, "nivel": datos[1], "facultad": datos[2],
-                "departamento": datos[3], "programa": datos[4], "colorR": colorTemas[parseInt(i) - 1], "colorT": colorTemas[colorTemas.length - (parseInt(i) - 1)]});            
+                "departamento": datos[3], "programa": datos[4], "colorR": colorTemas(parseInt(i) - 1), "colorT": colorTemas(colorTemas.length - (parseInt(i) - 1))});            
             updateEje(estudios);
         }
         dropped = false;

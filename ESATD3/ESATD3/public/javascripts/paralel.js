@@ -31,7 +31,12 @@ vis.call(tipPreguntas);
 var primeros;
 
 
-var colorTemas = ["#003249","80CED7", "#9AD1D4", "#007EA7", "#FFF7D1"];
+//var colorTemas = ["#003249","80CED7", "#9AD1D4", "#007EA7", "#FFF7D1"];
+var colorTemas = d3.scale.category20b();
+/*var colorTemas = d3.scale.linear()
+    .domain([0,15])
+    .range(["red", "green"])
+    .interpolate(d3.interpolateLab);*/
 var color = d3.scale.category20c();
 var c10 = d3.scale.category10();
 function colores_google(n) {
@@ -41,12 +46,13 @@ function colores_google(n) {
 
 
 // Crea un nodo del arbol
-function nodo(pMuestra, pNivel, pFacultad, pDepartamento, pPrograma) {
+function nodo(pMuestra, pNivel, pFacultad, pDepartamento, pPrograma, pColorS) {
     this.muestra = pMuestra;
     this.nivel = pNivel;
     this.facultad = pFacultad;
     this.departamento = pDepartamento;
     this.programa = pPrograma;
+    this.colorS = pColorS;
 }
 
 //Los nodos que se están mostrando
@@ -267,8 +273,8 @@ function crearGrafico()
 }
 
 //Agrega un nuevo nodo a las series
-function agregarNodo(muestra, nivel, facultad, departamento, programa) {
-    nuevo = new nodo(muestra, nivel, facultad, departamento, programa);
+function agregarNodo(muestra, nivel, facultad, departamento, programa, colorS) {
+    nuevo = new nodo(muestra, nivel, facultad, departamento, programa, colorS);
     seriesNodos.push(nuevo);
 }
 
@@ -293,7 +299,7 @@ function refrescar()
     for (index = 0; index < seriesNodos.length; index++)
     {
         nn = seriesNodos[index];
-        consultar(nn.muestra, nn.nivel, nn.facultad, nn.departamento, nn.programa, index == seriesNodos.length-1);
+        consultar(nn.muestra, nn.nivel, nn.facultad, nn.departamento, nn.programa, index == seriesNodos.length-1, nn.colorS);
     }
     
 
@@ -328,10 +334,12 @@ function refrescarSeries()
     background = gBackground
         .selectAll("path")
         .data(globaldata)
-        .attr("d", path);
+        .attr("d", path)
+        
 
     background.enter().append("path")
         .attr("d", path);
+        
 
     background.exit().remove();
 
@@ -342,7 +350,8 @@ function refrescarSeries()
         .attr("d", path);
 
     foreground.enter().append("path")
-        .attr("d", path);
+        .attr("d", path)
+        .style("stroke", function (d) { return d.color });
 
     foreground.exit().remove();
 }
@@ -377,7 +386,7 @@ function brush() {
     });
 }
 
-function consultar(muestra, nivel, facultad, departamento, programa, refrescarS) {
+function consultar(muestra, nivel, facultad, departamento, programa, refrescarS, colorSerie) {
     var respuesta;
     var ruta = "/paralelsi?anio=" + anhoSeleccionado  + "&estudios=" + nivel + "&facultad=" + facultad + "&departamento=" + departamento + "&programa=" + programa;
     ruta = ruta.replace(/ /g, "%20");
@@ -390,7 +399,8 @@ function consultar(muestra, nivel, facultad, departamento, programa, refrescarS)
         else {
             rJson = "{"
             respuesta = data;
-            rJson += " \"nombre\": \"" + (nivel != ""? nivel.substring(0,1):"") + "." + programa + "\", ";
+            rJson += " \"nombre\": \"" + (nivel != "" ? nivel.substring(0, 1) : "") + "." + programa + "\", ";
+            rJson += " \"color\": \"" + colorSerie+ "\", ";
             for (i = 0; i < respuesta.length; i++) {
                 rJson += "\"" + respuesta[i].No_pregunta + "\": " + respuesta[i].PorcentajeStasifaccion;
                 if (i != respuesta.length - 1)

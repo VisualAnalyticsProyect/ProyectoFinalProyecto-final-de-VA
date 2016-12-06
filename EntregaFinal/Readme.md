@@ -1,4 +1,4 @@
-## Análisis Visual de la Encuesta de Satisfaccin (ESAT)
+## Análisis Visual de la Encuesta de Satisfacción (ESAT)
 
 En esta seccin encuentra enlaces a la documentacin del proyecto. El archivo ESATD3.pdf es el artículo final del proyecto
 

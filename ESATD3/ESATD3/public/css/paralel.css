@@ -61,12 +61,12 @@ background-color:rgba(0, 103, 255, 0.78);
 .main{
     display:table;
 }
-/*
+
 .d3-tipEje {
   line-height: 1;
   font-weight: bold;
   padding: 12px;
-  background: rgba(250, 250, 250, 0.8);
+  background: rgba(250, 250, 250, 1);
   color: #000;
   border-radius: 2px;
   stroke: brown;
@@ -122,6 +122,39 @@ background-color:rgba(0, 103, 255, 0.78);
 
 /* Style northward tooltips differently */
 .d3-tipSerie:after {
+  margin: -1px 0 0 0;
+  top: 100%;
+  left: 0;
+}
+
+.d3-tipCirculosRTotal {
+  line-height: 1;
+  font-weight: bold;
+  padding: 12px;
+  background: rgba(250, 250, 250, 1);
+  color: #fff;
+  border-radius: 2px;
+  stroke: brown;
+  stroke-width : 2px;
+  opacity : 1;
+}
+
+/* Creates a small triangle extender for the tooltip */
+.d3-tipCirculosRTotal:after {
+  box-sizing: border-box;
+  display: inline;
+  font-size: 10px;
+  width: 100%;
+  line-height: 1;
+  background: rgba(250, 250, 250, 1);
+  content: "\25BC";
+  position: absolute;
+  text-align: center;
+}
+
+
+/* Style northward tooltips differently */
+.d3-tipCirculosRTotal:after {
   margin: -1px 0 0 0;
   top: 100%;
   left: 0;

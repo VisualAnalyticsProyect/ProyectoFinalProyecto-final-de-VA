@@ -151,7 +151,7 @@ function crearGrafico()
         .call(d3.behavior.drag()
             .origin(function (d) { return { x: x1(d) }; })
             .on("dragstart", function (d) {
-                dragging[d] = x1(d);
+                dragging[d] = x1(d)
                 background.attr("visibility", "hidden");
             })
             .on("drag", function (d) {

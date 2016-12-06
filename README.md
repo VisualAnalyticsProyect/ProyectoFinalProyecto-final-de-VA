@@ -1,6 +1,14 @@
-# ProyectoFinalProyecto-final-de-VA
-# Proyecto de curso Visual Analytics
+# Análisis Visual de la Encuesta de Satisfacción (ESAT)
 Implementación de un sistema de visualización y análisis de datos para encuestas de satisfacción en la Universidad de Los Andes.
+
+Enlaces a la documentación del proyecto:
+
+### [Presentación del proyecto] (https://slides.com/jcamilort/analisis-visual-de-la-encuesta-de-satisfaccion-esat/)
+
+### [Demo en línea de la aplicación] (http://bit.ly/ESATD3)
+
+### [Demo en video de la aplicación] (https://youtu.be/tDYhzNpDAms)
+
 
 
 Autores:
